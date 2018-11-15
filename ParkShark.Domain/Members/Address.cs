@@ -21,7 +21,7 @@ namespace ParkShark.Domain.Members
 
         public static Address CreateAddress(string streetName, string streetNumber, int zip)
         {
-            if(streetName == null || streetNumber == null || zip.ToString().Length != 4)
+            if(string.IsNullOrWhiteSpace(streetName)|| string.IsNullOrWhiteSpace(streetNumber) || zip.ToString().Length != 4)
             {
                 return null;
             }

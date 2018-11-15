@@ -1,7 +1,7 @@
 ﻿using ParkShark.Domain.Members;
 using Xunit;
 
-namespace ParkShark.Domain.Tests
+namespace ParkShark.Domain.Tests.Members
 {
     public class MemberTests
     {

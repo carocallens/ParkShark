@@ -19,7 +19,7 @@ namespace ParkShark.Domain.Members
 
         public static City CreateCity(int zip, string cityName, string country)
         {
-            if (zip.ToString().Length != 4 || cityName == null || country == null)
+            if (zip.ToString().Length != 4 || string.IsNullOrWhiteSpace(cityName)|| string.IsNullOrWhiteSpace(country))
             {
                 return null;
             }

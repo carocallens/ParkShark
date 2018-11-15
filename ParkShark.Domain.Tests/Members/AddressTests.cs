@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace ParkShark.Domain.Tests
+namespace ParkShark.Domain.Tests.Members
 {
     public class AddressTests
     {
