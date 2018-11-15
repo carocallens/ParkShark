@@ -27,7 +27,7 @@ namespace ParkShark.Domain.Tests.Members
             var member = Member.CreateMember(
                             firstName,
                             lastName,
-                            address.AddressId.ToString()
+                            address
                             );
 
             //when
@@ -77,7 +77,7 @@ namespace ParkShark.Domain.Tests.Members
             var member = Member.CreateMember(
                             firstName,
                             lastName,
-                            address.AddressId.ToString()
+                            address
                             );
 
             //when
@@ -111,7 +111,7 @@ namespace ParkShark.Domain.Tests.Members
             var member = Member.CreateMember(
                             firstName,
                             lastName,
-                            address.AddressId.ToString()
+                            address
                             );
 
             //when
