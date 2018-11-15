@@ -8,7 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Options;
+using ParkShark.API.Controllers.Divisions.Mappers;
+using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
+using ParkShark.Domain.Divisions.Repository;
+using ParkShark.Services.Divisions;
+using ParkShark.Services.Divisions.Interfaces;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ParkShark.API
 {
@@ -20,11 +27,28 @@ namespace ParkShark.API
         }
 
         public IConfiguration Configuration { get; }
+        public readonly ILoggerFactory efLoggerFactory
+          = new LoggerFactory(new[] { new ConsoleLoggerProvider((category, level) => category.Contains("Command") && level == LogLevel.Information, true) });
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Order_Api", Version = "v1" });
+            });
+            services.AddSingleton<IDivisionServices, DivisionServices>();
+            services.AddSingleton<IDivisionMapper, DivisionMapper>();
+            services.AddSingleton<ILoggerFactory>(efLoggerFactory);
+            services.AddTransient<DivisionDbContext>((sp) => 
+            {
+                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("HeroesDb");
+                var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+
+                return new DivisionDbContext(connectionString, loggerFactory);
+            });
+     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +58,12 @@ namespace ParkShark.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
