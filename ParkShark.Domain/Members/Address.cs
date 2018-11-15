@@ -9,6 +9,7 @@ namespace ParkShark.Domain.Members
         public string StreetName { get; private set; }
         public string StreetNumber { get; private set; }
         public int ZIP { get; private set; }
+        public City City { get; private set; }
 
         private Address(string streetName, string streetNumber, int zip)
         {

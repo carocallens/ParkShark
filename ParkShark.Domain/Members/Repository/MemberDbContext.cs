@@ -51,16 +51,25 @@ namespace ParkShark.Domain.Members.Repository
             modelBuilder.Entity<Member>()
                 .Property(m => m.RegistrationDate).HasColumnName("Member_RegistrationDate");
 
-            //A member must have one address and an address can have only one member
+            modelBuilder.Entity<Member>()
+                .HasOne(m => m.Address.City)
+                .WithMany()
+                .HasForeignKey(m => m.Address.ZIP)
+                .IsRequired();
 
-            //An Address has one city but a city can have many addresses
-
-            //A member can have many phone numbers but a phone number can have only one member
-
-            //A member can have many license plates but a license plate can have only one member
+            modelBuilder.Entity<PhoneNumber>()
+                .HasOne(p => p.Member)
+                .WithMany()
+                .HasForeignKey(p => p.MemberId)
+                .IsRequired();
+             
+            modelBuilder.Entity<LicensePlate>()
+                .HasOne(l => l.Member)
+                .WithMany()
+                .HasForeignKey(l => l.MemberId)
+                .IsRequired();
 
             base.OnModelCreating(modelBuilder);
-
         }
     }
 }
