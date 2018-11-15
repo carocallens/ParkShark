@@ -12,13 +12,13 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DivisionController : ControllerBase
+    public class DivisionsController : ControllerBase
     {
 
         private readonly IDivisionServices _divisionSerices;
         private readonly IDivisionMapper _divisionMapper;
 
-        public DivisionController(IDivisionServices divisionSerices, IDivisionMapper divisionMapper)
+        public DivisionsController(IDivisionServices divisionSerices, IDivisionMapper divisionMapper)
         {
             _divisionSerices = divisionSerices;
             _divisionMapper = divisionMapper;
