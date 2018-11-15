@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Invoices\Repository\" />
-    <Folder Include="Members\Repository\" />
     <Folder Include="ParkingLots\Repository\" />
     <Folder Include="ParkingSpaceAllocations\Repository\" />
   </ItemGroup>

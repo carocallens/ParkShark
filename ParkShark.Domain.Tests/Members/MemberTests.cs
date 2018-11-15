@@ -1,7 +1,7 @@
 ﻿using ParkShark.Domain.Members;
 using Xunit;
 
-namespace ParkShark.Domain.Tests
+namespace ParkShark.Domain.Tests.Members
 {
     public class MemberTests
     {
@@ -25,7 +25,7 @@ namespace ParkShark.Domain.Tests
                                         );
 
             //when
-            var member = Member.CreateMember(firstName, lastName, address.AddressId.ToString());
+            var member = Member.CreateMember(firstName, lastName, address);
 
             //then
             Assert.True(member != null);
@@ -51,7 +51,7 @@ namespace ParkShark.Domain.Tests
                                         );
 
             //when
-            var member = Member.CreateMember(firstName, lastName, address.AddressId.ToString());
+            var member = Member.CreateMember(firstName, lastName, address);
 
             //then
             Assert.Null(member);
@@ -77,7 +77,7 @@ namespace ParkShark.Domain.Tests
                                         );
 
             //when
-            var member = Member.CreateMember(firstName, lastName, address.AddressId.ToString());
+            var member = Member.CreateMember(firstName, lastName, address);
 
             //then
             Assert.Null(member);

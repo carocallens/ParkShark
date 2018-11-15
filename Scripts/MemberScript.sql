@@ -5,17 +5,11 @@ create table Div.Members(
 Member_ID varchar(100) not null,
 Member_FirstName varchar(100) not null,
 Member_LastName varchar(100) not null,
-Address_ID varchar(100) not null,
+Member_StreetName varchar(100) not null,
+Member_StreetNumber varchar(100) not null,
+City_ZIP int not null,
 Member_RegistrationDate date not null
 constraint Members_pk primary key (Member_ID)
-)
-
-create table Div.Addresses(
-Address_ID varchar(100) not null,
-Address_StreetName varchar(100) not null,
-Address_StreetNumber varchar(100) not null,
-City_ZIP int not null
-constraint Addresses_pk primary key(Address_ID)
 )
 
 create table Div.Cities(
@@ -40,8 +34,8 @@ alter table Div.Members
 add constraint Members_Addresses_FK
 foreign key (Address_ID) references Div.Addresses(Address_ID)
 
-alter table Div.Addresses
-add constraint Addresses_Cities_FK
+alter table Div.Members
+add constraint Members_Cities_FK
 foreign key (City_ZIP) references Div.Cities(City_ZIP)
 
 alter table Div.PhoneNumbers
