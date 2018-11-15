@@ -42,7 +42,7 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 
         // POST: api/Division
         [HttpPost]
-        public ActionResult<DivisionDTO_Create> CreateDivision([FromBody] DivisionDTO_Create divisionDTO)
+        public ActionResult<DivisionDTO_Return> CreateDivision([FromBody] DivisionDTO_Create divisionDTO)
         {
             var division = _divisionMapper.CreateDivisionFromDivisionDTOCreate(divisionDTO);
             if (division == null)
