@@ -11,6 +11,7 @@ namespace ParkShark.API.Controllers.Divisions.Mappers.Interfaces
     {
         Division CreateDivisionFromDivisionDTOCreate(DivisionDTO_Create divisionDTOCreate);
         DivisionDTO_Return CreateDivisionDTOReturnFromDivision(Division division);
+        List<DivisionDTO_Return> CreateListOfDivisionDTOsFromDivisionList(List<Division> list);
     }
 
 

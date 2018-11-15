@@ -31,5 +31,15 @@ namespace ParkShark.API.Controllers.Divisions.Mappers
             };
             return divisionDTO;
         }
+
+        public List<DivisionDTO_Return> CreateListOfDivisionDTOsFromDivisionList(List<Division> list)
+        {
+            var newList = new List<DivisionDTO_Return>();
+
+            foreach (var item in list)
+            { newList.Add(CreateDivisionDTOReturnFromDivision(item)); }
+
+            return newList;
+        }
     }
 }

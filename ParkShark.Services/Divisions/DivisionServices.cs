@@ -4,6 +4,7 @@ using ParkShark.Services.Divisions.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace ParkShark.Services.Divisions
 {
@@ -23,6 +24,21 @@ namespace ParkShark.Services.Divisions
             _divisionDbContext.SaveChanges();
 
             return division;
+        }
+
+        public List<Division> GetAllDivisions()
+        {
+            return _divisionDbContext.Division.Select(x => x).ToList();
+        }
+
+        public Division GetSingleDivision(string givenID)
+        {
+            var result = _divisionDbContext.Division.SingleOrDefault(x => x.GuidID == givenID);
+
+            if (result == null)
+            { return null; }
+
+            return result;
         }
     }
 }

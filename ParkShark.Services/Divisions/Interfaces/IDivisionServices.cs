@@ -5,10 +5,14 @@ using System.Text;
 
 namespace ParkShark.Services.Divisions.Interfaces
 {
-   public  interface IDivisionServices
+    public interface IDivisionServices
     {
 
         Division AddDivisionToDBbContext(Division division);
-        
+
+        List<Division> GetAllDivisions();
+
+        Division GetSingleDivision(string givenID);
+
     }
 }
