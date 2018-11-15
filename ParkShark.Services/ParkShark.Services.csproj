@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Divisions\Interfaces\" />
+    <Folder Include="Invoices\Interfaces\" />
+    <Folder Include="Members\Interfaces\" />
+    <Folder Include="ParkingLots\Interfaces\" />
+    <Folder Include="ParkingSpaceAllocations\Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ParkShark.Domain\ParkShark.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
