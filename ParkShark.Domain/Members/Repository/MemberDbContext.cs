@@ -43,16 +43,15 @@ namespace ParkShark.Domain.Members.Repository
             modelBuilder.Entity<Member>()
                 .Property(m => m.LastName).HasColumnName("Member_LastName");
             modelBuilder.Entity<Member>()
-                .Property(m => m.AddressId).HasColumnName("Address_ID");
+                .Property(m => m.Address.StreetName).HasColumnName("Member_StreetName");
+            modelBuilder.Entity<Member>()
+                .Property(m => m.Address.StreetNumber).HasColumnName("Member_StreetNumber");
+            modelBuilder.Entity<Member>()
+                .Property(m => m.Address.ZIP).HasColumnName("City_ZIP");
             modelBuilder.Entity<Member>()
                 .Property(m => m.RegistrationDate).HasColumnName("Member_RegistrationDate");
 
             //A member must have one address and an address can have only one member
-            modelBuilder.Entity<Member>()
-                .HasOne(m => m.AddressId)
-                .f
-                .WithOne(m => )
-
 
             //An Address has one city but a city can have many addresses
 

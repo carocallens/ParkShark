@@ -24,7 +24,7 @@ namespace ParkShark.Domain.Members
 
         public static Member CreateMember(string firstName, string lastName, Address address)
         {
-            if (string.IsNullOrWhiteSpace(firstName)|| string.IsNullOrWhiteSpace(lastName) || string.IsNullOrWhiteSpace(addressId))
+            if (string.IsNullOrWhiteSpace(firstName)|| string.IsNullOrWhiteSpace(lastName) || address == null)
             {
                 return null;
             }
