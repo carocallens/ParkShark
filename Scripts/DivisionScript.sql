@@ -21,33 +21,16 @@ values
 '1testdivision',
 '1testorgdivision',
 '1willem'
-)
-
-insert into Div.Division
-(
-Division_ID ,
-Division_Name ,
-Division_OrgName ,
-Division_Director 
-)
-values
+),
 (
 'fedee2ce-8782-479e-990b-b6e3a2536eee',
 '2testdivision',
 '2testorgdivision',
 '2willem'
-)
-insert into Div.Division
-(
-Division_ID ,
-Division_Name ,
-Division_OrgName ,
-Division_Director 
-)
-values
+),
 (
 '9c23c059-b5ef-4c9a-afec-b308d9b4eb22',
 '3testdivision',
 '3testorgdivision',
 '3willem'
-)
+);
