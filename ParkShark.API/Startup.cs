@@ -64,6 +64,10 @@ namespace ParkShark.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
             app.UseMvc();
+            app.Run(async context =>
+            {
+                context.Response.Redirect("/swagger");
+            });
         }
     }
 }
