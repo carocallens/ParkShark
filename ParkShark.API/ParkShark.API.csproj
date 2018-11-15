@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Members\" />
     <Folder Include="Controllers\Invoices\" />
     <Folder Include="Controllers\ParkingSpaceAllocations\" />
     <Folder Include="Controllers\ParkingLots\" />

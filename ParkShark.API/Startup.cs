@@ -12,9 +12,13 @@ using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Options;
 using ParkShark.API.Controllers.Divisions.Mappers;
 using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
+using ParkShark.API.Controllers.Members.Mappers;
+using ParkShark.API.Controllers.Members.Mappers.Interfaces;
 using ParkShark.Domain.Divisions.Repository;
 using ParkShark.Services.Divisions;
 using ParkShark.Services.Divisions.Interfaces;
+using ParkShark.Services.Members;
+using ParkShark.Services.Members.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ParkShark.API
@@ -40,6 +44,9 @@ namespace ParkShark.API
             });
             services.AddSingleton<IDivisionServices, DivisionServices>();
             services.AddSingleton<IDivisionMapper, DivisionMapper>();
+            services.AddSingleton<IMemberServices, MemberService>();
+            services.AddSingleton<IMemberMapper, MemberMapper>();
+
             services.AddSingleton<ILoggerFactory>(efLoggerFactory);
             services.AddTransient<DivisionDbContext>((sp) => 
             {
