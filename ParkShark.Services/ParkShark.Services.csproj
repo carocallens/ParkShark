@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Divisions\Interfaces\" />
+    <Folder Include="Divisions\Exceptions\" />
     <Folder Include="Invoices\Interfaces\" />
     <Folder Include="Members\Interfaces\" />
     <Folder Include="ParkingLots\Interfaces\" />

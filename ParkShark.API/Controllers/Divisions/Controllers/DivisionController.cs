@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ParkShark.API.Controllers.Divisions.DTO;
+using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
+using ParkShark.Services.Divisions.Interfaces;
 
 namespace ParkShark.API.Controllers.Divisions.Controllers
 {
@@ -11,6 +14,18 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
     [ApiController]
     public class DivisionController : ControllerBase
     {
+
+        private readonly IDivisionServices _divisionSerices;
+        private readonly IDivisionMapper _divisionMapper;
+
+        public DivisionController(IDivisionServices divisionSerices, IDivisionMapper divisionMapper)
+        {
+            _divisionSerices = divisionSerices;
+            _divisionMapper = divisionMapper;
+        }
+
+
+
         // GET: api/Division
         [HttpGet]
         public IEnumerable<string> Get()
@@ -27,8 +42,17 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 
         // POST: api/Division
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<DivisionDTO_Return> CreateDivision([FromBody] DivisionDTO_Create divisionDTO)
         {
+            var division = _divisionMapper.CreateDivisionFromDivisionDTOCreate(divisionDTO);
+            if (division == null)
+            {
+                return BadRequest("not valid");
+            }
+
+            _divisionSerices.AddDivisionToDBbContext(division);
+            return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(division));
+
         }
 
         // PUT: api/Division/5
