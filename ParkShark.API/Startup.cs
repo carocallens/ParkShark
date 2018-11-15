@@ -36,14 +36,14 @@ namespace ParkShark.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Order_Api", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "ParkShark.Api", Version = "v1" });
             });
             services.AddSingleton<IDivisionServices, DivisionServices>();
             services.AddSingleton<IDivisionMapper, DivisionMapper>();
             services.AddSingleton<ILoggerFactory>(efLoggerFactory);
             services.AddTransient<DivisionDbContext>((sp) => 
             {
-                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("HeroesDb");
+                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("ParkSharkDb");
                 var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
 
                 return new DivisionDbContext(connectionString, loggerFactory);
@@ -62,10 +62,6 @@ namespace ParkShark.API
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
-            app.Run(async context =>
-            {
-                context.Response.Redirect("/swagger");
             });
             app.UseMvc();
         }

@@ -6,7 +6,7 @@ namespace ParkShark.Domain.Divisions
 {
     public class Division
     {
-        public Guid GuidID { get; private set; }
+        public string GuidID { get; private set; }
         public string Name { get; private set; }
         public string OriginalName { get; private set; }
         public string Director { get; private set; }
@@ -16,7 +16,7 @@ namespace ParkShark.Domain.Divisions
             Name = name;
             OriginalName = originalName;
             Director = director;
-            GuidID = Guid.NewGuid();
+            GuidID = Guid.NewGuid().ToString();
         }
 
         public static Division CreateNewDivision(string name, string originalName, string director)
