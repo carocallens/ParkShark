@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ParkShark.Data\ParkShark.Data.csproj" />
     <ProjectReference Include="..\ParkShark.Services\ParkShark.Services.csproj" />
   </ItemGroup>
 

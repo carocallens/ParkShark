@@ -11,6 +11,10 @@ namespace ParkShark.Domain.Members
         public int ZIP { get; private set; }
         public City City { get; private set; }
 
+        private Address()
+        {
+        }
+
         private Address(string streetName, string streetNumber, int zip)
         {
             StreetName = streetName;

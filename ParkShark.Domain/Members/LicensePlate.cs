@@ -11,6 +11,10 @@ namespace ParkShark.Domain.Members
         public string LicensePlateValue { get; private set; }
         public string IssueingCountry { get; private set; }
 
+        private LicensePlate()
+        {
+        }
+
         private LicensePlate(string memberId, string licensePlateValue, string issueingCountry)
         {
             MemberId = memberId;

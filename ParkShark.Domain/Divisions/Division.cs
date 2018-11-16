@@ -11,6 +11,10 @@ namespace ParkShark.Domain.Divisions
         public string OriginalName { get; private set; }
         public string Director { get; private set; }
 
+        private Division()
+        {
+        }
+
         private Division(string name, string originalName, string director)
         {
             Name = name;
