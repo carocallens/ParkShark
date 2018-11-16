@@ -62,10 +62,13 @@ namespace ParkShark.Services.Divisions
         {
             DivToRemoveParentFrom.ParentDivisionGuidID = null;
             DivToRemoveParentFrom.ParentDivision = null;
-            if (ParentToRemoveSubFrom.SubdivisionsList.Any(x => x.GuidID == DivToRemoveParentFrom.GuidID))
+
+            if (!ParentToRemoveSubFrom.SubdivisionsList.Any(x => x.GuidID == DivToRemoveParentFrom.GuidID))
             {
-                ParentToRemoveSubFrom.SubdivisionsList.Remove(DivToRemoveParentFrom);
+                return null;
             }
+            ParentToRemoveSubFrom.SubdivisionsList.Remove(DivToRemoveParentFrom);
+
             return DivToRemoveParentFrom;
         }
     }
