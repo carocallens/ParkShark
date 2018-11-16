@@ -4,6 +4,7 @@ using ParkShark.Domain.Members;
 using ParkShark.Services.Members.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ParkShark.Services.Members
@@ -36,6 +37,19 @@ namespace ParkShark.Services.Members
             }
 
             return MemberList;
+        }
+
+        public Member GetMember(string memberID)
+        {
+            var member = _parkSharkDBContext.Members.SingleOrDefault(x => x.MemberId == memberID);
+
+            if(member == null)
+            {
+                return null;
+            }
+
+            return member;
+            
         }
     }
 }

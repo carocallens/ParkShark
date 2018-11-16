@@ -9,5 +9,6 @@ namespace ParkShark.Services.Members.Interfaces
     {
         Member AddMemberToDBContext(Member member);
         List<Member> GetAllMembers();
+        Member GetMember(string memberID);
     }
 }

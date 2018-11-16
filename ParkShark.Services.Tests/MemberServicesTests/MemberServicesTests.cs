@@ -64,27 +64,43 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             }
         }
 
-        //[Fact]
-        //public void GivenGetSingledivision_WhenRequestingSingleDivision_ReturnRequestedDivision()
-        //{
-        //    using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
-        //    {
-        //        var service = new MemberService(context);
+        [Fact]
+        public void GivenGetSingleMember_WhenRequestingSingleMember_ReturnRequestedMember()
+        {
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var service = new MemberService(context);
 
-        //        var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
-        //        context.Set<Member>().Add(newMem);
-        //        var id = newMem.MemberId;
-        //        context.SaveChanges();
+                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
+                context.Set<Member>().Add(newMem);
+                var id = newMem.MemberId;
+                context.SaveChanges();
 
+                var result = service.GetMember(id);
 
+                Assert.IsType<Member>(result);
+                Assert.Equal(id, result.MemberId);
+                Assert.Equal("lars", result.FirstName);
+                Assert.Equal("Peelman", result.LastName);
+            }
+        }
 
-        //        //var result = service.GetSingleDivision(id);
+        [Fact]
+        public void GivenGetSingleMemberUnHappyPath_WhenRequestingSingleMember_ReturnNull()
+        {
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var service = new MemberService(context);
 
-        //        Assert.IsType<Member>(result);
-        //        Assert.Equal(id, result.GuidID);
-        //        Assert.Equal("test", result.Name);
-        //        Assert.Equal("testorg", result.OriginalName);
-        //    }
-        //}
+                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
+                context.Set<Member>().Add(newMem);
+                var id = "kjekjlkzjzk";
+                context.SaveChanges();
+
+                var result = service.GetMember(id);
+
+                Assert.Null(result);
+            }
+        }
     }
 }

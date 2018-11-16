@@ -46,5 +46,18 @@ namespace ParkShark.API.Controllers.Members.Controllers
             var MemberDTO_ReturnList = _memberMapper.MemberListToDTOReturnList(MemberList);
             return Ok(MemberDTO_ReturnList);
         }
+
+        [HttpGet("Member_ID")]
+        public ActionResult<MemberDTO_Return> GetSingleMember(string memberID)
+        {
+            var member = _memberService.GetMember(memberID);
+
+            if(member == null)
+            {
+                return BadRequest("Not valid");
+            }
+
+            return Ok(_memberMapper.MemberToDTOReturn(member));
+        }
     }
 }

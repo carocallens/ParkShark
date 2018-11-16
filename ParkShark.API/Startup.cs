@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Options;
 using ParkShark.API.Controllers.Divisions.Mappers;
 using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
 using ParkShark.API.Controllers.Members.Mappers;
@@ -39,12 +34,17 @@ namespace ParkShark.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "ParkShark.Api", Version = "v1" });
             });
 
-            services.AddSingleton<IDivisionServices, DivisionServices>();
+            services.AddScoped<IDivisionServices, DivisionServices>();
+            services.AddScoped<IMemberServices, MemberService>();
+
+            services.AddSingleton<IMemberMapper, MemberMapper>();
+            services.AddSingleton<IAddressMapper, AddressMapper>();
             services.AddSingleton<IDivisionMapper, DivisionMapper>();
 
             services.AddDbContext<ParkSharkDbContext>(options =>
