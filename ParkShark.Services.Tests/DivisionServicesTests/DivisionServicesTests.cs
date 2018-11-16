@@ -110,6 +110,33 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
 
             }
         }
+
+        [Fact]
+        public void Given2Divisions_WhenAssigningParentTOSUb_SubdevisionIsReturnedWithParentGuidID()
+        {
+            var name = "Test1";
+            var originalName = "Test1";
+            string director = "test1";
+
+            var parDivision = Division.CreateNewDivision(name, originalName, director);
+            var subDivision = Division.CreateNewDivision(name, originalName, director);
+
+            var result = DivisionServices.AssignParentDivision(subDivision, parDivision);
+
+
+            Assert.Equal(parDivision.GuidID, subDivision.ParentDivisionGuidID);
+        }
+
+        [Fact]
+        public void Given1Division_WhenAssigningGuidAsParentGuid_ParentGuidRemainsNull()
+        {
+            var division = Division.CreateNewDivision("name", "orgname", "director");
+
+            var result = DivisionServices.AssignParentDivision(division, division);
+
+            Assert.Equal(division.ParentDivisionGuidID, null);
+            Assert.Null(result);
+        }
     }
 
 

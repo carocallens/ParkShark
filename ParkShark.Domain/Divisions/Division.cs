@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ParkShark.Domain.Divisions
@@ -10,6 +11,9 @@ namespace ParkShark.Domain.Divisions
         public string Name { get; private set; }
         public string OriginalName { get; private set; }
         public string Director { get; private set; }
+        public string ParentDivisionGuidID { get; set; }
+        public Division ParentDivision { get; set; }
+        public List<Division> SubdivisionsList { get; set; }
 
         private Division()
         {
@@ -21,6 +25,8 @@ namespace ParkShark.Domain.Divisions
             OriginalName = originalName;
             Director = director;
             GuidID = Guid.NewGuid().ToString();
+            SubdivisionsList = new List<Division>();
+
         }
 
         public static Division CreateNewDivision(string name, string originalName, string director)

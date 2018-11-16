@@ -40,5 +40,33 @@ namespace ParkShark.Services.Divisions
 
             return result;
         }
+
+
+        public static Division AssignParentDivision(Division DivisionToAssignParentTo, Division ParentDivisionToAssign)
+        {
+            if (ParentDivisionToAssign.GuidID == DivisionToAssignParentTo.GuidID
+                || DivisionToAssignParentTo.ParentDivisionGuidID != null
+                || ParentDivisionToAssign.SubdivisionsList.Any(x => x.GuidID == DivisionToAssignParentTo.GuidID))
+            {
+                return null;
+            }
+
+            DivisionToAssignParentTo.ParentDivisionGuidID = ParentDivisionToAssign.GuidID;
+            DivisionToAssignParentTo.ParentDivision = ParentDivisionToAssign;
+            ParentDivisionToAssign.SubdivisionsList.Add(DivisionToAssignParentTo);
+
+            return DivisionToAssignParentTo;
+        }
+
+        public static Division RemoveParentDivision(Division DivToRemoveParentFrom, Division ParentToRemoveSubFrom)
+        {
+            DivToRemoveParentFrom.ParentDivisionGuidID = null;
+            DivToRemoveParentFrom.ParentDivision = null;
+            if (ParentToRemoveSubFrom.SubdivisionsList.Any(x => x.GuidID == DivToRemoveParentFrom.GuidID))
+            {
+                ParentToRemoveSubFrom.SubdivisionsList.Remove(DivToRemoveParentFrom);
+            }
+            return DivToRemoveParentFrom;
+        }
     }
 }
