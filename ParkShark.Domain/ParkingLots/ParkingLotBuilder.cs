@@ -11,7 +11,7 @@ namespace ParkShark.Domain.ParkingLots
         public string ParkingLotID { get; private set; }
         public string Name { get; private set; }
         public int DivisionID { get; private set; }
-        public int BuildingtypeID { get; private set; }
+        public BuildingType BuildingtypeID { get; private set; }
         public int Capacity { get; private set; }
         public int ContactPersonID { get; private set; }
         public Address Address { get; private set; }
@@ -39,7 +39,7 @@ namespace ParkShark.Domain.ParkingLots
             return this;
         }
 
-        public ParkingLotBuilder WithBuildingType(int buildingType)
+        public ParkingLotBuilder WithBuildingType(BuildingType buildingType = BuildingType.Abovehground)
         {
             this.BuildingtypeID = buildingType;
             return this;
@@ -53,6 +53,7 @@ namespace ParkShark.Domain.ParkingLots
 
         public ParkingLotBuilder WithContactPersonID(int contactPersonID)
         {
+
             this.ContactPersonID = contactPersonID;
             return this;
         }
@@ -67,6 +68,11 @@ namespace ParkShark.Domain.ParkingLots
         {
             this.PricePerHour = pricePerHour;
             return this;
+        }
+
+        public ParkingLot Build()
+        {
+            return ParkingLot.CreateParkingLot(this);
         }
     }
 }

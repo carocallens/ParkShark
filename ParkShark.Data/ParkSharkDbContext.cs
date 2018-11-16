@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkShark.Domain.Divisions;
 using ParkShark.Domain.Members;
+using ParkShark.Domain.ParkingLots;
 
 namespace ParkShark.Data
 {
@@ -108,6 +109,44 @@ namespace ParkShark.Data
                 .HasOne(l => l.Member)
                 .WithMany()
                 .HasForeignKey(l => l.MemberId)
+                .IsRequired();
+
+            modelBuilder.Entity<ParkingLot>()
+                .ToTable("ParkingLots", "PL")
+                .HasKey(p => p.ParkingLotID);
+
+            modelBuilder.Entity<ParkingLot>()
+                .Property(p => p.Name).HasColumnName("ParkingLot_Name");
+            modelBuilder.Entity<ParkingLot>()
+                .Property(p => p.DivisionID).HasColumnName("Division_ID");
+            modelBuilder.Entity<ParkingLot>()
+                .Property(p => p.Capacity).HasColumnName("ParkingLot_Capacity");
+            modelBuilder.Entity<ParkingLot>()
+                .Property(p => p.BuildingtypeID).HasColumnName("BuildingType_ID");
+            modelBuilder.Entity<ParkingLot>()
+                .Property(p => p.ContactPersonID).HasColumnName("ContactPerson_Id");
+            modelBuilder.Entity<ParkingLot>()
+                .Property(p => p.PricePerHour).HasColumnName("ParkingLot_PricePerHour");
+
+
+            modelBuilder.Entity<ParkingLot>()
+             .OwnsOne(a => a.Address, a =>
+             {
+                 a.Property(b => b.StreetName).HasColumnName("ParkingLot_StreetName");
+                 a.Property(s => s.StreetNumber).HasColumnName("ParkingLot_StreetNumber");
+                 a.Property(z => z.ZIP).HasColumnName("City_ZIP");
+             });
+
+            modelBuilder.Entity<ParkingLot>()
+                .HasOne(p => p.ContactPerson)
+                .WithMany()
+                .HasForeignKey(fr => fr.ContactPersonID)
+                .IsRequired();
+
+            modelBuilder.Entity<ParkingLot>()
+                .HasOne(div => div.Division)
+                .WithMany()
+                .HasForeignKey(fr => fr.DivisionID)
                 .IsRequired();
 
             base.OnModelCreating(modelBuilder);

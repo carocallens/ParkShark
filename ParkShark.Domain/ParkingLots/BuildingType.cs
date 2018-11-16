@@ -1,6 +1,8 @@
 ﻿namespace ParkShark.Domain.ParkingLots
 {
-    public class BuildingType
+    public enum BuildingType
     {
+        Abovehground = 1,
+        UnderGround = 2
     }
 }

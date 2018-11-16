@@ -47,7 +47,7 @@ namespace ParkShark.API.Controllers.Members.Controllers
             return Ok(MemberDTO_ReturnList);
         }
 
-        [HttpGet("Member_ID")]
+        [HttpGet("{Member_ID}")]
         public ActionResult<MemberDTO_Return> GetSingleMember(string memberID)
         {
             var member = _memberService.GetMember(memberID);
