@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -38,17 +39,14 @@ namespace ParkShark.API
             {
                 c.SwaggerDoc("v1", new Info { Title = "ParkShark.Api", Version = "v1" });
             });
+
             services.AddSingleton<IDivisionServices, DivisionServices>();
             services.AddSingleton<IDivisionMapper, DivisionMapper>();
-            services.AddSingleton<ILoggerFactory>(efLoggerFactory);
-            services.AddTransient<DivisionDbContext>((sp) => 
-            {
-                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("ParkSharkDb");
-                var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
 
-                return new DivisionDbContext(connectionString, loggerFactory);
-            });
-     
+            services.AddDbContext<DivisionDbContext>(options =>
+                options
+                .UseSqlServer(Configuration.GetConnectionString("ParkSharkDb"))
+                .UseLoggerFactory(efLoggerFactory));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
