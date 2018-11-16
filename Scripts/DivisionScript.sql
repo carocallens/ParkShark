@@ -34,3 +34,11 @@ values
 '3testorgdivision',
 '3willem'
 );
+
+alter Table div.division add Division_ParentDivisionGuidId varchar (100) null
+go
+
+alter table div.division with check add constraint fk_subdivision_parentdivision 
+foreign key (Division_ParentDivisionGuidId) references div.Division (Division_ID)
+go
+
