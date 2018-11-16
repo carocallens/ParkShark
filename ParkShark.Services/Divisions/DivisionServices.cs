@@ -12,9 +12,9 @@ namespace ParkShark.Services.Divisions
     {
         private readonly ParkSharkDbContext _parkSharkDbContext;
 
-        public DivisionServices(ParkSharkDbContext divisionDbContext)
+        public DivisionServices(ParkSharkDbContext parkSharkDbContext)
         {
-            _parkSharkDbContext = divisionDbContext;
+            _parkSharkDbContext = parkSharkDbContext;
         }
 
         public Division AddDivisionToDBbContext(Division division)
@@ -62,10 +62,13 @@ namespace ParkShark.Services.Divisions
         {
             DivToRemoveParentFrom.ParentDivisionGuidID = null;
             DivToRemoveParentFrom.ParentDivision = null;
-            if (ParentToRemoveSubFrom.SubdivisionsList.Any(x => x.GuidID == DivToRemoveParentFrom.GuidID))
+
+            if (!ParentToRemoveSubFrom.SubdivisionsList.Any(x => x.GuidID == DivToRemoveParentFrom.GuidID))
             {
-                ParentToRemoveSubFrom.SubdivisionsList.Remove(DivToRemoveParentFrom);
+                return null;
             }
+            ParentToRemoveSubFrom.SubdivisionsList.Remove(DivToRemoveParentFrom);
+
             return DivToRemoveParentFrom;
         }
     }

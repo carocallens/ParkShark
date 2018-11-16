@@ -68,7 +68,15 @@ namespace ParkShark.Domain.Tests.DivisionTests
             var division = Division.CreateNewDivision(name, originalName, director);
 
             Assert.Null(division);
-        }       
+        }
+
+        [Fact]
+        public void GivenADivision_WhenAddingToList_ListCountIncreased()
+        {
+            var div = Division.CreateNewDivision("name", "orgname", "dir");
+            div.SubdivisionsList.Add(Division.CreateNewDivision("str2", "", ""));
+            Assert.Single(div.SubdivisionsList);
+        }
 
     }
 }

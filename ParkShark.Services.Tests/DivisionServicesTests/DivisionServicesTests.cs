@@ -123,8 +123,8 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
 
             var result = DivisionServices.AssignParentDivision(subDivision, parDivision);
 
-
             Assert.Equal(parDivision.GuidID, subDivision.ParentDivisionGuidID);
+            Assert.Single(parDivision.SubdivisionsList);
         }
 
         [Fact]
@@ -134,9 +134,90 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
 
             var result = DivisionServices.AssignParentDivision(division, division);
 
-            Assert.Equal(division.ParentDivisionGuidID, null);
+            Assert.Null(division.ParentDivisionGuidID);
             Assert.Null(result);
         }
+        [Fact]
+        public void Given1Division2_WhenAssigningGuidAsParentGuid_ParentGuidRemainsNull()
+        {
+            //given
+            var division = Division.CreateNewDivision("name", "orgname", "director");
+            var Pardivision = Division.CreateNewDivision("name", "orgname", "director");
+            var newParDivision = Division.CreateNewDivision("name", "orgname", "director");
+
+            division.ParentDivisionGuidID = Pardivision.GuidID;
+            division.ParentDivision = Pardivision;
+
+            //
+            var result = DivisionServices.AssignParentDivision(division, newParDivision);
+            //
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void Given1Division3_WhenAssigningGuidAsParentGuid_ParentGuidRemainsNull()
+        {
+            //given
+            var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
+            var Subdivision = Division.CreateNewDivision("name", "orgname", "director");
+
+            parentDivision.SubdivisionsList.Add(Subdivision);
+
+            var result = DivisionServices.AssignParentDivision(Subdivision, parentDivision);
+
+            Assert.Null(result);
+        }
+
+
+        [Fact]
+        public void HappyPath_RemoveParentDivision()
+        {
+            var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
+            var Subdivision = Division.CreateNewDivision("name", "orgname", "director");
+
+            parentDivision.SubdivisionsList.Add(Subdivision);
+            Subdivision.ParentDivisionGuidID = parentDivision.GuidID;
+            Subdivision.ParentDivision = parentDivision;
+
+            DivisionServices.RemoveParentDivision(Subdivision, parentDivision);
+
+            Assert.Null(Subdivision.ParentDivision);
+            Assert.Null(Subdivision.ParentDivisionGuidID);
+            Assert.DoesNotContain(Subdivision, parentDivision.SubdivisionsList);
+        }
+
+
+        [Fact]
+        public void NoHappyPath_RemoveParentDivision()
+        {
+            var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
+            var Subdivision = Division.CreateNewDivision("name", "orgname", "director");
+
+            Subdivision.ParentDivisionGuidID = parentDivision.GuidID;
+            Subdivision.ParentDivision = parentDivision;
+
+            var result = DivisionServices.RemoveParentDivision(Subdivision, parentDivision);
+
+            Assert.Null(result);
+        }
+
+        //[Fact]
+        //public void NoHappyPath2_RemoveParentDivision()
+        //{
+        //    var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
+        //    var Subdivision = Division.CreateNewDivision("name", "orgname", "director");
+
+        //    parentDivision.SubdivisionsList.Add(Subdivision);
+
+
+        //    var result = DivisionServices.RemoveParentDivision(Subdivision, parentDivision);
+
+        //    Assert.Null(result);
+        //}
+
+
+
+
     }
 
 
