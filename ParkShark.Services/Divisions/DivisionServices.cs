@@ -12,9 +12,9 @@ namespace ParkShark.Services.Divisions
     {
         private readonly ParkSharkDbContext _parkSharkDbContext;
 
-        public DivisionServices(ParkSharkDbContext divisionDbContext)
+        public DivisionServices(ParkSharkDbContext parkSharkDbContext)
         {
-            _parkSharkDbContext = divisionDbContext;
+            _parkSharkDbContext = parkSharkDbContext;
         }
 
         public Division AddDivisionToDBbContext(Division division)
