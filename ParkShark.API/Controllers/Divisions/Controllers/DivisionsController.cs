@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ParkShark.API.Controllers.Divisions.DTO;
 using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
 using ParkShark.Domain.Divisions;
+using ParkShark.Services.Divisions;
 using ParkShark.Services.Divisions.Interfaces;
 
 namespace ParkShark.API.Controllers.Divisions.Controllers
@@ -16,12 +17,12 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
     public class DivisionsController : ControllerBase
     {
 
-        private readonly IDivisionServices _divisionSerices;
+        private readonly IDivisionServices _divisionServices;
         private readonly IDivisionMapper _divisionMapper;
 
         public DivisionsController(IDivisionServices divisionSerices, IDivisionMapper divisionMapper)
         {
-            _divisionSerices = divisionSerices;
+            _divisionServices = divisionSerices;
             _divisionMapper = divisionMapper;
         }
 
@@ -31,14 +32,14 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
         [HttpGet]
         public List<DivisionDTO_Return> GetAllDivisions()
         {
-            return _divisionMapper.CreateListOfDivisionDTOsFromDivisionList(_divisionSerices.GetAllDivisions());
+            return _divisionMapper.CreateListOfDivisionDTOsFromDivisionList(_divisionServices.GetAllDivisions());
         }
 
         // GET: api/Divisions/5
         [HttpGet("{DivisionID}")]
         public ActionResult<DivisionDTO_Return> GetSingleDivision(string DivisionID)
         {
-            var result = _divisionSerices.GetSingleDivision(DivisionID);
+            var result = _divisionServices.GetSingleDivision(DivisionID);
 
             if (result == null)
             { return BadRequest("invalid"); }
@@ -56,21 +57,32 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
                 return BadRequest("not valid");
             }
 
-            _divisionSerices.AddDivisionToDBbContext(division);
+            _divisionServices.AddDivisionToDBbContext(division);
             return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(division));
 
         }
 
+
+
         // PUT: api/Divisions/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{parentId}")]
+        public ActionResult<DivisionDTO_Return> AssignParentDivision([FromRoute]string parentId, [FromBody]string subId)
         {
+            Division parent = null;
+            Division sub = null;
+
+            parent = _divisionServices.GetSingleDivision(parentId);
+            sub = _divisionServices.GetSingleDivision(subId);
+
+            if (parent == null || sub == null)
+            {
+                return BadRequest();
+            }
+
+            var DivisionWithParent = DivisionServices.AssignParentDivision(sub, parent);
+            return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(DivisionWithParent));
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
     }
 }

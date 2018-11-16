@@ -27,7 +27,8 @@ namespace ParkShark.API.Controllers.Divisions.Mappers
                 Name = division.Name,
                 Director = division.Director,
                 OriginalName = division.OriginalName,
-                DivisionID = division.GuidID.ToString()
+                DivisionID = division.GuidID.ToString(),
+                ParentGuid = division.ParentDivisionGuidID
             };
             return divisionDTO;
         }
@@ -37,7 +38,9 @@ namespace ParkShark.API.Controllers.Divisions.Mappers
             var newList = new List<DivisionDTO_Return>();
 
             foreach (var item in list)
-            { newList.Add(CreateDivisionDTOReturnFromDivision(item)); }
+            { 
+                newList.Add(CreateDivisionDTOReturnFromDivision(item));
+            }
 
             return newList;
         }
