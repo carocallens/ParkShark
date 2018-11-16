@@ -53,25 +53,21 @@ insert into div.Cities(
 	values
 	(1234,'1cityName','1countryName')
 
-insert into div.Addresses (
-	Address_ID,
-	Address_StreetName,
-	Address_StreetNumber,
-	City_ZIP)
-	values
-	('e5b51d36-2159-4a80-8e77-473f516804d7', '1streetName', '1StreetNumber',1234)
-
 insert into div.Members (
 	Member_ID,
 	Member_FirstName,
 	Member_LastName,
-	Address_ID,
+	Member_StreetName,
+	Member_StreetNumber,
+	City_ZIP,
 	Member_RegistrationDate)
 	values
 	('e5b51e36-2159-4a80-8e77-473f516804d7', 
 	'1firstName',
 	'1lastName', 
-	'e5b51d36-2159-4a80-8e77-473f516804d7', 
+	'1streetName', 
+	'1StreetNumber',
+	1234,
 	CONVERT(date,'15-11-2018', 103)
 	)
 

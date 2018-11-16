@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,9 +12,13 @@ using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Options;
 using ParkShark.API.Controllers.Divisions.Mappers;
 using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
+using ParkShark.API.Controllers.Members.Mappers;
+using ParkShark.API.Controllers.Members.Mappers.Interfaces;
 using ParkShark.Domain.Divisions.Repository;
 using ParkShark.Services.Divisions;
 using ParkShark.Services.Divisions.Interfaces;
+using ParkShark.Services.Members;
+using ParkShark.Services.Members.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ParkShark.API
@@ -39,14 +42,20 @@ namespace ParkShark.API
             {
                 c.SwaggerDoc("v1", new Info { Title = "ParkShark.Api", Version = "v1" });
             });
-
             services.AddSingleton<IDivisionServices, DivisionServices>();
             services.AddSingleton<IDivisionMapper, DivisionMapper>();
+            services.AddSingleton<IMemberServices, MemberService>();
+            services.AddSingleton<IMemberMapper, MemberMapper>();
 
-            services.AddDbContext<DivisionDbContext>(options =>
-                options
-                .UseSqlServer(Configuration.GetConnectionString("ParkSharkDb"))
-                .UseLoggerFactory(efLoggerFactory));
+            services.AddSingleton<ILoggerFactory>(efLoggerFactory);
+            services.AddTransient<DivisionDbContext>((sp) => 
+            {
+                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("ParkSharkDb");
+                var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
+
+                return new DivisionDbContext(connectionString, loggerFactory);
+            });
+     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
