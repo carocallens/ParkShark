@@ -36,7 +36,7 @@ namespace ParkShark.Data
             modelBuilder.Entity<Division>()
                 .Property(d => d.ParentDivisionGuidID).HasColumnName("Division_ParentDivisionGuidId");
             modelBuilder.Entity<Member>()
-                .ToTable("Members", "Div")
+                .ToTable("Members", "Mem")
                 .HasKey(m => m.MemberId);
 
             modelBuilder.Entity<City>()
