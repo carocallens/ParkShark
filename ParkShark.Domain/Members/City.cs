@@ -10,6 +10,10 @@ namespace ParkShark.Domain.Members
         public string CityName { get; private set; }
         public string CountryName { get; private set; }
 
+        private City()
+        {
+        }
+
         public City(int zip, string cityName, string countryName)
         {
             ZIP = zip;

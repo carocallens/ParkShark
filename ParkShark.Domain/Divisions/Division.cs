@@ -15,6 +15,10 @@ namespace ParkShark.Domain.Divisions
         public Division ParentDivision { get; set; }
         public List<Division> SubdivisionsList { get; set; }
 
+        private Division()
+        {
+        }
+
         private Division(string name, string originalName, string director)
         {
             Name = name;

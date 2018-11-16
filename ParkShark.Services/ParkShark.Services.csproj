@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ParkShark.Data\ParkShark.Data.csproj" />
     <ProjectReference Include="..\ParkShark.Domain\ParkShark.Domain.csproj" />
   </ItemGroup>
 

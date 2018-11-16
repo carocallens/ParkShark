@@ -1,39 +1,39 @@
 ﻿using ParkShark.Domain.Divisions;
-using ParkShark.Domain.Divisions.Repository;
 using ParkShark.Services.Divisions.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using ParkShark.Data;
 
 namespace ParkShark.Services.Divisions
 {
     public class DivisionServices : IDivisionServices
     {
-        private readonly DivisionDbContext _divisionDbContext;
+        private readonly ParkSharkDbContext _parkSharkDbContext;
 
-        public DivisionServices(DivisionDbContext divisionDbContext)
+        public DivisionServices(ParkSharkDbContext divisionDbContext)
         {
-            _divisionDbContext = divisionDbContext;
+            _parkSharkDbContext = divisionDbContext;
         }
 
         public Division AddDivisionToDBbContext(Division division)
         {
 
-            _divisionDbContext.Add(division);
-            _divisionDbContext.SaveChanges();
+            _parkSharkDbContext.Add(division);
+            _parkSharkDbContext.SaveChanges();
 
             return division;
         }
 
         public List<Division> GetAllDivisions()
         {
-            return _divisionDbContext.Division.Select(x => x).ToList();
+            return _parkSharkDbContext.Division.Select(x => x).ToList();
         }
 
         public Division GetSingleDivision(string givenID)
         {
-            var result = _divisionDbContext.Division.SingleOrDefault(x => x.GuidID == givenID);
+            var result = _parkSharkDbContext.Division.SingleOrDefault(x => x.GuidID == givenID);
 
             if (result == null)
             { return null; }

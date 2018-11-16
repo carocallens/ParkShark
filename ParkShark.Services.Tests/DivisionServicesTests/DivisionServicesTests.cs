@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NSubstitute;
+using ParkShark.Data;
 using ParkShark.Domain.Divisions;
-using ParkShark.Domain.Divisions.Repository;
 using ParkShark.Services.Divisions;
 using ParkShark.Services.Divisions.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
 
         private static DbContextOptions CreateNewInMemoryDatabase()
         {
-            return new DbContextOptionsBuilder<DivisionDbContext>()
+            return new DbContextOptionsBuilder<ParkSharkDbContext>()
                 .UseInMemoryDatabase("DivisionDb" + Guid.NewGuid().ToString("N"))
                 .Options;
         }
@@ -24,7 +25,7 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         [Fact]
         public void GivenHappyPath1_WhenAddingNewDivisionToDb_ObjectIsFlushedAndReturned()
         {
-            using (var context = new DivisionDbContext(CreateNewInMemoryDatabase()))
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
                 var newDiv = Division.CreateNewDivision("test", "testorg", "lars");
 
@@ -37,9 +38,23 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
 
 
         [Fact]
+        public void GivenHappyPath2_WhenAddingNewDivisionToDb_ObjectIsAddedToDb()
+        {
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var newDiv = Division.CreateNewDivision("test", "testorg", "lars");
+
+                var service = new DivisionServices(context);
+                var result = service.AddDivisionToDBbContext(newDiv);
+
+                Assert.Single(service.GetAllDivisions());
+            }
+        }
+
+        [Fact]
         public void GivenGetSingledivision_WhenRequestingSingleDivision_ReturnRequestedDivision()
         {
-            using (var context = new DivisionDbContext(CreateNewInMemoryDatabase()))
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
                 var service = new DivisionServices(context);
 
@@ -61,7 +76,7 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         [Fact]
         public void GivenGetSingledivisionUnHappyPath_WhenRequestingSingleDivision_ReturnNull()
         {
-            using (var context = new DivisionDbContext(CreateNewInMemoryDatabase()))
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
                 var service = new DivisionServices(context);
 
@@ -82,7 +97,7 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         [Fact]
         public void GivenGetAllDivisions_WhenRequestingAllDivisions_ThenReturnListOfAllDivisions()
         {
-            using (var context = new DivisionDbContext(CreateNewInMemoryDatabase()))
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
 
                 context.Set<Division>().Add(Division.CreateNewDivision("test", "testorg", "lars"));

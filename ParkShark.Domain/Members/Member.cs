@@ -7,11 +7,15 @@ namespace ParkShark.Domain.Members
 {
     public class Member
     {
-        public string MemberId { get; }
+        public string MemberId { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public Address Address { get; private set; }
         public DateTime RegistrationDate { get; private set; }
+
+        private Member()
+        {
+        }
 
         private Member(string firstName, string lastName, Address address)
         {

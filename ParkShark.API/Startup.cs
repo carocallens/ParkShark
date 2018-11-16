@@ -15,7 +15,7 @@ using ParkShark.API.Controllers.Divisions.Mappers;
 using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
 using ParkShark.API.Controllers.Members.Mappers;
 using ParkShark.API.Controllers.Members.Mappers.Interfaces;
-using ParkShark.Domain.Divisions.Repository;
+using ParkShark.Data;
 using ParkShark.Services.Divisions;
 using ParkShark.Services.Divisions.Interfaces;
 using ParkShark.Services.Members;
@@ -47,7 +47,7 @@ namespace ParkShark.API
             services.AddSingleton<IDivisionServices, DivisionServices>();
             services.AddSingleton<IDivisionMapper, DivisionMapper>();
 
-            services.AddDbContext<DivisionDbContext>(options =>
+            services.AddDbContext<ParkSharkDbContext>(options =>
                 options
                 .UseSqlServer(Configuration.GetConnectionString("ParkSharkDb"))
                 .UseLoggerFactory(efLoggerFactory));
