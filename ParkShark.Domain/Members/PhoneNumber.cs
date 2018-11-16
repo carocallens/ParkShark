@@ -12,10 +12,19 @@ namespace ParkShark.Domain.Members
         {
         }
 
-        public PhoneNumber(string memberId, string phoneNumberValue)
+        private PhoneNumber(string memberId, string phoneNumberValue)
         {
             MemberId = memberId;
             PhoneNumberValue = phoneNumberValue;
+        }
+
+        public static PhoneNumber CreatePhoneNumber(string memberId, string phoneNumberValue)
+        {
+            if (string.IsNullOrWhiteSpace(memberId) || string.IsNullOrWhiteSpace(phoneNumberValue))
+            {
+                return null;
+            }
+            return new PhoneNumber(memberId, phoneNumberValue);
         }
     }
 }
