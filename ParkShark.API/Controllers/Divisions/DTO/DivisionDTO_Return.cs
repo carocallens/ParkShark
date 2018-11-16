@@ -11,5 +11,6 @@ namespace ParkShark.API.Controllers.Divisions.DTO
         public string Name { get; set; }
         public string OriginalName { get; set; }
         public string Director { get; set; }
+        public string ParentGuid { get; set; }
     }
 }
