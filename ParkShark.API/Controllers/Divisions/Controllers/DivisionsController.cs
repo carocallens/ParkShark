@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkShark.API.Controllers.Divisions.DTO;
 using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
+using ParkShark.Domain.Divisions;
 using ParkShark.Services.Divisions.Interfaces;
 
 namespace ParkShark.API.Controllers.Divisions.Controllers
@@ -26,21 +27,26 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 
 
 
-        // GET: api/Division
+        // GET: api/Divisions
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<DivisionDTO_Return> GetAllDivisions()
         {
-            return new string[] { "value1", "value2" };
+            return _divisionMapper.CreateListOfDivisionDTOsFromDivisionList(_divisionSerices.GetAllDivisions());
         }
 
-        // GET: api/Division/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        // GET: api/Divisions/5
+        [HttpGet("{DivisionID}")]
+        public ActionResult<DivisionDTO_Return> GetSingleDivision(string DivisionID)
         {
-            return "value";
+            var result = _divisionSerices.GetSingleDivision(DivisionID);
+
+            if (result == null)
+            { return BadRequest("invalid"); }
+
+            return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(result));
         }
 
-        // POST: api/Division
+        // POST: api/Divisions
         [HttpPost]
         public ActionResult<DivisionDTO_Return> CreateDivision([FromBody] DivisionDTO_Create divisionDTO)
         {
@@ -55,7 +61,7 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 
         }
 
-        // PUT: api/Division/5
+        // PUT: api/Divisions/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
