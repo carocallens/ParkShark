@@ -21,6 +21,11 @@ namespace ParkShark.Domain.Divisions.Repository
                 .HasKey(e => e.GuidID);
 
             modelBuilder.Entity<Division>()
+                .HasOne(parent => parent.ParentDivision)
+                .WithMany(subdivisions => subdivisions.SubdivisionsList)
+                .HasForeignKey(key => key.ParentDivisionGuidID);
+
+            modelBuilder.Entity<Division>()
                 .Property(d => d.GuidID).HasColumnName("Division_ID");
             modelBuilder.Entity<Division>()
                 .Property(d => d.Director).HasColumnName("Division_Director");
@@ -28,6 +33,9 @@ namespace ParkShark.Domain.Divisions.Repository
                 .Property(d => d.Name).HasColumnName("Division_Name");
             modelBuilder.Entity<Division>()
                 .Property(d => d.OriginalName).HasColumnName("Division_OrgName");
+            modelBuilder.Entity<Division>()
+                .Property(d => d.OriginalName).HasColumnName("Division_ParentDivisionID");
+
             base.OnModelCreating(modelBuilder);
 
         }
