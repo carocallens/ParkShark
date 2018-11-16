@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ParkShark.Domain.Divisions;
 using ParkShark.Domain.Members;
 
@@ -22,6 +21,11 @@ namespace ParkShark.Data
                 .HasKey(e => e.GuidID);
 
             modelBuilder.Entity<Division>()
+                .HasOne(parent => parent.ParentDivision)
+                .WithMany(subdivisions => subdivisions.SubdivisionsList)
+                .HasForeignKey(key => key.ParentDivisionGuidID);
+
+            modelBuilder.Entity<Division>()
                 .Property(d => d.GuidID).HasColumnName("Division_ID");
             modelBuilder.Entity<Division>()
                 .Property(d => d.Director).HasColumnName("Division_Director");
@@ -29,7 +33,8 @@ namespace ParkShark.Data
                 .Property(d => d.Name).HasColumnName("Division_Name");
             modelBuilder.Entity<Division>()
                 .Property(d => d.OriginalName).HasColumnName("Division_OrgName");
-
+            modelBuilder.Entity<Division>()
+                .Property(d => d.OriginalName).HasColumnName("Division_ParentDivisionID");
             modelBuilder.Entity<Member>()
                 .ToTable("Members", "Div")
                 .HasKey(m => m.MemberId);
@@ -67,7 +72,7 @@ namespace ParkShark.Data
             modelBuilder.Entity<LicensePlate>()
                 .Property(m => m.IssueingCountry).HasColumnName("IssueingCountry");
             modelBuilder.Entity<LicensePlate>()
-                .Property(lcp =>lcp.LicensePlateValue).HasColumnName("LicensePlate");
+                .Property(lcp => lcp.LicensePlateValue).HasColumnName("LicensePlate");
             modelBuilder.Entity<LicensePlate>()
                 .Property(m => m.MemberId).HasColumnName("Member_ID");
             modelBuilder.Entity<City>()
@@ -104,6 +109,7 @@ namespace ParkShark.Data
                 .WithMany()
                 .HasForeignKey(l => l.MemberId)
                 .IsRequired();
+
             base.OnModelCreating(modelBuilder);
 
         }
