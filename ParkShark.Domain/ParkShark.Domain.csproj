@@ -5,8 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ParkingLots\Repository\**" />
+    <EmbeddedResource Remove="ParkingLots\Repository\**" />
+    <None Remove="ParkingLots\Repository\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Invoices\Repository\" />
-    <Folder Include="ParkingLots\Repository\" />
     <Folder Include="ParkingSpaceAllocations\Repository\" />
   </ItemGroup>
 
