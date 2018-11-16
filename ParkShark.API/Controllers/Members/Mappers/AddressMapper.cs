@@ -22,7 +22,11 @@ namespace ParkShark.API.Controllers.Members.Mappers
 
         public Address DTOToAddress(AddressDTO addressDTO)
         {
-            return Address.CreateAddress(addressDTO.StreetName, addressDTO.StreetNumber, addressDTO.ZIP);
+            return Address.CreateAddress(
+                addressDTO.StreetName, 
+                addressDTO.StreetNumber, 
+                addressDTO.ZIP
+                );
         }
     }
 }

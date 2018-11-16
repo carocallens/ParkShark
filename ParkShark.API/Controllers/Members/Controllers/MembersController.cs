@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkShark.API.Controllers.Members.DTO;
 using ParkShark.API.Controllers.Members.Mappers.Interfaces;
+using ParkShark.Domain.Members;
 using ParkShark.Services.Members.Interfaces;
 
 namespace ParkShark.API.Controllers.Members.Controllers
@@ -36,6 +37,14 @@ namespace ParkShark.API.Controllers.Members.Controllers
             _memberService.AddMemberToDBContext(member);
 
             return Ok(_memberMapper.MemberToDTOReturn(member));
+        }
+
+        [HttpGet]
+        public ActionResult<List<MemberDTO_Return>> GetAllMembers()
+        {
+            var MemberList = _memberService.GetAllMembers();
+            var MemberDTO_ReturnList = _memberMapper.MemberListToDTOReturnList(MemberList);
+            return Ok(MemberDTO_ReturnList);
         }
     }
 }

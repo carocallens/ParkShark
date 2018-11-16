@@ -1,4 +1,5 @@
-﻿using ParkShark.Domain.Members;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkShark.Domain.Members;
 using ParkShark.Domain.Members.Repository;
 using ParkShark.Services.Members.Interfaces;
 using System;
@@ -22,6 +23,19 @@ namespace ParkShark.Services.Members
             _memberDBContext.SaveChanges();
 
             return member;
+        }
+
+        public List<Member> GetAllMembers()
+        {
+            var MemberList = new List<Member>();
+            var MemberDbSet = _memberDBContext.Set<Member>();
+
+            foreach (var member in MemberDbSet)
+            {
+                MemberList.Add(member);
+            }
+
+            return MemberList;
         }
     }
 }

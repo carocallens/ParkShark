@@ -26,6 +26,19 @@ namespace ParkShark.API.Controllers.Members.Mappers
                 );
         }
 
+        public List<MemberDTO_Return> MemberListToDTOReturnList(List<Member> MemberList)
+        {
+            var MemberDTO_ReturnList = new List<MemberDTO_Return>();
+
+            foreach (Member member in MemberList)
+            {
+                var MemberDTO_Return = MemberToDTOReturn(member);
+                MemberDTO_ReturnList.Add(MemberDTO_Return);
+            }
+
+            return MemberDTO_ReturnList;
+        }
+
         public MemberDTO_Return MemberToDTOReturn(Member member)
         {
             return new MemberDTO_Return

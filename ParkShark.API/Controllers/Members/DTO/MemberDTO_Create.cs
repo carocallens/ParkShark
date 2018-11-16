@@ -11,4 +11,4 @@ namespace ParkShark.API.Controllers.Members.DTO
         public string LastName { get; set; }
         public AddressDTO Address { get; set; }
     }
-}
+}        

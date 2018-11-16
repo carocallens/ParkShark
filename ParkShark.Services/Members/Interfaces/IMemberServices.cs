@@ -8,5 +8,6 @@ namespace ParkShark.Services.Members.Interfaces
     public interface IMemberServices
     {
         Member AddMemberToDBContext(Member member);
+        List<Member> GetAllMembers();
     }
 }
