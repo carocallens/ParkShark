@@ -39,7 +39,7 @@ namespace ParkShark.Services.Members
             var MemberList = new List<Member>();
             var MemberDbSet = _parkSharkDBContext.Set<Member>();
 
-            foreach (var member in MemberDbSet)
+            foreach (var member in MemberDbSet.Include(m => m.MembershipLevel))
             {
                 MemberList.Add(member);
             }

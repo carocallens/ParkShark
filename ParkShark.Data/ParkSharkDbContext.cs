@@ -2,6 +2,7 @@
 using ParkShark.Domain.Divisions;
 using ParkShark.Domain.Members;
 using ParkShark.Domain.ParkingLots;
+using System;
 
 namespace ParkShark.Data
 {
@@ -73,7 +74,10 @@ namespace ParkShark.Data
             modelBuilder.Entity<Member>()
                 .Property(m => m.RegistrationDate).HasColumnName("Member_RegistrationDate");
             modelBuilder.Entity<Member>()
-                .Property(d => d.MembershipLevelId).HasColumnName("Member_MembershipLevel_ID");
+                .Property(d => d.MembershipLevelId).HasConversion(
+                    a => Convert.ToInt32(a),
+                    b => (MembershipLevelEnum)b)
+                .HasColumnName("Member_MembershipLevel_ID");
 
             modelBuilder.Entity<Member>()
                 .OwnsOne(a => a.Address, a =>

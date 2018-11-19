@@ -7,9 +7,9 @@ namespace ParkShark.Domain.Members
 
     public enum MembershipLevelEnum
     {
-        Bronze,
-        Silver,
-        Gold
+        Bronze = 0,
+        Silver = 1,
+        Gold = 2
     };
 
 }

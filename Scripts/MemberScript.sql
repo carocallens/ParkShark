@@ -17,7 +17,7 @@ Member_StreetName varchar(100) not null,
 Member_StreetNumber varchar(100) not null,
 City_ZIP int not null,
 Member_RegistrationDate date not null,
-Member_MembershipLevel_ID  varchar(100) not null
+Member_MembershipLevel_ID int not null
 constraint Members_pk primary key (Member_ID)
 )
 /*
@@ -48,8 +48,9 @@ IssueingCountry varchar(100) not null
 drop table Mem.MembershipLevel
 */
 create table Mem.MembershipLevel(
-MembershipLevel_ID  varchar(100) not null,
+MembershipLevel_ID  int not null,
 MembershipLevel_Name varchar (100) not null,
+MembershipLevel_Discription varchar (100) not null,
 MembershipLevel_MonthlyCost decimal not null,
 MembershipLevel_PSA_PriceReduction float not null,
 MembershipLevel_PSA_MaxTime time(7) not null
@@ -73,6 +74,7 @@ foreign key (Member_ID) references Mem.Members(Member_ID)
 
 insert into Mem.MembershipLevel(
 	MembershipLevel_ID ,
+	MembershipLevel_Discription,
 	MembershipLevel_Name ,
 	MembershipLevel_MonthlyCost ,
 	MembershipLevel_PSA_PriceReduction, 
@@ -80,21 +82,24 @@ insert into Mem.MembershipLevel(
 	)
 	values
 	(
-	'Bronze',
+	0,
+	'bronze level subscription',
 	'Bronze',
 	0,
 	0,
 	cast('4:00' as time)
 	),
 	(
-	'Silver',
+	1,
+	'Silver level subscription',
 	'Silver',
 	10,
 	20,
 	cast('6:00' as time)
 	),
 	(
-	'Gold',
+	2,
+	'Gold level subscription',
 	'Gold',
 	40,
 	30,
@@ -123,7 +128,7 @@ insert into Mem.Members (
 	'1StreetNumber',
 	1234,
 	CONVERT(date,'15-11-2018', 103),
-	'Bronze'
+	0
 	)
 
 insert into Mem.PhoneNumbers(
