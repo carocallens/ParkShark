@@ -1,3 +1,5 @@
+USE [ParkSharkDb]
+go
 create schema Mem
 go
 
