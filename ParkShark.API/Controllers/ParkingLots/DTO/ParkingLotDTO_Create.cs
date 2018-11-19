@@ -12,7 +12,7 @@ namespace ParkShark.API.Controllers.ParkingLots.DTO
     {
         public string Name { get;  set; }
         public Guid DivisionID { get;  set; }
-        public BuildingType Buildingtype { get;  set; }
+        public string Buildingtype { get;  set; }
         public int Capacity { get;  set; }
         public ContactPersonDTO ContactPerson { get;  set; }
         public AddressDTO Address { get;  set; }

@@ -7,6 +7,9 @@ namespace ParkShark.Services.ParkingLots.Interfaces
 {
     public interface IParkingLotService
     {
+        List<ParkingLot> GetAllParkingLots();
+
         ParkingLot AddParkingLotToDBContext(ParkingLot parkingLot);
+        ParkingLot GetSingleParkingLot(Guid parkingLotID);
     }
 }

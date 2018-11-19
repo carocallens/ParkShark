@@ -26,7 +26,7 @@ ParkingLot_PricePerHour decimal not null
 constraint ParkingLots_pk primary key (ParkingLot_ID)
 )
 alter table PL.ParkingLots
-add constraint PhoneNumber_Only_One check ((ContactPerson_PhoneNumber is null and ContactPerson_MobileNumber is not null) or (ContactPerson_PhoneNumber is not null and ContactPerson_MobileNumber is null))
+add constraint PhoneNumber_Only_One check ((ContactPerson_PhoneNumber is null and ContactPerson_MobileNumber is not null) or (ContactPerson_PhoneNumber is not null and ContactPerson_MobileNumber is null) or (ContactPerson_PhoneNumber is not null and ContactPerson_MobileNumber is not null))
 
 alter table PL.ParkingLots
 add constraint ParkingLots_Divisions_fk foreign key (Division_ID) references Div.Division(Division_ID)
