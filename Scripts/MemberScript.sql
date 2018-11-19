@@ -72,11 +72,15 @@ insert into Mem.PhoneNumbers(
 	Member_ID,
 	PhoneNumber)
 	values
-	('4BCC70DC-5E2A-4266-BCBB-014B51B81154', '1phonenumber')
+	(
+	(select Member_ID
+	from Mem.Members)
+	, '1phonenumber')
 
 insert into Mem.LicensePlates(
 	Member_ID,
 	LicensePlate,
 	IssueingCountry)
 	values
-	('4BCC70DC-5E2A-4266-BCBB-014B51B81154','1licensePlate','1issueingCountry')
+	((select Member_ID
+	from Mem.Members),'1licensePlate','1issueingCountry')

@@ -33,7 +33,7 @@ values
 '3willem'
 );
 
-alter Table div.division add Division_ParentDivisionGuidId varchar (100) null
+alter Table div.division add Division_ParentDivisionGuidId uniqueidentifier null
 go
 
 alter table div.division with check add constraint fk_subdivision_parentdivision 
