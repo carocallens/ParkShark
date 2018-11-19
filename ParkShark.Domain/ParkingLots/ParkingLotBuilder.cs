@@ -1,8 +1,5 @@
-﻿using ParkShark.Domain.Divisions;
-using ParkShark.Domain.Members;
+﻿using ParkShark.Domain.Members;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ParkShark.Domain.ParkingLots
 {
@@ -14,12 +11,7 @@ namespace ParkShark.Domain.ParkingLots
         public int Capacity { get; private set; }
         public Address Address { get; private set; }
         public decimal PricePerHour { get; private set; }
-        public ContactPerson ContactPerson{ get; private set; }
-
-    private  ParkingLotBuilder()
-        {
-   
-        }
+        public ContactPerson ContactPerson { get; private set; }
 
         public static ParkingLotBuilder CreateNewParkingLot()
         {
@@ -52,7 +44,6 @@ namespace ParkShark.Domain.ParkingLots
 
         public ParkingLotBuilder WithContactPerson(ContactPerson contactPerson)
         {
-
             this.ContactPerson = contactPerson;
             return this;
         }
@@ -73,7 +64,6 @@ namespace ParkShark.Domain.ParkingLots
         {
             return ParkingLot.CreateParkingLot(this);
         }
-
 
     }
 }
