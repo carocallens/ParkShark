@@ -1,106 +1,112 @@
-﻿//using Microsoft.EntityFrameworkCore;
-//using ParkShark.Data;
-//using ParkShark.Domain.Members;
-//using ParkShark.Services.Members;
-//using System;
-//using System.Collections.Generic;
-//using System.Text;
-//using Xunit;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkShark.Data;
+using ParkShark.Domain.Members;
+using ParkShark.Services.Members;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Xunit;
 
-//namespace ParkShark.Services.Tests.MemberServicesTests
-//{
-//    public class MemberServicesTests
-//    {
-//        private static DbContextOptions CreateNewInMemoryDatabase()
-//        {
-//            return new DbContextOptionsBuilder<ParkSharkDbContext>()
-//                .UseInMemoryDatabase("DivisionDb" + Guid.NewGuid().ToString("N"))
-//                .Options;
-//        }
+namespace ParkShark.Services.Tests.MemberServicesTests
+{
+    public class MemberServicesTests
+    {
+        private static DbContextOptions CreateNewInMemoryDatabase()
+        {
+            return new DbContextOptionsBuilder<ParkSharkDbContext>()
+                .UseInMemoryDatabase("DivisionDb" + Guid.NewGuid().ToString("N"))
+                .Options;
+        }
 
-//        [Fact]
-//        public void GivenAddMemberToDBContext_WhenAddMemberToDbContext_ThenMemberIsAdded()
-//        {
-//            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
-//            {
-//                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
+        [Fact]
+        public void GivenAddMemberToDBContext_WhenAddMemberToDbContext_ThenMemberIsAdded()
+        {
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var MemLev = new MembershipLevel();
 
-//                var service = new MemberService(context);
-//                var result = service.AddMemberToDBContext(newMem);
+                var newMem = new MemberCreationOptions() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", 2050), MembershipLevel = MembershipLevelEnum.Bronze };
 
-//                Assert.IsType<Member>(result);
-//            }
-//        }
+                var service = new MemberService(context);
+                var result = service.CreateNewMember(newMem);
 
-//        [Fact]
-//        public void GivenHappyPath2_WhenAddingNewMemberToDb_ObjectIsAddedToDb()
-//        {
-//            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
-//            {
-//                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
+                Assert.IsType<Member>(result);
+            }
+        }
 
-//                var service = new MemberService(context);
-//                var result = service.AddMemberToDBContext(newMem);
+        [Fact]
+        public void GivenHappyPath2_WhenAddingNewMemberToDb_ObjectIsAddedToDb()
+        {
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var MemLev = new MembershipLevel();
 
-//                Assert.Single(service.GetAllMembers());
-//            }
-//        }
+                var newMem = new MemberCreationOptions() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", 2050), MembershipLevel = MembershipLevelEnum.Bronze };
+
+                var service = new MemberService(context);
+                var result = service.CreateNewMember(newMem);
+
+                Assert.Single(service.GetAllMembers());
+            }
+        }
 
 
-//        [Fact]
-//        public void GivenGetAllMembers_WhenRequestingAllMembers_ThenReturnListOfAllMembers()
-//        {
-//            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
-//            {
+        [Fact]
+        public void GivenGetAllMembers_WhenRequestingAllMembers_ThenReturnListOfAllMembers()
+        {
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var MemLev = new MembershipLevel();
 
-//                context.Set<Member>().Add(Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050)));
-//                context.Set<Member>().Add(Member.CreateMember("laeeers", "ee", Address.CreateAddress("test", "5", 2050)));
-//                context.SaveChanges();
+                context.Set<Member>().Add(Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Bronze, MemLev));
+                context.Set<Member>().Add(Member.CreateMember("laeeers", "ee", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Bronze, MemLev));
+                context.SaveChanges();
 
-//                var service = new MemberService(context);
-//                var result = service.GetAllMembers().Count;
-//                Assert.Equal(2, result);
+                var service = new MemberService(context);
+                var result = service.GetAllMembers().Count;
+                Assert.Equal(2, result);
 
-//            }
-//        }
+            }
+        }
 
-//        [Fact]
-//        public void GivenGetSingleMember_WhenRequestingSingleMember_ReturnRequestedMember()
-//        {
-//            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
-//            {
-//                var service = new MemberService(context);
+        [Fact]
+        public void GivenGetSingleMember_WhenRequestingSingleMember_ReturnRequestedMember()
+        {
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var service = new MemberService(context);
+                var MemLev = new MembershipLevel();
+                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
+                context.Set<Member>().Add(newMem);
+                var id = newMem.MemberId;
+                context.SaveChanges();
 
-//                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
-//                context.Set<Member>().Add(newMem);
-//                var id = newMem.MemberId;
-//                context.SaveChanges();
+                var result = service.GetMember(id);
 
-//                var result = service.GetMember(id);
+                Assert.IsType<Member>(result);
+                Assert.Equal(id, result.MemberId);
+                Assert.Equal("lars", result.FirstName);
+                Assert.Equal("Peelman", result.LastName);
+            }
+        }
 
-//                Assert.IsType<Member>(result);
-//                Assert.Equal(id, result.MemberId);
-//                Assert.Equal("lars", result.FirstName);
-//                Assert.Equal("Peelman", result.LastName);
-//            }
-//        }
+        [Fact]
+        public void GivenGetSingleMemberUnHappyPath_WhenRequestingSingleMember_ReturnNull()
+        {
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var service = new MemberService(context);
+                var MemLev = new MembershipLevel();
 
-//        [Fact]
-//        public void GivenGetSingleMemberUnHappyPath_WhenRequestingSingleMember_ReturnNull()
-//        {
-//            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
-//            {
-//                var service = new MemberService(context);
+                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
+                context.Set<Member>().Add(newMem);
+                var id = Guid.NewGuid();
+                context.SaveChanges();
 
-//                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
-//                context.Set<Member>().Add(newMem);
-//                var id = Guid.NewGuid();
-//                context.SaveChanges();
+                var result = service.GetMember(id);
 
-//                var result = service.GetMember(id);
-
-//                Assert.Null(result);
-//            }
-//        }
-//    }
-//}
+                Assert.Null(result);
+            }
+        }
+    }
+}

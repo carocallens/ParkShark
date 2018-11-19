@@ -11,7 +11,8 @@ Member_LastName varchar(100) not null,
 Member_StreetName varchar(100) not null,
 Member_StreetNumber varchar(100) not null,
 City_ZIP int not null,
-Member_RegistrationDate date not null
+Member_RegistrationDate date not null,
+MembershipLevel_ID  varchar(100) not null
 constraint Members_pk primary key (Member_ID)
 )
 
@@ -45,6 +46,7 @@ alter table Mem.Licenseplates
 add constraint Licenseplates_Members_FK
 foreign key (Member_ID) references Mem.Members(Member_ID)
 
+
 insert into Mem.Cities(
 	City_ZIP,
 	City_Name,
@@ -58,14 +60,16 @@ insert into Mem.Members (
 	Member_StreetName,
 	Member_StreetNumber,
 	City_ZIP,
-	Member_RegistrationDate)
+	Member_RegistrationDate,
+	MembershipLevel_ID)
 	values
 	('1firstName',
 	'1lastName', 
 	'1streetName', 
 	'1StreetNumber',
 	1234,
-	CONVERT(date,'15-11-2018', 103)
+	CONVERT(date,'15-11-2018', 103),
+	'Bronze'
 	)
 
 insert into Mem.PhoneNumbers(

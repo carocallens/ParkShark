@@ -14,7 +14,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
         {
             return new MembershipLevel()
             {
-                Membership = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), membershipLevelDTO.Membership),
+                MembershipId = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), membershipLevelDTO.Membership),
                 Name = membershipLevelDTO.Name,
                 MonthlyCost = membershipLevelDTO.MonthlyCost,
                 PSAMaxTimeInHours = membershipLevelDTO.PSAMaxTimeInHours,
@@ -26,7 +26,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
         {
             return new MembershipLevelDTO()
             {
-                Membership = membershipLevel.Membership.ToString(),
+                Membership = membershipLevel.MembershipId.ToString(),
                 Name = membershipLevel.Name,
                 MonthlyCost = membershipLevel.MonthlyCost,
                 PSAMaxTimeInHours = membershipLevel.PSAMaxTimeInHours,
