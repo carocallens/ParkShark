@@ -22,5 +22,6 @@ namespace ParkShark.Domain.Tests.ParkingLotsTests
 
             Assert.Null(parkinglot);
         }
+
     }
 }
