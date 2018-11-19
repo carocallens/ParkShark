@@ -1,4 +1,5 @@
 USE [ParkSharkDb]
+go
 create schema PL
 go
 
