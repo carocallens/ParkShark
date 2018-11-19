@@ -11,19 +11,33 @@ namespace ParkShark.API.Controllers.Members.Mappers
     public class MemberMapper : IMemberMapper
     {
         private readonly IAddressMapper _addressMapper;
+        private readonly IMembershipLevelMapper _membershipLevelMapper;
 
-        public MemberMapper(IAddressMapper addressMapper)
+        public MemberMapper(IAddressMapper addressMapper, IMembershipLevelMapper membershipLevelMapper)
         {
             _addressMapper = addressMapper;
+            _membershipLevelMapper = membershipLevelMapper;
         }
 
-        public Member DTOToMember(MemberDTO_Create memberDTO)
+        public MemberCreationOptions DTOToMemberCriationOptions(MemberDTO_Create memberDTO)
         {
-            return Member.CreateMember(
-                memberDTO.FirstName, 
-                memberDTO.LastName, 
-                _addressMapper.DTOToAddress(memberDTO.Address)
-                );
+            MembershipLevelEnum memLevel;
+            if (String.IsNullOrWhiteSpace(memberDTO.MembershipLevel))
+            {
+                memLevel = MembershipLevelEnum.Bronze;
+            }
+            else
+            {
+                memLevel = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), memberDTO.MembershipLevel);
+            }
+
+            return new MemberCreationOptions()
+            {
+                FirstName = memberDTO.FirstName,
+                LastName = memberDTO.LastName,
+                Address = _addressMapper.DTOToAddress(memberDTO.Address),
+                MembershipLevel = memLevel
+            };
         }
 
         public List<MemberDTO_Return> MemberListToDTOReturnList(List<Member> MemberList)
@@ -46,7 +60,8 @@ namespace ParkShark.API.Controllers.Members.Mappers
                 Id = member.MemberId,
                 FirstName = member.FirstName,
                 LastName = member.LastName,
-                Address = _addressMapper.AddressToDTO(member.Address)
+                Address = _addressMapper.AddressToDTO(member.Address),
+                MembershipLevel = _membershipLevelMapper.MembershipLevel_To_DTO(member.MembershipLevel)
             };
         }
     }

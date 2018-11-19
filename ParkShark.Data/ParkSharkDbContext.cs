@@ -11,6 +11,7 @@ namespace ParkShark.Data
         public virtual DbSet<Division> Division { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<ParkingLot> ParkingLots { get; set; }
+        public virtual DbSet<MembershipLevel> MembershipLevel { get; set; }
 
         public ParkSharkDbContext(DbContextOptions options) : base(options)
         {
@@ -111,6 +112,32 @@ namespace ParkShark.Data
                 .WithMany()
                 .HasForeignKey(l => l.MemberId)
                 .IsRequired();
+
+
+            modelBuilder.Entity<MembershipLevel>()
+             .ToTable("MembershipLevel", "MemL")
+             .HasKey(e => e.Membership);
+
+            modelBuilder.Entity<MembershipLevel>()
+               .Property(ml => ml.Membership).HasColumnName("MembershipLevel_ID");
+            modelBuilder.Entity<MembershipLevel>()
+                .Property(ml => ml.Name).HasColumnName("MembershipLevel_Name");
+            modelBuilder.Entity<MembershipLevel>()
+                .Property(ml => ml.MonthlyCost).HasColumnName("MembershipLevel_MonthlyCost");
+            modelBuilder.Entity<MembershipLevel>()
+                .Property(ml => ml.PSAPriceReductionPercentage).HasColumnName("MembershipLevel_PSA_PriceReduction");
+            modelBuilder.Entity<MembershipLevel>()
+                .Property(ml => ml.PSAMaxTimeInHours).HasColumnName("MembershipLevel_PSA_MaxTime");
+
+            modelBuilder.Entity<Member>()
+                .HasOne(ml => ml.MembershipLevel)
+                .WithMany(level => level.members)
+                .HasForeignKey(ml => ml.MembershipLevel)
+                .IsRequired();
+
+
+
+
 
             modelBuilder.Entity<ParkingLot>()
                 .ToTable("ParkingLots", "PL")

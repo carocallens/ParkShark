@@ -7,8 +7,9 @@ namespace ParkShark.Services.Members.Interfaces
 {
     public interface IMemberServices
     {
-        Member AddMemberToDBContext(Member member);
         List<Member> GetAllMembers();
         Member GetMember(Guid memberID);
+        Member GetMember(string memberID);
+        Member CreateNewMember(MemberCreationOptions member);
     }
 }
