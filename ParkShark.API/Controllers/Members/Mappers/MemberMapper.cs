@@ -19,7 +19,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
             _membershipLevelMapper = membershipLevelMapper;
         }
 
-        public MemberCreationOptions DTOToMemberCriationOptions(MemberDTO_Create memberDTO)
+        public DummyMemberObject DTOToDummyMemberObject(MemberDTO_Create memberDTO)
         {
             MembershipLevelEnum memLevel;
             if (String.IsNullOrWhiteSpace(memberDTO.MembershipLevel))
@@ -31,7 +31,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
                 memLevel = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), memberDTO.MembershipLevel);
             }
 
-            return new MemberCreationOptions()
+            return new DummyMemberObject()
             {
                 FirstName = memberDTO.FirstName,
                 LastName = memberDTO.LastName,

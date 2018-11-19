@@ -7,7 +7,7 @@ namespace ParkShark.Services.Divisions.Interfaces
 {
     public interface IDivisionServices
     {
-        Division AddDivisionToDBbContext(Division division);
+        Division CreateDivision(Division division);
 
         List<Division> GetAllDivisions();
 

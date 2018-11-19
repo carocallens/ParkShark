@@ -18,6 +18,8 @@ namespace ParkShark.Domain.ParkingLots
         public Address Address { get; private set; }
         public decimal PricePerHour { get; private set; }
 
+        private ParkingLot() { }
+
         private ParkingLot(string name, Guid divisionId, BuildingType buildingType, int capacity, ContactPerson contactPerson, Address address, decimal pricePerHour)
         {
             Name = name;

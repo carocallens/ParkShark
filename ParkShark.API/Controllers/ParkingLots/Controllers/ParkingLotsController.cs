@@ -15,10 +15,10 @@ namespace ParkShark.API.Controllers.ParkingLots
     public class ParkingLotsController : ControllerBase
     {
 
-        private readonly IParkingLotMappers _parkingLotMapper;
+        private readonly IParkingLotMapper _parkingLotMapper;
         private readonly IParkingLotService _parkingLotService;
 
-        public ParkingLotsController(IParkingLotMappers parkingLotMapper, IParkingLotService parkingLotService)
+        public ParkingLotsController(IParkingLotMapper parkingLotMapper, IParkingLotService parkingLotService)
         {
             _parkingLotMapper = parkingLotMapper;
             _parkingLotService = parkingLotService;
@@ -56,7 +56,7 @@ namespace ParkShark.API.Controllers.ParkingLots
                 return BadRequest("Not valid");
             }
 
-            _parkingLotService.AddParkingLotToDBContext(parkingLot);
+            _parkingLotService.CreateParkingLot(parkingLot);
 
             return Ok(_parkingLotMapper.FromParkingLotToParkingLotDTOReturn(parkingLot));
         }

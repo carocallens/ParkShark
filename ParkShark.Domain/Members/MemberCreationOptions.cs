@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ParkShark.Domain.Members
 {
-    public class MemberCreationOptions
+    public class DummyMemberObject
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -18,9 +18,9 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
             MemberDTO_Create newMemDTOO = new MemberDTO_Create() { FirstName = "lars", LastName = "ff", Address = addressDTO };
 
             var newMapper = new MemberMapper(new AddressMapper(), new MembershipLevelMapper());
-            var result = newMapper.DTOToMemberCriationOptions(newMemDTOO);
+            var result = newMapper.DTOToDummyMemberObject(newMemDTOO);
 
-            Assert.IsType<MemberCreationOptions>(result);
+            Assert.IsType<DummyMemberObject>(result);
         }
 
         [Fact]

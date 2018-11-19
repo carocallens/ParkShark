@@ -44,7 +44,7 @@ namespace ParkShark.API
                 c.SwaggerDoc("v1", new Info { Title = "ParkShark.Api", Version = "v1" });
             });
 
-            services.AddScoped<IDivisionServices, DivisionServices>();
+            services.AddScoped<IDivisionServices, DivisionService>();
             services.AddScoped<IMemberServices, MemberService>();
             services.AddScoped<IParkingLotService, ParkingLotService>();
 
@@ -52,7 +52,7 @@ namespace ParkShark.API
             services.AddSingleton<IAddressMapper, AddressMapper>();
             services.AddSingleton<IDivisionMapper, DivisionMapper>();
             services.AddSingleton<IContactPersonMapper, ContactPersonMapper>();
-            services.AddSingleton<IParkingLotMappers, ParkingLotMappers>();
+            services.AddSingleton<IParkingLotMapper, ParkingLotMapper>();
             services.AddSingleton<IMembershipLevelMapper, MembershipLevelMapper>();
 
             services.AddDbContext<ParkSharkDbContext>(options =>

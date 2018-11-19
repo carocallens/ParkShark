@@ -35,7 +35,7 @@ namespace ParkShark.Services.Tests.ParkingLotServiceTests
                     .Build();
 
                 var service = new ParkingLotService(context);
-                var result = service.AddParkingLotToDBContext(parkingLot);
+                var result = service.CreateParkingLot(parkingLot);
 
                 Assert.IsType<ParkingLot>(result);
             }
@@ -56,7 +56,7 @@ namespace ParkShark.Services.Tests.ParkingLotServiceTests
                     .Build();
 
                 var service = new ParkingLotService(context);
-                var result = service.AddParkingLotToDBContext(parkingLot);
+                var result = service.CreateParkingLot(parkingLot);
 
                 Assert.Single(service.GetAllParkingLots());
             }

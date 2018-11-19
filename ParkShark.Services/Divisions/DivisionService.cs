@@ -8,16 +8,16 @@ using ParkShark.Data;
 
 namespace ParkShark.Services.Divisions
 {
-    public class DivisionServices : IDivisionServices
+    public class DivisionService : IDivisionServices
     {
         private readonly ParkSharkDbContext _parkSharkDbContext;
 
-        public DivisionServices(ParkSharkDbContext parkSharkDbContext)
+        public DivisionService(ParkSharkDbContext parkSharkDbContext)
         {
             _parkSharkDbContext = parkSharkDbContext;
         }
 
-        public Division AddDivisionToDBbContext(Division division)
+        public Division CreateDivision(Division division)
         {
 
             _parkSharkDbContext.Add(division);

@@ -19,7 +19,7 @@ namespace ParkShark.Services.Members
         }
 
 
-        public Member CreateNewMember(MemberCreationOptions member)
+        public Member CreateNewMember(DummyMemberObject member)
         {
             MembershipLevel levelOfMember = _parkSharkDBContext.Set<MembershipLevel>().FirstOrDefault(x => x.MembershipId == member.MembershipLevel);
             if (levelOfMember == null)

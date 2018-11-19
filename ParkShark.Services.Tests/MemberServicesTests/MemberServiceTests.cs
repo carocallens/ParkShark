@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ParkShark.Services.Tests.MemberServicesTests
 {
-    public class MemberServicesTests
+    public class MemberServiceTests
     {
         private static DbContextOptions CreateNewInMemoryDatabase()
         {
@@ -25,7 +25,7 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             {
                 var MemLev = new MembershipLevel();
 
-                var newMem = new MemberCreationOptions() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", 2050), MembershipLevel = MembershipLevelEnum.Bronze };
+                var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", 2050), MembershipLevel = MembershipLevelEnum.Bronze };
 
                 var service = new MemberService(context);
                 var result = service.CreateNewMember(newMem);
@@ -41,7 +41,7 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             {
                 var MemLev = new MembershipLevel();
 
-                var newMem = new MemberCreationOptions() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", 2050), MembershipLevel = MembershipLevelEnum.Bronze };
+                var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", 2050), MembershipLevel = MembershipLevelEnum.Bronze };
 
                 var service = new MemberService(context);
                 var result = service.CreateNewMember(newMem);

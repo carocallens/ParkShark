@@ -9,7 +9,7 @@ namespace ParkShark.Services.ParkingLots.Interfaces
     {
         List<ParkingLot> GetAllParkingLots();
 
-        ParkingLot AddParkingLotToDBContext(ParkingLot parkingLot);
+        ParkingLot CreateParkingLot(ParkingLot parkingLot);
         ParkingLot GetSingleParkingLot(Guid parkingLotID);
     }
 }

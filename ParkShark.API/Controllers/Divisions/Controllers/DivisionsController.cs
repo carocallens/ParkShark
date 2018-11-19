@@ -57,7 +57,7 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
                 return BadRequest("not valid");
             }
 
-            _divisionServices.AddDivisionToDBbContext(division);
+            _divisionServices.CreateDivision(division);
             return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(division));
 
         }
@@ -79,7 +79,7 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
                 return BadRequest();
             }
 
-            var DivisionWithParent = DivisionServices.AssignParentDivision(sub, parent);
+            var DivisionWithParent = DivisionService.AssignParentDivision(sub, parent);
             return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(DivisionWithParent));
         }
 

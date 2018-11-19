@@ -28,24 +28,6 @@ namespace ParkShark.Domain.Tests.Members
         }
 
         [Fact]
-        public void GivenPhoneNumberWithOutMemberId_WhenCreatePhoneNumber_ThenPhoneNumberIsNullObject()
-        {
-            var address = Address.CreateAddress("sn", "sn", 1234);
-            var member = Member.CreateMember(
-                                "fn",
-                                "ln",
-                                address,
-                                MembershipLevelEnum.Bronze,
-                                new MembershipLevel()
-                                );
-            var phoneNumberValue = "0472 80 50 40";
-
-            var PhoneNumberObject = PhoneNumber.CreatePhoneNumber(Guid.Empty, phoneNumberValue);
-
-            Assert.Null(PhoneNumberObject);
-        }
-
-        [Fact]
         public void GivenPhoneNumberWithNoPhoneNumberValue_WhenCreatePhoneNumber_ThenPhoneNumberIsNullObject()
         {
             var address = Address.CreateAddress("sn", "sn", 1234);
