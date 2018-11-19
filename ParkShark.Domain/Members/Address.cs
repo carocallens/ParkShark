@@ -15,21 +15,22 @@ namespace ParkShark.Domain.Members
         {
         }
 
-        private Address(string streetName, string streetNumber, int zip)
+        private Address(string streetName, string streetNumber, City givenCity)
         {
             StreetName = streetName;
             StreetNumber = streetNumber;
-            ZIP = zip;
+            ZIP = givenCity.ZIP;
+            City = givenCity;
         }
 
-        public static Address CreateAddress(string streetName, string streetNumber, int zip)
+        public static Address CreateAddress(string streetName, string streetNumber, City givenCity)
         {
-            if(string.IsNullOrWhiteSpace(streetName)|| string.IsNullOrWhiteSpace(streetNumber) || zip.ToString().Length != 4)
+            if (string.IsNullOrWhiteSpace(streetName) || string.IsNullOrWhiteSpace(streetNumber) || givenCity.ZIP.ToString().Length != 4)
             {
                 return null;
             }
 
-            return new Address(streetName, streetNumber, zip);
+            return new Address(streetName, streetNumber, givenCity);
         }
     }
 }
