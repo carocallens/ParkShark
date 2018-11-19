@@ -8,15 +8,15 @@ namespace ParkShark.Domain.ParkingLots
 {
     public class ParkingLot
     {
-        public Guid ParkingLotID { get; private set; }
-        public string Name { get; private set; }
-        public Guid DivisionID { get; private set; }
-        public Division Division { get; private set; }
-        public BuildingType BuildingType { get; private set; }
-        public int Capacity { get; private set; }
-        public ContactPerson ContactPerson { get; private set; } 
-        public Address Address { get; private set; }
-        public decimal PricePerHour { get; private set; }
+        public Guid ParkingLotID { get;  set; }
+        public string Name { get;  set; }
+        public Guid DivisionID { get;  set; }
+        public Division Division { get;  set; }
+        public BuildingType BuildingType { get;  set; }
+        public int Capacity { get;  set; }
+        public ContactPerson ContactPerson { get;  set; } 
+        public Address Address { get;  set; }
+        public decimal PricePerHour { get;  set; }
 
         private ParkingLot() { }
 
