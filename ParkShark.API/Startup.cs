@@ -46,6 +46,7 @@ namespace ParkShark.API
             services.AddSingleton<IMemberMapper, MemberMapper>();
             services.AddSingleton<IAddressMapper, AddressMapper>();
             services.AddSingleton<IDivisionMapper, DivisionMapper>();
+            services.AddSingleton<IMembershipLevelMapper, MembershipLevelMapper>();
 
             services.AddDbContext<ParkSharkDbContext>(options =>
                 options

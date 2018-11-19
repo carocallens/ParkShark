@@ -18,12 +18,17 @@ namespace ParkShark.Services.Members
             _parkSharkDBContext = memberDBContext;
         }
 
-        public Member AddMemberToDBContext(Member member)
+
+        public Member CreateNewMember(MemberCreationOptions member)
         {
-            _parkSharkDBContext.Add(member);
+            MembershipLevel levelOfMember = _parkSharkDBContext.MembershipLevel.SingleOrDefault(x => x.Membership == member.MembershipLevel);
+
+            var newMember = Member.CreateMember(member.FirstName, member.LastName, member.Address, member.MembershipLevel, levelOfMember);
+
+            _parkSharkDBContext.Add(newMember);
             _parkSharkDBContext.SaveChanges();
 
-            return member;
+            return newMember;
         }
 
         public List<Member> GetAllMembers()
@@ -43,13 +48,14 @@ namespace ParkShark.Services.Members
         {
             var member = _parkSharkDBContext.Members.SingleOrDefault(x => x.MemberId == memberID);
 
-            if(member == null)
+            if (member == null)
             {
                 return null;
             }
 
             return member;
-            
+
         }
+
     }
 }

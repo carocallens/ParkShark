@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ParkShark.API.Controllers.Members.DTO
+namespace ParkShark.Domain.Members
 {
-    public class MemberDTO_Return
+    public class MemberCreationOptions
     {
-        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public AddressDTO Address { get; set; }
-        public MembershipLevelDTO MembershipLevel { get; set; }
+        public Address Address { get; set; }
+        public MembershipLevelEnum MembershipLevel { get; set; }
     }
 }
+
