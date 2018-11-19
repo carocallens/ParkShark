@@ -1,127 +1,111 @@
-﻿using ParkShark.Domain.Members;
-using System;
-using Xunit;
+﻿//using ParkShark.Domain.Members;
+//using System;
+//using Xunit;
 
-namespace ParkShark.Domain.Tests.Members
-{
-    public class LicensePlateTests
-    {
-        [Fact]
-        public void GivenHappyPath_WhenCreateNewLicensePlate_ThenLicensePlateCreated()
-        {
-            //given
-            var firstName = "firstName";
-            var lastName = "lastName";
+//namespace ParkShark.Domain.Tests.Members
+//{
+//    public class LicensePlateTests
+//    {
+//        [Fact]
+//        public void GivenHappyPath_WhenCreateNewLicensePlate_ThenLicensePlateCreated()
+//        {
+//            //given
+//            var firstName = "firstName";
+//            var lastName = "lastName";
 
-            var city = new City(
-                        1234,
-                        "CityName",
-                        "CountryName"
-                        );
+//            var city = new City(
+//                        1234,
+//                        "CityName",
+//                        "CountryName"
+//                        );
 
-            Address address = Address.CreateAddress(
-                                "StreetName",
-                                "StreetNumber",
-                                city.ZIP
-                                );
+//            Address address = Address.CreateAddress(
+//                                "StreetName",
+//                                "StreetNumber",
+//                                city.ZIP
+//                                );
 
-            var member = Member.CreateMember(
-                            firstName,
-                            lastName,
-                            address
-                            );
+//            var member = Member.CreateMember(
+//                            firstName,
+//                            lastName,
+//                            address
+//                            );
 
-            //when
-            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId,
-                                                                "1-ABC-123",
-                                                                "Belgium");
+//            //when
+//            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId,
+//                                                                "1-ABC-123",
+//                                                                "Belgium");
 
-            //then
-            Assert.NotNull(licensePlate);
-        }
+//            //then
+//            Assert.NotNull(licensePlate);
+//        }
 
-        [Fact]
-        public void GivenLicensePlateWithMemberIdNull_WhenCreateLicensePlate_ThenLicensePlateIsNull()
-        {
+//        [Fact]
+//        public void GivenLicensePlateWithLicensePlateValueNull_WhenCreateLicensePlate_ThenLicensePlateIsNull()
+//        {
+//            //given
+//            var firstName = "firstName";
+//            var lastName = "lastName";
 
-            //given
+//            var city = new City(
+//                        1234,
+//                        "CityName",
+//                        "CountryName"
+//                        );
 
+//            Address address = Address.CreateAddress(
+//                                "StreetName",
+//                                "StreetNumber",
+//                                city.ZIP
+//                                );
 
-            //when
-            var licensePlate = LicensePlate.CreateLicensePlate(Guid.Empty,
-                                                                "1-ABC-123",
-                                                                "Belgium");
+//            var member = Member.CreateMember(
+//                            firstName,
+//                            lastName,
+//                            address
+//                            );
 
-            //then
-            Assert.Null(licensePlate);
-        }
+//            //when
+//            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId,
+//                                                                null,
+//                                                                "Belgium");
 
-        [Fact]
-        public void GivenLicensePlateWithLicensePlateValueNull_WhenCreateLicensePlate_ThenLicensePlateIsNull()
-        {
-            //given
-            var firstName = "firstName";
-            var lastName = "lastName";
+//            //then
+//            Assert.Null(licensePlate);
+//        }
 
-            var city = new City(
-                        1234,
-                        "CityName",
-                        "CountryName"
-                        );
+//        [Fact]
+//        public void GivenLicensePlateWithIssueingCountryNull_WhenCreateLicensePlate_ThenLicensePlateIsNull()
+//        {
+//            //given
+//            var firstName = "firstName";
+//            var lastName = "lastName";
 
-            Address address = Address.CreateAddress(
-                                "StreetName",
-                                "StreetNumber",
-                                city.ZIP
-                                );
+//            var city = new City(
+//                        1234,
+//                        "CityName",
+//                        "CountryName"
+//                        );
 
-            var member = Member.CreateMember(
-                            firstName,
-                            lastName,
-                            address
-                            );
+//            Address address = Address.CreateAddress(
+//                                "StreetName",
+//                                "StreetNumber",
+//                                city.ZIP
+//                                );
 
-            //when
-            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId,
-                                                                null,
-                                                                "Belgium");
+//            var member = Member.CreateMember(
+//                            firstName,
+//                            lastName,
+//                            address
+//                            );
 
-            //then
-            Assert.Null(licensePlate);
-        }
+//            //when
+//            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId,
+//                                                                "1-ABC-123",
+//                                                                null);
 
-        [Fact]
-        public void GivenLicensePlateWithIssueingCountryNull_WhenCreateLicensePlate_ThenLicensePlateIsNull()
-        {
-            //given
-            var firstName = "firstName";
-            var lastName = "lastName";
-
-            var city = new City(
-                        1234,
-                        "CityName",
-                        "CountryName"
-                        );
-
-            Address address = Address.CreateAddress(
-                                "StreetName",
-                                "StreetNumber",
-                                city.ZIP
-                                );
-
-            var member = Member.CreateMember(
-                            firstName,
-                            lastName,
-                            address
-                            );
-
-            //when
-            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId,
-                                                                "1-ABC-123",
-                                                                null);
-
-            //then
-            Assert.Null(licensePlate);
-        }
-    }
-}
+//            //then
+//            Assert.Null(licensePlate);
+//        }
+//    }
+//}

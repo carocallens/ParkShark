@@ -114,17 +114,25 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         [Fact]
         public void Given2Divisions_WhenAssigningParentTOSUb_SubdevisionIsReturnedWithParentGuidID()
         {
-            var name = "Test1";
-            var originalName = "Test1";
-            string director = "test1";
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var service = new DivisionServices(context);
 
-            var parDivision = Division.CreateNewDivision(name, originalName, director);
-            var subDivision = Division.CreateNewDivision(name, originalName, director);
+                var name = "Test1";
+                var originalName = "Test1";
+                string director = "test1";
 
-            var result = DivisionServices.AssignParentDivision(subDivision, parDivision);
+                var parDivision = Division.CreateNewDivision(name, originalName, director);
+                service.AddDivisionToDBbContext(parDivision);
+                var subDivision = Division.CreateNewDivision(name, originalName, director);
+                service.AddDivisionToDBbContext(subDivision);
 
-            Assert.Equal(parDivision.ID, subDivision.ParentDivisionGuidID);
-            Assert.Single(parDivision.SubdivisionsList);
+                var result = DivisionServices.AssignParentDivision(subDivision, parDivision);
+
+
+                Assert.Equal(parDivision.ID, subDivision.ParentDivisionGuidID);
+                Assert.Single(parDivision.SubdivisionsList);
+            }
         }
 
         [Fact]
