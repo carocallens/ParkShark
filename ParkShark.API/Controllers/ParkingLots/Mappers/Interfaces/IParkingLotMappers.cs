@@ -11,5 +11,6 @@ namespace ParkShark.API.Controllers.ParkingLots.Mappers.Interfaces
     {
         ParkingLot FromParkingLotCreateToParkingLot(ParkingLotDTO_Create parkingLotDTO);
         ParkingLotDTO_Return FromParkingLotToParkingLotDTOReturn(ParkingLot parkingLot);
+        List<ParkingLotDTO_Return> CreateListOfParkingLotDTOReturnsFromParkingLotList(List<ParkingLot> getAllParkingLots);
     }
 }

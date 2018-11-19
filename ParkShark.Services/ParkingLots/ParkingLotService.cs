@@ -3,6 +3,7 @@ using ParkShark.Domain.ParkingLots;
 using ParkShark.Services.ParkingLots.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ParkShark.Services.ParkingLots
@@ -16,6 +17,7 @@ namespace ParkShark.Services.ParkingLots
             _context = context;
         }
 
+
         public ParkingLot AddParkingLotToDBContext(ParkingLot parkingLot)
         {
             if(parkingLot == null)
@@ -27,6 +29,21 @@ namespace ParkShark.Services.ParkingLots
             _context.SaveChanges();
 
             return parkingLot;
+        }
+
+        public List<ParkingLot> GetAllParkingLots()
+        {
+            return _context.ParkingLots.Select(x => x).ToList();
+        }
+
+        public ParkingLot GetSingleParkingLot(Guid parkingLotID)
+        {
+           var result = _context.ParkingLots.SingleOrDefault(x => x.ParkingLotID == parkingLotID);
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
         }
     }
 }

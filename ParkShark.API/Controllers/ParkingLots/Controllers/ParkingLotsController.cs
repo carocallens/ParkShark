@@ -26,16 +26,23 @@ namespace ParkShark.API.Controllers.ParkingLots
 
         // GET: api/ParkingLots
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<ParkingLotDTO_Return> GetAllParkingLots()
         {
-            return new string[] { "value1", "value2" };
+            return _parkingLotMapper.CreateListOfParkingLotDTOReturnsFromParkingLotList(_parkingLotService.GetAllParkingLots());
         }
 
         // GET: api/ParkingLots/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{parkingLotID})")]
+        //[HttpGet("{ParkingLotID}")]
+        public ActionResult<ParkingLotDTO_Return> GetSingleParkingLot(string parkingLotID)
         {
-            return "value";
+            
+            var result = _parkingLotService.GetSingleParkingLot(new Guid(parkingLotID));
+            if (result == null)
+            {
+                return BadRequest("invalid input");
+            }
+            return Ok(_parkingLotMapper.FromParkingLotToParkingLotDTOReturn(result));
         }
 
         // POST: api/ParkingLots
