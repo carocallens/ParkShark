@@ -20,10 +20,24 @@ namespace ParkShark.API.Controllers.ParkingLots.Mappers
             _contactPersonMapper = contactPersonMapper;
         }
 
+        public List<ParkingLotDTO_Return> CreateListOfParkingLotDTOReturnsFromParkingLotList(List<ParkingLot> getAllParkingLots)
+        {
+            var newList = new List<ParkingLotDTO_Return>();
+
+            foreach (var item in getAllParkingLots)
+            {
+                newList.Add(FromParkingLotToParkingLotDTOReturn(item));
+            }
+
+            return newList;
+        }
+
         public ParkingLot FromParkingLotCreateToParkingLot(ParkingLotDTO_Create parkingLotDTO)
         {
+            BuildingType buildingType = (BuildingType)Enum.Parse(typeof(BuildingType), parkingLotDTO.Buildingtype);
+
             var parkingLot = ParkingLotBuilder.CreateNewParkingLot()
-                .WithBuildingType(parkingLotDTO.Buildingtype)
+                .WithBuildingType(buildingType)
                 .WithCapacity(parkingLotDTO.Capacity)
                 .WithContactPerson(_contactPersonMapper.FromContactPersonDTOTOContactPerson(parkingLotDTO.ContactPerson))
                 .WithDivision(parkingLotDTO.DivisionID)
@@ -38,6 +52,7 @@ namespace ParkShark.API.Controllers.ParkingLots.Mappers
         {
             ParkingLotDTO_Return parkingLotDTOReturn = new ParkingLotDTO_Return
             {
+                ParkingLotID = parkingLot.ParkingLotID,
                 Buildingtype = parkingLot.BuildingType,
                 Capacity = parkingLot.Capacity,
                 ContactPerson = _contactPersonMapper.FromContactPersonTOContactPersonDTO(parkingLot.ContactPerson),
