@@ -27,6 +27,10 @@ namespace ParkShark.Services.Members
                 return null;
             }
             var newMember = Member.CreateMember(member.FirstName, member.LastName, member.Address, member.MembershipLevel, levelOfMember);
+            if (newMember == null)
+            {
+                return null;
+            }
 
             _parkSharkDBContext.Add(newMember);
             _parkSharkDBContext.SaveChanges();
@@ -39,7 +43,7 @@ namespace ParkShark.Services.Members
             var MemberList = new List<Member>();
             var MemberDbSet = _parkSharkDBContext.Set<Member>();
 
-            foreach (var member in MemberDbSet.Include(m => m.MembershipLevel))
+            foreach (var member in MemberDbSet.Include(m => m.MembershipLevel).Include(m =>m.Address).ThenInclude(c => c.City))
             {
                 MemberList.Add(member);
             }

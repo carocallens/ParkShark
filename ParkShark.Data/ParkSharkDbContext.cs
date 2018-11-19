@@ -131,6 +131,8 @@ namespace ParkShark.Data
             modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.Name).HasColumnName("MembershipLevel_Name");
             modelBuilder.Entity<MembershipLevel>()
+               .Property(ml => ml.Description).HasColumnName("MembershipLevel_Description");
+            modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.MonthlyCost).HasColumnName("MembershipLevel_MonthlyCost");
             modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.PSAPriceReductionPercentage).HasColumnName("MembershipLevel_PSA_PriceReduction");

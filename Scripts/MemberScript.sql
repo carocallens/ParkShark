@@ -50,7 +50,7 @@ drop table Mem.MembershipLevel
 create table Mem.MembershipLevel(
 MembershipLevel_ID  int not null,
 MembershipLevel_Name varchar (100) not null,
-MembershipLevel_Discription varchar (100) not null,
+MembershipLevel_Description varchar (100) not null,
 MembershipLevel_MonthlyCost decimal not null,
 MembershipLevel_PSA_PriceReduction float not null,
 MembershipLevel_PSA_MaxTime time(7) not null
@@ -74,7 +74,7 @@ foreign key (Member_ID) references Mem.Members(Member_ID)
 
 insert into Mem.MembershipLevel(
 	MembershipLevel_ID ,
-	MembershipLevel_Discription,
+	MembershipLevel_Description,
 	MembershipLevel_Name ,
 	MembershipLevel_MonthlyCost ,
 	MembershipLevel_PSA_PriceReduction, 
