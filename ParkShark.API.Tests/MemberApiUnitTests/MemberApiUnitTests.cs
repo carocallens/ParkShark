@@ -17,18 +17,19 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
             AddressDTO addressDTO = new AddressDTO { StreetName = "test", StreetNumber = "5", ZIP = 2050 };
             MemberDTO_Create newMemDTOO = new MemberDTO_Create() { FirstName = "lars", LastName = "ff", Address = addressDTO };
 
-            var newMapper = new MemberMapper(new AddressMapper());
+            var newMapper = new MemberMapper(new AddressMapper(), new MembershipLevelMapper());
             var result = newMapper.DTOToMemberCriationOptions(newMemDTOO);
 
-            Assert.IsType<Member>(result);
+            Assert.IsType<MemberCreationOptions>(result);
         }
 
         [Fact]
         public void GivenCreateMembenDTOReturnFromMember_WhenGivenAMemberToCreate_ThenCreateAMemberDTOReturn()
         {
-            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
+            var MemLev = new MembershipLevel();
+            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
 
-            var newMapper = new MemberMapper(new AddressMapper());
+            var newMapper = new MemberMapper(new AddressMapper(), new MembershipLevelMapper());
             var result = newMapper.MemberToDTOReturn(newMem);
 
             Assert.IsType<MemberDTO_Return>(result);
@@ -37,13 +38,14 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
         [Fact]
         public void GivenCreateDivisionDTOReturnListFromDivisionList_WhenGivenADivisionList_ThenCreateADivisionDTOReturnList()
         {
-            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
-            var newMem2 = Member.CreateMember("lsdsars", "Pesdelman", Address.CreateAddress("test", "5", 2050));
+            var MemLev = new MembershipLevel();
+            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
+            var newMem2 = Member.CreateMember("lsdsars", "Pesdelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
             var testList = new List<Member>();
             testList.Add(newMem);
             testList.Add(newMem2);
 
-            var newMapper = new MemberMapper(new AddressMapper());
+            var newMapper = new MemberMapper(new AddressMapper(), new MembershipLevelMapper());
             var result = newMapper.MemberListToDTOReturnList(testList);
 
             Assert.IsType<List<MemberDTO_Return>>(result);
@@ -52,7 +54,7 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
         [Fact]
         public void GivenCreateAdressDTOFromAddress_WhenGivenAnAddressToCreate_ThenCreateAddressDTO()
         {
-            Address address = Address.CreateAddress(  "test",  "5", 2050 );
+            Address address = Address.CreateAddress("test", "5", 2050);
 
             var newMapper = new AddressMapper();
             var result = newMapper.AddressToDTO(address);

@@ -25,7 +25,14 @@ namespace ParkShark.Domain.Tests.Members
                                         );
 
             //when
-            var member = Member.CreateMember(firstName, lastName, address);
+            var memLevel = new MembershipLevel();
+            var member = Member.CreateMember(
+                            firstName,
+                            lastName,
+                            address,
+                            MembershipLevelEnum.Bronze,
+                            memLevel
+                            );
 
             //then
             Assert.True(member != null);
@@ -51,8 +58,14 @@ namespace ParkShark.Domain.Tests.Members
                                         );
 
             //when
-            var member = Member.CreateMember(firstName, lastName, address);
-
+            var memLevel = new MembershipLevel();
+            var member = Member.CreateMember(
+                            firstName,
+                            lastName,
+                            address,
+                            MembershipLevelEnum.Bronze,
+                            memLevel
+                            );
             //then
             Assert.Null(member);
         }
@@ -77,7 +90,14 @@ namespace ParkShark.Domain.Tests.Members
                                         );
 
             //when
-            var member = Member.CreateMember(firstName, lastName, address);
+            var memLevel = new MembershipLevel();
+            var member = Member.CreateMember(
+                            firstName,
+                            lastName,
+                            address,
+                            MembershipLevelEnum.Bronze,
+                            memLevel
+                            );
 
             //then
             Assert.Null(member);
@@ -91,8 +111,16 @@ namespace ParkShark.Domain.Tests.Members
             var lastName = "lastName";
 
 
+
             //when
-            var member = Member.CreateMember(firstName, lastName, null);
+            var memLevel = new MembershipLevel();
+            var member = Member.CreateMember(
+                            firstName,
+                            lastName,
+                            null,
+                            MembershipLevelEnum.Bronze,
+                            memLevel
+                            );
 
             //then
             Assert.Null(member);

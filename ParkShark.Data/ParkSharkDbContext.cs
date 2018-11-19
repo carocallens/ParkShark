@@ -116,10 +116,11 @@ namespace ParkShark.Data
 
             modelBuilder.Entity<MembershipLevel>()
              .ToTable("MembershipLevel", "MemL")
-             .HasKey(e => e.Membership);
+             .HasKey(e => e.MembershipId);
+
 
             modelBuilder.Entity<MembershipLevel>()
-               .Property(ml => ml.Membership).HasColumnName("MembershipLevel_ID");
+               .Property(ml => ml.MembershipId).HasColumnName("MembershipLevel_ID");
             modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.Name).HasColumnName("MembershipLevel_Name");
             modelBuilder.Entity<MembershipLevel>()
@@ -132,7 +133,7 @@ namespace ParkShark.Data
             modelBuilder.Entity<Member>()
                 .HasOne(ml => ml.MembershipLevel)
                 .WithMany(level => level.members)
-                .HasForeignKey(ml => ml.MembershipLevel)
+                .HasForeignKey(ml => ml.MembershipLevelId)
                 .IsRequired();
 
 
