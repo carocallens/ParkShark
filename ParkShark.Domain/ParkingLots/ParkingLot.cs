@@ -18,8 +18,6 @@ namespace ParkShark.Domain.ParkingLots
         public Address Address { get;  set; }
         public decimal PricePerHour { get;  set; }
 
-        private ParkingLot() { }
-
         private ParkingLot(string name, Guid divisionId, BuildingType buildingType, int capacity, ContactPerson contactPerson, Address address, decimal pricePerHour)
         {
             Name = name;
@@ -33,22 +31,22 @@ namespace ParkShark.Domain.ParkingLots
 
         public static ParkingLot CreateParkingLot(ParkingLotBuilder builder)
         {
-            if(string.IsNullOrWhiteSpace(builder.Name) || 
-                builder.Address == null || 
-                builder.Capacity <= 0 || 
-                builder.ContactPerson == null||
-                builder.PricePerHour <0)
+            if (string.IsNullOrWhiteSpace(builder.Name) ||
+                builder.Address == null ||
+                builder.Capacity <= 0 ||
+                builder.ContactPerson == null ||
+                builder.PricePerHour < 0)
             {
                 return null;
             }
 
             return new ParkingLot(
-                builder.Name, 
-                builder.DivisionID, 
-                builder.Buildingtype, 
-                builder.Capacity, 
+                builder.Name,
+                builder.DivisionID,
+                builder.Buildingtype,
+                builder.Capacity,
                 builder.ContactPerson,
-                builder.Address, 
+                builder.Address,
                 builder.PricePerHour);
         }
     }
