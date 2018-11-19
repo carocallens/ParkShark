@@ -31,9 +31,9 @@ namespace ParkShark.Services.Divisions
             return _parkSharkDbContext.Division.Select(x => x).ToList();
         }
 
-        public Division GetSingleDivision(string givenID)
+        public Division GetSingleDivision(Guid givenID)
         {
-            var result = _parkSharkDbContext.Division.SingleOrDefault(x => x.GuidID == givenID);
+            var result = _parkSharkDbContext.Division.SingleOrDefault(x => x.ID == givenID);
 
             if (result == null)
             { return null; }
@@ -44,14 +44,14 @@ namespace ParkShark.Services.Divisions
 
         public static Division AssignParentDivision(Division DivisionToAssignParentTo, Division ParentDivisionToAssign)
         {
-            if (ParentDivisionToAssign.GuidID == DivisionToAssignParentTo.GuidID
+            if (ParentDivisionToAssign.ID == DivisionToAssignParentTo.ID
                 || DivisionToAssignParentTo.ParentDivisionGuidID != null
-                || ParentDivisionToAssign.SubdivisionsList.Any(x => x.GuidID == DivisionToAssignParentTo.GuidID))
+                || ParentDivisionToAssign.SubdivisionsList.Any(x => x.ID == DivisionToAssignParentTo.ID))
             {
                 return null;
             }
 
-            DivisionToAssignParentTo.ParentDivisionGuidID = ParentDivisionToAssign.GuidID;
+            DivisionToAssignParentTo.ParentDivisionGuidID = ParentDivisionToAssign.ID;
             DivisionToAssignParentTo.ParentDivision = ParentDivisionToAssign;
             ParentDivisionToAssign.SubdivisionsList.Add(DivisionToAssignParentTo);
 

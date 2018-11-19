@@ -10,6 +10,7 @@ namespace ParkShark.Data
 
         public virtual DbSet<Division> Division { get; set; }
         public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<ParkingLot> ParkingLots { get; set; }
 
         public ParkSharkDbContext(DbContextOptions options) : base(options)
         {
@@ -19,7 +20,7 @@ namespace ParkShark.Data
         {
             modelBuilder.Entity<Division>()
                 .ToTable("Division", "Div")
-                .HasKey(e => e.GuidID);
+                .HasKey(e => e.ID);
 
             modelBuilder.Entity<Division>()
                 .HasOne(parent => parent.ParentDivision)
@@ -27,7 +28,7 @@ namespace ParkShark.Data
                 .HasForeignKey(key => key.ParentDivisionGuidID);
 
             modelBuilder.Entity<Division>()
-                .Property(d => d.GuidID).HasColumnName("Division_ID");
+                .Property(d => d.ID).HasColumnName("Division_ID");
             modelBuilder.Entity<Division>()
                 .Property(d => d.Director).HasColumnName("Division_Director");
             modelBuilder.Entity<Division>()
@@ -61,7 +62,6 @@ namespace ParkShark.Data
                 });
 
 
-
             modelBuilder.Entity<Member>()
                 .Property(m => m.MemberId).HasColumnName("Member_ID");
             modelBuilder.Entity<Member>()
@@ -70,19 +70,6 @@ namespace ParkShark.Data
                 .Property(m => m.LastName).HasColumnName("Member_LastName");
             modelBuilder.Entity<Member>()
                 .Property(m => m.RegistrationDate).HasColumnName("Member_RegistrationDate");
-            modelBuilder.Entity<LicensePlate>()
-                .Property(m => m.IssueingCountry).HasColumnName("IssueingCountry");
-            modelBuilder.Entity<LicensePlate>()
-                .Property(lcp => lcp.LicensePlateValue).HasColumnName("LicensePlate");
-            modelBuilder.Entity<LicensePlate>()
-                .Property(m => m.MemberId).HasColumnName("Member_ID");
-            modelBuilder.Entity<City>()
-                .Property(t => t.ZIP).HasColumnName("City_ZIP");
-            modelBuilder.Entity<City>()
-                .Property(u => u.CityName).HasColumnName("City_Name");
-            modelBuilder.Entity<City>()
-                .Property(v => v.CountryName).HasColumnName("City_CountryName");
-
 
             modelBuilder.Entity<Member>()
                 .OwnsOne(a => a.Address, a =>
@@ -92,6 +79,20 @@ namespace ParkShark.Data
                     a.Property(z => z.ZIP).HasColumnName("City_ZIP");
                 });
 
+
+            modelBuilder.Entity<LicensePlate>()
+                .Property(m => m.IssueingCountry).HasColumnName("IssueingCountry");
+            modelBuilder.Entity<LicensePlate>()
+                .Property(lcp => lcp.LicensePlateValue).HasColumnName("LicensePlate");
+            modelBuilder.Entity<LicensePlate>()
+                .Property(m => m.MemberId).HasColumnName("Member_ID");
+
+            modelBuilder.Entity<City>()
+                .Property(t => t.ZIP).HasColumnName("City_ZIP");
+            modelBuilder.Entity<City>()
+                .Property(u => u.CityName).HasColumnName("City_Name");
+            modelBuilder.Entity<City>()
+                .Property(v => v.CountryName).HasColumnName("City_CountryName");
 
             modelBuilder.Entity<Address>()
                 .HasOne(m => m.City)
@@ -116,15 +117,17 @@ namespace ParkShark.Data
                 .HasKey(p => p.ParkingLotID);
 
             modelBuilder.Entity<ParkingLot>()
+                .Property(p => p.ParkingLotID).HasColumnName("ParkingLot_ID");
+            modelBuilder.Entity<ParkingLot>()
                 .Property(p => p.Name).HasColumnName("ParkingLot_Name");
             modelBuilder.Entity<ParkingLot>()
                 .Property(p => p.DivisionID).HasColumnName("Division_ID");
             modelBuilder.Entity<ParkingLot>()
                 .Property(p => p.Capacity).HasColumnName("ParkingLot_Capacity");
             modelBuilder.Entity<ParkingLot>()
-                .Property(p => p.BuildingtypeID).HasColumnName("BuildingType_ID");
-            modelBuilder.Entity<ParkingLot>()
-                .Property(p => p.ContactPersonID).HasColumnName("ContactPerson_Id");
+                .Property(p => p.BuildingType)
+                .HasConversion<string>()
+                .HasColumnName("BuildingType");
             modelBuilder.Entity<ParkingLot>()
                 .Property(p => p.PricePerHour).HasColumnName("ParkingLot_PricePerHour");
 
@@ -134,14 +137,32 @@ namespace ParkShark.Data
              {
                  a.Property(b => b.StreetName).HasColumnName("ParkingLot_StreetName");
                  a.Property(s => s.StreetNumber).HasColumnName("ParkingLot_StreetNumber");
-                 a.Property(z => z.ZIP).HasColumnName("City_ZIP");
+                 a.Property(z => z.ZIP).HasColumnName("ParkingLot_City_ZIP");
              });
 
             modelBuilder.Entity<ParkingLot>()
-                .HasOne(p => p.ContactPerson)
+                .HasOne(p => p.Division)
                 .WithMany()
-                .HasForeignKey(fr => fr.ContactPersonID)
+                .HasForeignKey(p => p.DivisionID)
                 .IsRequired();
+
+            modelBuilder.Entity<ParkingLot>()
+                .OwnsOne(p => p.ContactPerson, p =>
+                {
+                    p.Property(x => x.FirstName).HasColumnName("ContactPerson_FirstName");
+                    p.Property(x => x.LastName).HasColumnName("ContactPerson_LastName");
+                    p.Property(x => x.Email).HasColumnName("ContactPerson_Email");
+                    p.Property(x => x.PhoneNumber).HasColumnName("ContactPerson_PhoneNumber");
+                    p.Property(x => x.MobilePhoneNumber).HasColumnName("ContactPerson_MobileNumber");
+                });
+
+            modelBuilder.Entity<ContactPerson>()
+                .OwnsOne(a => a.Address, a =>
+                {
+                    a.Property(x => x.StreetName).HasColumnName("ContactPerson_StreetName");
+                    a.Property(x => x.StreetNumber).HasColumnName("ContactPerson_StreetNumber");
+                    a.Property(x => x.ZIP).HasColumnName("ContactPerson_City_ZIP");
+                });
 
             modelBuilder.Entity<ParkingLot>()
                 .HasOne(div => div.Division)

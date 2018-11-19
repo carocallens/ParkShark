@@ -48,7 +48,7 @@ namespace ParkShark.API.Controllers.Members.Controllers
         }
 
         [HttpGet("{Member_ID}")]
-        public ActionResult<MemberDTO_Return> GetSingleMember(string memberID)
+        public ActionResult<MemberDTO_Return> GetSingleMember(Guid memberID)
         {
             var member = _memberService.GetMember(memberID);
 

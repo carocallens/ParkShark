@@ -8,16 +8,15 @@ namespace ParkShark.Domain.ParkingLots
 {
     public class ParkingLotBuilder
     {
-        public string ParkingLotID { get; private set; }
         public string Name { get; private set; }
-        public int DivisionID { get; private set; }
-        public BuildingType BuildingtypeID { get; private set; }
+        public Guid DivisionID { get; private set; }
+        public BuildingType Buildingtype { get; private set; }
         public int Capacity { get; private set; }
-        public int ContactPersonID { get; private set; }
         public Address Address { get; private set; }
         public decimal PricePerHour { get; private set; }
+        public ContactPerson ContactPerson{ get; private set; }
 
-        private  ParkingLotBuilder()
+    private  ParkingLotBuilder()
         {
    
         }
@@ -33,15 +32,15 @@ namespace ParkShark.Domain.ParkingLots
             return this;
         }
 
-        public ParkingLotBuilder WithDivision(int division)
+        public ParkingLotBuilder WithDivision(Guid division)
         {
             this.DivisionID = division;
             return this;
         }
 
-        public ParkingLotBuilder WithBuildingType(BuildingType buildingType = BuildingType.Abovehground)
+        public ParkingLotBuilder WithBuildingType(BuildingType buildingType = BuildingType.AboveGround)
         {
-            this.BuildingtypeID = buildingType;
+            this.Buildingtype = buildingType;
             return this;
         }
 
@@ -51,10 +50,10 @@ namespace ParkShark.Domain.ParkingLots
             return this;
         }
 
-        public ParkingLotBuilder WithContactPersonID(int contactPersonID)
+        public ParkingLotBuilder WithContactPerson(ContactPerson contactPerson)
         {
 
-            this.ContactPersonID = contactPersonID;
+            this.ContactPerson = contactPerson;
             return this;
         }
 
@@ -74,5 +73,7 @@ namespace ParkShark.Domain.ParkingLots
         {
             return ParkingLot.CreateParkingLot(this);
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ParkShark.Domain.Members;
+using System;
 using Xunit;
 
 namespace ParkShark.Domain.Tests.Members
@@ -31,7 +32,7 @@ namespace ParkShark.Domain.Tests.Members
                             );
 
             //when
-            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId.ToString(),
+            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId,
                                                                 "1-ABC-123",
                                                                 "Belgium");
 
@@ -47,7 +48,7 @@ namespace ParkShark.Domain.Tests.Members
 
 
             //when
-            var licensePlate = LicensePlate.CreateLicensePlate(null,
+            var licensePlate = LicensePlate.CreateLicensePlate(Guid.Empty,
                                                                 "1-ABC-123",
                                                                 "Belgium");
 
@@ -81,7 +82,7 @@ namespace ParkShark.Domain.Tests.Members
                             );
 
             //when
-            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId.ToString(),
+            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId,
                                                                 null,
                                                                 "Belgium");
 
@@ -115,7 +116,7 @@ namespace ParkShark.Domain.Tests.Members
                             );
 
             //when
-            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId.ToString(),
+            var licensePlate = LicensePlate.CreateLicensePlate(member.MemberId,
                                                                 "1-ABC-123",
                                                                 null);
 

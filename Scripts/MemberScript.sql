@@ -1,8 +1,11 @@
+use [ParkSharkDb]
+go
+
 create schema Mem
 go
 
 create table Mem.Members(
-Member_ID varchar(100) not null,
+Member_ID uniqueidentifier not null default newid(),
 Member_FirstName varchar(100) not null,
 Member_LastName varchar(100) not null,
 Member_StreetName varchar(100) not null,
@@ -20,12 +23,12 @@ constraint Cities_pk primary key(City_ZIP)
 )
 
 create table Mem.PhoneNumbers(
-Member_ID varchar(100) not null,
+Member_ID uniqueidentifier not null,
 PhoneNumber varchar(100) not null
 )
 
 create table Mem.LicensePlates(
-Member_ID varchar(100) not null,
+Member_ID uniqueidentifier not null,
 LicensePlate varchar(100) not null,
 IssueingCountry varchar(100) not null
 )
@@ -50,7 +53,6 @@ insert into Mem.Cities(
 	(1234,'1cityName','1countryName')
 
 insert into Mem.Members (
-	Member_ID,
 	Member_FirstName,
 	Member_LastName,
 	Member_StreetName,
@@ -58,8 +60,7 @@ insert into Mem.Members (
 	City_ZIP,
 	Member_RegistrationDate)
 	values
-	('e5b51e36-2159-4a80-8e77-473f516804d7', 
-	'1firstName',
+	('1firstName',
 	'1lastName', 
 	'1streetName', 
 	'1StreetNumber',
@@ -71,11 +72,11 @@ insert into Mem.PhoneNumbers(
 	Member_ID,
 	PhoneNumber)
 	values
-	('e5b51e36-2159-4a80-8e77-473f516804d7', '1phonenumber')
+	('4BCC70DC-5E2A-4266-BCBB-014B51B81154', '1phonenumber')
 
 insert into Mem.LicensePlates(
 	Member_ID,
 	LicensePlate,
 	IssueingCountry)
 	values
-	('e5b51e36-2159-4a80-8e77-473f516804d7','1licensePlate','1issueingCountry')
+	('4BCC70DC-5E2A-4266-BCBB-014B51B81154','1licensePlate','1issueingCountry')

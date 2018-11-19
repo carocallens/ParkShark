@@ -8,7 +8,6 @@
     <Folder Include="Divisions\Exceptions\" />
     <Folder Include="Invoices\Interfaces\" />
     <Folder Include="Members\Interfaces\" />
-    <Folder Include="ParkingLots\Interfaces\" />
     <Folder Include="ParkingSpaceAllocations\Interfaces\" />
   </ItemGroup>
 

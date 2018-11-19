@@ -37,7 +37,7 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 
         // GET: api/Divisions/5
         [HttpGet("{DivisionID}")]
-        public ActionResult<DivisionDTO_Return> GetSingleDivision(string DivisionID)
+        public ActionResult<DivisionDTO_Return> GetSingleDivision(Guid DivisionID)
         {
             var result = _divisionServices.GetSingleDivision(DivisionID);
 
@@ -66,7 +66,7 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 
         // PUT: api/Divisions/5
         [HttpPut("{parentId}")]
-        public ActionResult<DivisionDTO_Return> AssignParentDivision([FromRoute]string parentId, [FromBody]string subId)
+        public ActionResult<DivisionDTO_Return> AssignParentDivision([FromRoute]Guid parentId, [FromBody]Guid subId)
         {
             Division parent = null;
             Division sub = null;

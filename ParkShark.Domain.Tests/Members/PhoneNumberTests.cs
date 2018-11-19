@@ -27,7 +27,7 @@ namespace ParkShark.Domain.Tests.Members
         var member = Member.CreateMember("fn", "ln", address);
         var phoneNumberValue = "0472 80 50 40";
 
-        var PhoneNumberObject = PhoneNumber.CreatePhoneNumber(null, phoneNumberValue);
+        var PhoneNumberObject = PhoneNumber.CreatePhoneNumber(Guid.Empty, phoneNumberValue);
 
         Assert.Null(PhoneNumberObject);
         }

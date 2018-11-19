@@ -11,7 +11,7 @@ namespace ParkShark.Services.Divisions.Interfaces
 
         List<Division> GetAllDivisions();
 
-        Division GetSingleDivision(string givenID);
+        Division GetSingleDivision(Guid givenID);
 
     }
 }

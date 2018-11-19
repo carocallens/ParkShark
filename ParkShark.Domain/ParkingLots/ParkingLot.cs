@@ -8,25 +8,25 @@ namespace ParkShark.Domain.ParkingLots
 {
     public class ParkingLot
     {
-        public string ParkingLotID { get; private set; }
+        public Guid ParkingLotID { get; private set; }
         public string Name { get; private set; }
-        public int DivisionID { get; private set; }
+        public Guid DivisionID { get; private set; }
         public Division Division { get; private set; }
-        public BuildingType BuildingtypeID { get; private set; }
+        public BuildingType BuildingType { get; private set; }
         public int Capacity { get; private set; }
-        public int ContactPersonID { get; private set; }
         public ContactPerson ContactPerson { get; private set; } 
         public Address Address { get; private set; }
         public decimal PricePerHour { get; private set; }
 
-        private ParkingLot(string name, int divisionId, BuildingType buildingTypeId, int capacity, int contactPersonId, Address address, decimal pricePerHour)
+        private ParkingLot() { }
+
+        private ParkingLot(string name, Guid divisionId, BuildingType buildingType, int capacity, ContactPerson contactPerson, Address address, decimal pricePerHour)
         {
-            ParkingLotID = Guid.NewGuid().ToString();
             Name = name;
             DivisionID = divisionId;
-            BuildingtypeID = buildingTypeId;
+            BuildingType = buildingType;
             Capacity = capacity;
-            ContactPersonID = contactPersonId;
+            ContactPerson = contactPerson;
             Address = address;
             PricePerHour = pricePerHour;
         }
@@ -36,8 +36,7 @@ namespace ParkShark.Domain.ParkingLots
             if(string.IsNullOrWhiteSpace(builder.Name) || 
                 builder.Address == null || 
                 builder.Capacity <= 0 || 
-                builder.ContactPersonID <= 0 || 
-                builder.DivisionID <= 0 || 
+                builder.ContactPerson == null||
                 builder.PricePerHour <0)
             {
                 return null;
@@ -46,9 +45,9 @@ namespace ParkShark.Domain.ParkingLots
             return new ParkingLot(
                 builder.Name, 
                 builder.DivisionID, 
-                builder.BuildingtypeID, 
+                builder.Buildingtype, 
                 builder.Capacity, 
-                builder.ContactPersonID, 
+                builder.ContactPerson,
                 builder.Address, 
                 builder.PricePerHour);
         }

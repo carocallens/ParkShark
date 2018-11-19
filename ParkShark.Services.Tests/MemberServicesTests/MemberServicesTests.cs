@@ -94,7 +94,7 @@ namespace ParkShark.Services.Tests.MemberServicesTests
 
                 var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050));
                 context.Set<Member>().Add(newMem);
-                var id = "kjekjlkzjzk";
+                var id = Guid.NewGuid();
                 context.SaveChanges();
 
                 var result = service.GetMember(id);

@@ -10,11 +10,15 @@ using ParkShark.API.Controllers.Divisions.Mappers;
 using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
 using ParkShark.API.Controllers.Members.Mappers;
 using ParkShark.API.Controllers.Members.Mappers.Interfaces;
+using ParkShark.API.Controllers.ParkingLots.Mappers;
+using ParkShark.API.Controllers.ParkingLots.Mappers.Interfaces;
 using ParkShark.Data;
 using ParkShark.Services.Divisions;
 using ParkShark.Services.Divisions.Interfaces;
 using ParkShark.Services.Members;
 using ParkShark.Services.Members.Interfaces;
+using ParkShark.Services.ParkingLots;
+using ParkShark.Services.ParkingLots.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ParkShark.API
@@ -42,10 +46,13 @@ namespace ParkShark.API
 
             services.AddScoped<IDivisionServices, DivisionServices>();
             services.AddScoped<IMemberServices, MemberService>();
+            services.AddScoped<IParkingLotService, ParkingLotService>();
 
             services.AddSingleton<IMemberMapper, MemberMapper>();
             services.AddSingleton<IAddressMapper, AddressMapper>();
             services.AddSingleton<IDivisionMapper, DivisionMapper>();
+            services.AddSingleton<IContactPersonMapper, ContactPersonMapper>();
+            services.AddSingleton<IParkingLotMappers, ParkingLotMappers>();
 
             services.AddDbContext<ParkSharkDbContext>(options =>
                 options

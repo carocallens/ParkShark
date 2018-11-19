@@ -39,7 +39,7 @@ namespace ParkShark.Services.Members
             return MemberList;
         }
 
-        public Member GetMember(string memberID)
+        public Member GetMember(Guid memberID)
         {
             var member = _parkSharkDBContext.Members.SingleOrDefault(x => x.MemberId == memberID);
 

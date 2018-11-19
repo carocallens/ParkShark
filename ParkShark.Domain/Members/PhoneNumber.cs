@@ -4,7 +4,7 @@ namespace ParkShark.Domain.Members
 {
     public class PhoneNumber
     {
-        public string MemberId { get; private set; }
+        public Guid MemberId { get; private set; }
         public Member Member { get; private set; }
         public string PhoneNumberValue { get; private set; }
 
@@ -12,15 +12,15 @@ namespace ParkShark.Domain.Members
         {
         }
 
-        private PhoneNumber(string memberId, string phoneNumberValue)
+        private PhoneNumber(Guid memberId, string phoneNumberValue)
         {
             MemberId = memberId;
             PhoneNumberValue = phoneNumberValue;
         }
 
-        public static PhoneNumber CreatePhoneNumber(string memberId, string phoneNumberValue)
+        public static PhoneNumber CreatePhoneNumber(Guid memberId, string phoneNumberValue)
         {
-            if (string.IsNullOrWhiteSpace(memberId) || string.IsNullOrWhiteSpace(phoneNumberValue))
+            if (string.IsNullOrWhiteSpace(phoneNumberValue))
             {
                 return null;
             }

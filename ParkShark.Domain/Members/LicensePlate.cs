@@ -6,7 +6,7 @@ namespace ParkShark.Domain.Members
 {
     public class LicensePlate
     {
-        public string MemberId { get; private set; }
+        public Guid MemberId { get; private set; }
         public Member Member { get; private set; }
         public string LicensePlateValue { get; private set; }
         public string IssueingCountry { get; private set; }
@@ -15,16 +15,16 @@ namespace ParkShark.Domain.Members
         {
         }
 
-        private LicensePlate(string memberId, string licensePlateValue, string issueingCountry)
+        private LicensePlate(Guid memberId, string licensePlateValue, string issueingCountry)
         {
             MemberId = memberId;
             LicensePlateValue = licensePlateValue;
             IssueingCountry = issueingCountry;
         }
 
-        public static LicensePlate CreateLicensePlate(string memberId, string licensePlateValue, string issueingCountry)
+        public static LicensePlate CreateLicensePlate(Guid memberId, string licensePlateValue, string issueingCountry)
         {
-            if (string.IsNullOrWhiteSpace(memberId)|| string.IsNullOrWhiteSpace(licensePlateValue) || string.IsNullOrWhiteSpace(issueingCountry))
+            if (memberId == null|| string.IsNullOrWhiteSpace(licensePlateValue) || string.IsNullOrWhiteSpace(issueingCountry))
             {
                 return null;
             }

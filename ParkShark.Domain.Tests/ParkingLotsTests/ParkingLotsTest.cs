@@ -14,11 +14,9 @@ namespace ParkShark.Domain.Tests.ParkingLotsTests
         {
             var parkinglot = ParkingLotBuilder.CreateNewParkingLot()
                 .WithName(" ")
-                .WithBuildingType(1)
+                .WithBuildingType(BuildingType.AboveGround)
                 .WithCapacity(2)
                 .WithAddress(Address.CreateAddress("test", "test", 1234))
-                .WithContactPersonID(null)
-                .WithDivision(1)
                 .WithPricePerHour(5)
                 .Build();
 
