@@ -38,6 +38,7 @@ namespace ParkShark.Data
                 .Property(d => d.OriginalName).HasColumnName("Division_OrgName");
             modelBuilder.Entity<Division>()
                 .Property(d => d.ParentDivisionGuidID).HasColumnName("Division_ParentDivisionGuidId");
+
             modelBuilder.Entity<Member>()
                 .ToTable("Members", "Mem")
                 .HasKey(m => m.MemberId);
@@ -71,6 +72,8 @@ namespace ParkShark.Data
                 .Property(m => m.LastName).HasColumnName("Member_LastName");
             modelBuilder.Entity<Member>()
                 .Property(m => m.RegistrationDate).HasColumnName("Member_RegistrationDate");
+            modelBuilder.Entity<Member>()
+                .Property(d => d.MembershipLevelId).HasColumnName("Member_MembershipLevel_ID");
 
             modelBuilder.Entity<Member>()
                 .OwnsOne(a => a.Address, a =>
@@ -115,7 +118,7 @@ namespace ParkShark.Data
 
 
             modelBuilder.Entity<MembershipLevel>()
-             .ToTable("MembershipLevel", "MemL")
+             .ToTable("MembershipLevel", "Mem")
              .HasKey(e => e.MembershipId);
 
 
