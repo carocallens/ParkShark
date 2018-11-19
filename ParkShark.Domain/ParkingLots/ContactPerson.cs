@@ -4,7 +4,7 @@ using System.Net.Mail;
 
 namespace ParkShark.Domain.ParkingLots
 {
-    public  class ContactPerson
+    public class ContactPerson
     {
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
@@ -15,7 +15,7 @@ namespace ParkShark.Domain.ParkingLots
 
         private ContactPerson() { }
 
-        private  ContactPerson(string firstName, string lastName, Address address, string email, string phoneNumber, string mobilePhoneNumber)
+        private ContactPerson(string firstName, string lastName, Address address, string email, string phoneNumber, string mobilePhoneNumber)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -27,7 +27,7 @@ namespace ParkShark.Domain.ParkingLots
 
         public static ContactPerson CreateNewContactPerson(string firstName, string lastName, Address address, string email, string phoneNumber, string mobilePhoneNumber)
         {
-            if (string.IsNullOrWhiteSpace(firstName)|| string.IsNullOrWhiteSpace(lastName) || address == null || !IsMailValid(email) )
+            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) || address == null || !IsMailValid(email))
             {
                 return null;
             }
@@ -35,7 +35,7 @@ namespace ParkShark.Domain.ParkingLots
             return new ContactPerson(firstName, lastName, address, email, phoneNumber, mobilePhoneNumber);
         }
 
-        private static bool IsMailValid (string email)
+        private static bool IsMailValid(string email)
         {
             try
             {
