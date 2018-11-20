@@ -110,7 +110,13 @@ namespace ParkShark.Services.Members
 
         public Member GetMember(Guid memberID)
         {
-            var member = _parkSharkDBContext.Members.SingleOrDefault(x => x.MemberId == memberID);
+            var member = _parkSharkDBContext.Members
+                .Include(m => m.Address)
+                .ThenInclude(c => c.City)
+                .Include(ml => ml.MembershipLevel)
+                .Include(p => p.ListOfPhones)
+                .Include(l => l.ListOfplates)
+                .SingleOrDefault(x => x.MemberId == memberID);
 
             if (member == null)
             {
