@@ -1,3 +1,7 @@
+
+/*
+Database creation
+*/
 CREATE DATABASE [ParkSharkDb]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -84,16 +88,18 @@ GO
 
 
 
+/*
+User creation
+*/
 CREATE LOGIN [ParkShark_owner] WITH PASSWORD='ParkShark_owner', 
-DEFAULT_DATABASE=[ParkSharkDb], 
-DEFAULT_LANGUAGE=[us_english], 
-CHECK_EXPIRATION=OFF,
-CHECK_POLICY=OFF
+	DEFAULT_DATABASE=[ParkSharkDb], 
+	DEFAULT_LANGUAGE=[us_english], 
+	CHECK_EXPIRATION=OFF,
+	CHECK_POLICY=OFF
 GO
 
-
 USE [ParkSharkDb]
-CREATE USER [ParkShark_owner] FOR LOGIN [ParkShark_owner]
-ALTER ROLE [db_owner] ADD MEMBER [ParkShark_owner]
+	CREATE USER [ParkShark_owner] FOR LOGIN [ParkShark_owner]
+	ALTER ROLE [db_owner] ADD MEMBER [ParkShark_owner]
 GO
 
