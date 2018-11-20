@@ -48,13 +48,13 @@ namespace ParkShark.API
             services.AddScoped<IMemberServices, MemberService>();
             services.AddScoped<IParkingLotService, ParkingLotService>();
 
-            services.AddSingleton<IMemberMapper, MemberMapper>();
-            services.AddSingleton<IAddressMapper, AddressMapper>();
-            services.AddSingleton<IDivisionMapper, DivisionMapper>();
-            services.AddSingleton<IContactPersonMapper, ContactPersonMapper>();
-            services.AddSingleton<IParkingLotMapper, ParkingLotMapper>();
-            services.AddSingleton<IMembershipLevelMapper, MembershipLevelMapper>();
-            services.AddSingleton<ICityMapper, CityMapper>();
+            services.AddScoped<IMemberMapper, MemberMapper>();
+            services.AddScoped<IAddressMapper, AddressMapper>();
+            services.AddScoped<IDivisionMapper, DivisionMapper>();
+            services.AddScoped<IContactPersonMapper, ContactPersonMapper>();
+            services.AddScoped<IParkingLotMapper, ParkingLotMapper>();
+            services.AddScoped<IMembershipLevelMapper, MembershipLevelMapper>();
+            services.AddScoped<ICityMapper, CityMapper>();
 
             services.AddDbContext<ParkSharkDbContext>(options =>
                 options

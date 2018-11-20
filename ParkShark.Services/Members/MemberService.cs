@@ -85,5 +85,9 @@ namespace ParkShark.Services.Members
 
         }
 
+        public City ZIPExistsInDB(int zip)
+        {
+            return _parkSharkDBContext.Set<City>().SingleOrDefault(x => x.ZIP == zip);
+        }
     }
 }
