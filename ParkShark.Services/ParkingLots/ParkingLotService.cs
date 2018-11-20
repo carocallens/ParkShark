@@ -39,6 +39,7 @@ namespace ParkShark.Services.ParkingLots
                             .ThenInclude(a => a.City)
                         .Include(a => a.ContactPerson)
                             .ThenInclude(c => c.Address)
+                                .ThenInclude(c => c.City)
                         .Include(pl => pl.Division);
 
             foreach (var member in ParkingLotDbSet)
