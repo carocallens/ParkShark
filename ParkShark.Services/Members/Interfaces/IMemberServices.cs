@@ -10,5 +10,6 @@ namespace ParkShark.Services.Members.Interfaces
         List<Member> GetAllMembers();
         Member GetMember(Guid memberID);
         Member CreateNewMember(DummyMemberObject member);
+        bool AddPhonenumersAndLicensPlatesToMember(DummyMemberObject dummyMember, Member givenMember);
     }
 }

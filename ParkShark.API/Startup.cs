@@ -55,6 +55,9 @@ namespace ParkShark.API
             services.AddSingleton<IParkingLotMapper, ParkingLotMapper>();
             services.AddSingleton<IMembershipLevelMapper, MembershipLevelMapper>();
             services.AddSingleton<ICityMapper, CityMapper>();
+            services.AddSingleton<ILicensePlateMapper, LicensePlateMapper>();
+            services.AddSingleton<IPhoneNumpberMapper, PhoneNumpberMapper>();
+            
 
             services.AddDbContext<ParkSharkDbContext>(options =>
                 options
