@@ -19,14 +19,17 @@ namespace ParkShark.Services.Members
         }
 
 
-        public Member CreateNewMember(DummyMemberObject member)
+        public Member CreateNewMember(DummyMemberObject dummyMember)
         {
-            MembershipLevel levelOfMember = _parkSharkDBContext.Set<MembershipLevel>().FirstOrDefault(x => x.MemberShipLevelId == member.MembershipLevel);
-            if (levelOfMember == null)
+            MembershipLevel membershipLevel = AssignMembershipLevelFromDummyMember(dummyMember);
+
+            if (membershipLevel == null)
             {
                 return null;
             }
-            var newMember = Member.CreateMember(member.FirstName, member.LastName, member.Address, member.MembershipLevel, levelOfMember);
+
+            Member newMember = CreateMemberFromDummyMemberAndMembershipLevel(dummyMember, membershipLevel);
+
             if (newMember == null)
             {
                 return null;
@@ -36,6 +39,24 @@ namespace ParkShark.Services.Members
             _parkSharkDBContext.SaveChanges();
 
             return newMember;
+        }
+
+        private static Member CreateMemberFromDummyMemberAndMembershipLevel(DummyMemberObject dummyMember, MembershipLevel membershipLevel)
+        {
+            return Member.CreateMember(
+                    dummyMember.FirstName,
+                    dummyMember.LastName,
+                    dummyMember.Address,
+                    dummyMember.MembershipLevel,
+                    membershipLevel
+                    );
+        }
+
+        private MembershipLevel AssignMembershipLevelFromDummyMember(DummyMemberObject dummyMember)
+        {
+            return _parkSharkDBContext
+                    .Set<MembershipLevel>()
+                    .FirstOrDefault(x => x.MemberShipLevelId == dummyMember.MembershipLevel);
         }
 
         public List<Member> GetAllMembers()
