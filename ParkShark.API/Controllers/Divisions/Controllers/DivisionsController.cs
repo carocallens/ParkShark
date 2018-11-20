@@ -16,17 +16,14 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
     [ApiController]
     public class DivisionsController : ControllerBase
     {
-
         private readonly IDivisionServices _divisionServices;
         private readonly IDivisionMapper _divisionMapper;
 
-        public DivisionsController(IDivisionServices divisionSerices, IDivisionMapper divisionMapper)
+        public DivisionsController(IDivisionServices divisionServices, IDivisionMapper divisionMapper)
         {
-            _divisionServices = divisionSerices;
+            _divisionServices = divisionServices;
             _divisionMapper = divisionMapper;
         }
-
-
 
         // GET: api/Divisions
         [HttpGet]
@@ -80,6 +77,12 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
             }
 
             var DivisionWithParent = DivisionService.AssignParentDivision(sub, parent);
+
+            if(DivisionWithParent == null)
+            {
+                return BadRequest();
+            }
+
             return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(DivisionWithParent));
         }
 

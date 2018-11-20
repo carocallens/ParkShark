@@ -5,14 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Invoices\**" />
     <Compile Remove="ParkingLots\Repository\**" />
+    <Compile Remove="ParkingSpaceAllocations\**" />
+    <EmbeddedResource Remove="Invoices\**" />
     <EmbeddedResource Remove="ParkingLots\Repository\**" />
+    <EmbeddedResource Remove="ParkingSpaceAllocations\**" />
+    <None Remove="Invoices\**" />
     <None Remove="ParkingLots\Repository\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Invoices\Repository\" />
-    <Folder Include="ParkingSpaceAllocations\Repository\" />
+    <None Remove="ParkingSpaceAllocations\**" />
   </ItemGroup>
 
   <ItemGroup>

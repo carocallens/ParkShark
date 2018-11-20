@@ -40,11 +40,11 @@ namespace ParkShark.API.Controllers.Members.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<MemberDTO_Return>> GetAllMembers()
+        public List<MemberDTO_Return> GetAllMembers()
         {
             var MemberList = _memberService.GetAllMembers();
             var MemberDTO_ReturnList = _memberMapper.MemberListToDTOReturnList(MemberList);
-            return Ok(MemberDTO_ReturnList);
+            return MemberDTO_ReturnList;
         }
 
         [HttpGet("{Member_ID}")]

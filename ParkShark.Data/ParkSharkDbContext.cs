@@ -20,29 +20,8 @@ namespace ParkShark.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Division>()
-                .ToTable("Division", "Div")
-                .HasKey(e => e.ID);
+            DivisionTable(modelBuilder);
 
-            modelBuilder.Entity<Division>()
-                .HasOne(parent => parent.ParentDivision)
-                .WithMany(subdivisions => subdivisions.SubdivisionsList)
-                .HasForeignKey(key => key.ParentDivisionID);
-
-            modelBuilder.Entity<Division>()
-                .Property(d => d.ID).HasColumnName("Division_ID");
-            modelBuilder.Entity<Division>()
-                .Property(d => d.Director).HasColumnName("Division_Director");
-            modelBuilder.Entity<Division>()
-                .Property(d => d.Name).HasColumnName("Division_Name");
-            modelBuilder.Entity<Division>()
-                .Property(d => d.OriginalName).HasColumnName("Division_OrgName");
-            modelBuilder.Entity<Division>()
-                .Property(d => d.ParentDivisionID).HasColumnName("Division_ParentDivisionGuidId");
-
-            modelBuilder.Entity<Member>()
-                .ToTable("Members", "Mem")
-                .HasKey(m => m.MemberId);
 
             modelBuilder.Entity<City>()
                 .ToTable("Cities", "Mem")
@@ -64,6 +43,9 @@ namespace ParkShark.Data
                     l.PhoneNumberValue
                 });
 
+            modelBuilder.Entity<Member>()
+                .ToTable("Members", "Mem")
+                .HasKey(m => m.MemberId);
 
             modelBuilder.Entity<Member>()
                 .Property(m => m.MemberId).HasColumnName("Member_ID");
@@ -211,5 +193,27 @@ namespace ParkShark.Data
 
         }
 
+        private static void DivisionTable(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Division>()
+                .ToTable("Division", "Div")
+                .HasKey(e => e.DivisionID);
+
+            modelBuilder.Entity<Division>()
+                .HasOne(parent => parent.ParentDivision)
+                .WithMany(subdivisions => subdivisions.SubdivisionsList)
+                .HasForeignKey(key => key.ParentDivisionID);
+
+            modelBuilder.Entity<Division>()
+                .Property(d => d.DivisionID).HasColumnName("Division_ID");
+            modelBuilder.Entity<Division>()
+                .Property(d => d.Director).HasColumnName("Division_Director");
+            modelBuilder.Entity<Division>()
+                .Property(d => d.Name).HasColumnName("Division_Name");
+            modelBuilder.Entity<Division>()
+                .Property(d => d.OriginalName).HasColumnName("Division_OrgName");
+            modelBuilder.Entity<Division>()
+                .Property(d => d.ParentDivisionID).HasColumnName("Division_ParentDivisionGuidId");
+        }
     }
 }

@@ -20,11 +20,6 @@ namespace ParkShark.Services.ParkingLots
 
         public ParkingLot CreateParkingLot(ParkingLot parkingLot)
         {
-            if(parkingLot == null)
-            {
-                return null;
-            }
-
             _context.ParkingLots.Add(parkingLot);
             _context.SaveChanges();
 
