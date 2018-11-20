@@ -127,7 +127,7 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
                 var subDivision = Division.CreateNewDivision(name, originalName, director);
                 divisionService.CreateDivision(subDivision);
 
-                var result = DivisionService.AssignParentDivision(subDivision, parentDivision);
+                var result = divisionService.AssignParentDivision(subDivision, parentDivision);
 
 
                 Assert.Equal(parentDivision.DivisionID, subDivision.ParentDivisionID);
@@ -138,40 +138,51 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         [Fact]
         public void GivenADivision_WhenAssigningSelfAsParentDivision_ParentDivisionRemainsNull()
         {
-            var division = Division.CreateNewDivision("name", "orgname", "director");
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var division = Division.CreateNewDivision("name", "orgname", "director");
+                var divisionService = new DivisionService(context);
+                var result = divisionService.AssignParentDivision(division, division);
 
-            var result = DivisionService.AssignParentDivision(division, division);
-
-            Assert.Null(division.ParentDivisionID);
-            Assert.Null(result);
+                Assert.Null(division.ParentDivisionID);
+                Assert.Null(result);
+            }
         }
         [Fact]
         public void GivenADivision_WhenAssigningParentDivisonToADivisionThatAlreadyHasAParentDivision_ThenReturnsNull()
         {
-            var division = Division.CreateNewDivision("name", "orgname", "director");
-            var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
-            var secondParentDivsion = Division.CreateNewDivision("name", "orgname", "director");
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                var division = Division.CreateNewDivision("name", "orgname", "director");
+                var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
+                var secondParentDivsion = Division.CreateNewDivision("name", "orgname", "director");
 
-            division.ParentDivisionID = parentDivision.DivisionID;
-            division.ParentDivision = parentDivision;
+                division.ParentDivisionID = parentDivision.DivisionID;
+                division.ParentDivision = parentDivision;
+                var divisionService = new DivisionService(context);
 
-            var result = DivisionService.AssignParentDivision(division, secondParentDivsion);
-            
-            Assert.Null(result);
+                var result = divisionService.AssignParentDivision(division, secondParentDivsion);
+
+                Assert.Null(result);
+            }
         }
 
         [Fact]
         public void GivenADivision_WhenAssigningAnAlreadyAssignedSubDivision_ThenReturnsNull()
         {
-            //given
-            var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
-            var subDivision = Division.CreateNewDivision("name", "orgname", "director");
+            using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
+            {
+                //given
+                var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
+                var subDivision = Division.CreateNewDivision("name", "orgname", "director");
 
-            parentDivision.SubdivisionsList.Add(subDivision);
+                parentDivision.SubdivisionsList.Add(subDivision);
+                var divisionService = new DivisionService(context);
 
-            var result = DivisionService.AssignParentDivision(subDivision, parentDivision);
+                var result = divisionService.AssignParentDivision(subDivision, parentDivision);
 
-            Assert.Null(result);
+                Assert.Null(result);
+            }
         }
     }
 }
