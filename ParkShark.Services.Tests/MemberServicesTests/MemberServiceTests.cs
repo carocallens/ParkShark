@@ -31,9 +31,9 @@ namespace ParkShark.Services.Tests.MemberServicesTests
 
                 var service = new MemberService(context);
 
-                var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", city), MembershipLevel = MembershipLevelEnum.Bronze };
+                var member = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", city), MembershipLevel = MembershipLevelEnum.Bronze };
 
-                var result = service.CreateNewMember(newMem);
+                var result = service.CreateNewMember(member);
 
                 Assert.IsType<Member>(result);
             }
@@ -49,10 +49,10 @@ namespace ParkShark.Services.Tests.MemberServicesTests
 
                 var city = City.CreateCity(2050, "Antwerpen", "Belgium");
 
-                var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", city), MembershipLevel = MembershipLevelEnum.Bronze };
+                var member = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", city), MembershipLevel = MembershipLevelEnum.Bronze };
 
                 var service = new MemberService(context);
-                var result = service.CreateNewMember(newMem);
+                var result = service.CreateNewMember(member);
 
                 Assert.Single(service.GetAllMembers());
             }
@@ -64,17 +64,18 @@ namespace ParkShark.Services.Tests.MemberServicesTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
-                var MemLev = new MembershipLevel();
+                var memberShipLevel = new MembershipLevel();
+
                 var city = City.CreateCity(2050, "Antwerpen", "Belgium");
 
-                context.Set<Member>().Add(Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Bronze, MemLev));
-                context.Set<Member>().Add(Member.CreateMember("laeeers", "ee", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Bronze, MemLev));
+                context.Set<Member>().Add(Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Bronze, memberShipLevel));
+                context.Set<Member>().Add(Member.CreateMember("laeeers", "ee", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Bronze, memberShipLevel));
                 context.SaveChanges();
 
                 var service = new MemberService(context);
                 var result = service.GetAllMembers().Count;
-                Assert.Equal(2, result);
 
+                Assert.Equal(2, result);
             }
         }
 
@@ -84,13 +85,14 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
                 var service = new MemberService(context);
-                var MemLev = new MembershipLevel();
+                var memberShipLevel = new MembershipLevel();
                 var city = City.CreateCity(2050, "Antwerpen", "Belgium");
 
-                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
-                context.Set<Member>().Add(newMem);
-                var id = newMem.MemberId;
+                var member = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, memberShipLevel);
+                context.Set<Member>().Add(member);
                 context.SaveChanges();
+
+                var id = member.MemberId;
 
                 var result = service.GetMember(id);
 
@@ -107,14 +109,16 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
                 var service = new MemberService(context);
-                var MemLev = new MembershipLevel();
+                var memberShipLevel = new MembershipLevel();
                 var city = City.CreateCity(2050, "Antwerpen", "Belgium");
-                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
-                context.Set<Member>().Add(newMem);
-                var id = Guid.NewGuid();
+                var member = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, memberShipLevel);
+
+                context.Set<Member>().Add(member);
                 context.SaveChanges();
 
-                var result = service.GetMember(id);
+                var fakeID = Guid.NewGuid();
+
+                var result = service.GetMember(fakeID);
 
                 Assert.Null(result);
             }

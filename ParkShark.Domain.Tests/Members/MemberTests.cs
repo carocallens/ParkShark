@@ -25,13 +25,13 @@ namespace ParkShark.Domain.Tests.Members
                                         );
 
             //when
-            var memLevel = new MembershipLevel();
+            var memberShipLevel = new MembershipLevel();
             var member = Member.CreateMember(
                             firstName,
                             lastName,
                             address,
                             MembershipLevelEnum.Bronze,
-                            memLevel
+                            memberShipLevel
                             );
 
             //then
@@ -58,13 +58,13 @@ namespace ParkShark.Domain.Tests.Members
                                         );
 
             //when
-            var memLevel = new MembershipLevel();
+            var memberShipLevel = new MembershipLevel();
             var member = Member.CreateMember(
                             firstName,
                             lastName,
                             address,
                             MembershipLevelEnum.Bronze,
-                            memLevel
+                            memberShipLevel
                             );
             //then
             Assert.Null(member);
@@ -90,13 +90,13 @@ namespace ParkShark.Domain.Tests.Members
                                         );
 
             //when
-            var memLevel = new MembershipLevel();
+            var memberShipLevel = new MembershipLevel();
             var member = Member.CreateMember(
                             firstName,
                             lastName,
                             address,
                             MembershipLevelEnum.Bronze,
-                            memLevel
+                            memberShipLevel
                             );
 
             //then
@@ -113,13 +113,13 @@ namespace ParkShark.Domain.Tests.Members
 
 
             //when
-            var memLevel = new MembershipLevel();
+            var memberShipLevel = new MembershipLevel();
             var member = Member.CreateMember(
                             firstName,
                             lastName,
                             null,
                             MembershipLevelEnum.Bronze,
-                            memLevel
+                            memberShipLevel
                             );
 
             //then

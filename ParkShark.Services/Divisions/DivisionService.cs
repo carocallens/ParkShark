@@ -42,34 +42,20 @@ namespace ParkShark.Services.Divisions
         }
 
 
-        public static Division AssignParentDivision(Division DivisionToAssignParentTo, Division ParentDivisionToAssign)
+        public static Division AssignParentDivision(Division subDivision, Division parentDivision)
         {
-            if (ParentDivisionToAssign.ID == DivisionToAssignParentTo.ID
-                || DivisionToAssignParentTo.ParentDivisionGuidID != null
-                || ParentDivisionToAssign.SubdivisionsList.Any(x => x.ID == DivisionToAssignParentTo.ID))
+            if (parentDivision.ID == subDivision.ID
+                || subDivision.ParentDivisionID != null
+                || parentDivision.SubdivisionsList.Any(x => x.ID == subDivision.ID))
             {
                 return null;
             }
 
-            DivisionToAssignParentTo.ParentDivisionGuidID = ParentDivisionToAssign.ID;
-            DivisionToAssignParentTo.ParentDivision = ParentDivisionToAssign;
-            ParentDivisionToAssign.SubdivisionsList.Add(DivisionToAssignParentTo);
+            subDivision.ParentDivisionID = parentDivision.ID;
+            subDivision.ParentDivision = parentDivision;
+            parentDivision.SubdivisionsList.Add(subDivision);
 
-            return DivisionToAssignParentTo;
+            return subDivision;
         }
-
-        //public static Division RemoveParentDivision(Division DivToRemoveParentFrom, Division ParentToRemoveSubFrom)
-        //{
-        //    DivToRemoveParentFrom.ParentDivisionGuidID = null;
-        //    DivToRemoveParentFrom.ParentDivision = null;
-
-        //    if (!ParentToRemoveSubFrom.SubdivisionsList.Any(x => x.GuidID == DivToRemoveParentFrom.GuidID))
-        //    {
-        //        return null;
-        //    }
-        //    ParentToRemoveSubFrom.SubdivisionsList.Remove(DivToRemoveParentFrom);
-
-        //    return DivToRemoveParentFrom;
-        //}
     }
 }

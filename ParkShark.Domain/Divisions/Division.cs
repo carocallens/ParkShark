@@ -11,7 +11,7 @@ namespace ParkShark.Domain.Divisions
         public string Name { get; private set; }
         public string OriginalName { get; private set; }
         public string Director { get; private set; }
-        public Guid? ParentDivisionGuidID { get; set; } 
+        public Guid? ParentDivisionID { get; set; } 
         public Division ParentDivision { get; set; }
         public List<Division> SubdivisionsList { get; set; } = new List<Division>();
 
