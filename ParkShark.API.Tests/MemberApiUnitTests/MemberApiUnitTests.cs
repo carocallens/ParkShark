@@ -14,10 +14,11 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
         [Fact]
         public void GivenCreateMemberFromMemberDTOCreate_WhenGivenAMemberDTOCreate_ThenCreateAMember()
         {
-            AddressDTO addressDTO = new AddressDTO { StreetName = "test", StreetNumber = "5", ZIP = 2050 };
+            CityDTO cityDTO = new CityDTO { ZIP = 2050, CityName = "Antwerpen", CountryName = "Belgium" };
+            AddressDTO addressDTO = new AddressDTO { StreetName = "test", StreetNumber = "5", CityDTO =  cityDTO };
             MemberDTO_Create newMemDTOO = new MemberDTO_Create() { FirstName = "lars", LastName = "ff", Address = addressDTO };
 
-            var newMapper = new MemberMapper(new AddressMapper(), new MembershipLevelMapper());
+            var newMapper = new MemberMapper(new AddressMapper(new CityMapper()), new MembershipLevelMapper());
             var result = newMapper.DTOToDummyMemberObject(newMemDTOO);
 
             Assert.IsType<DummyMemberObject>(result);
@@ -26,10 +27,11 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
         [Fact]
         public void GivenCreateMembenDTOReturnFromMember_WhenGivenAMemberToCreate_ThenCreateAMemberDTOReturn()
         {
+            City city = City.CreateCity(2050, "Antwerpen", "Belgium");
             var MemLev = new MembershipLevel();
-            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
+            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
 
-            var newMapper = new MemberMapper(new AddressMapper(), new MembershipLevelMapper());
+            var newMapper = new MemberMapper(new AddressMapper(new CityMapper()), new MembershipLevelMapper());
             var result = newMapper.MemberToDTOReturn(newMem);
 
             Assert.IsType<MemberDTO_Return>(result);
@@ -38,14 +40,15 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
         [Fact]
         public void GivenCreateDivisionDTOReturnListFromDivisionList_WhenGivenADivisionList_ThenCreateADivisionDTOReturnList()
         {
+            City city = City.CreateCity(2050, "Antwerpen", "Belgium");
             var MemLev = new MembershipLevel();
-            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
-            var newMem2 = Member.CreateMember("lsdsars", "Pesdelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
+            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
+            var newMem2 = Member.CreateMember("lsdsars", "Pesdelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
             var testList = new List<Member>();
             testList.Add(newMem);
             testList.Add(newMem2);
 
-            var newMapper = new MemberMapper(new AddressMapper(), new MembershipLevelMapper());
+            var newMapper = new MemberMapper(new AddressMapper(new CityMapper()), new MembershipLevelMapper());
             var result = newMapper.MemberListToDTOReturnList(testList);
 
             Assert.IsType<List<MemberDTO_Return>>(result);
@@ -54,9 +57,10 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
         [Fact]
         public void GivenCreateAdressDTOFromAddress_WhenGivenAnAddressToCreate_ThenCreateAddressDTO()
         {
-            Address address = Address.CreateAddress("test", "5", 2050);
+            City city = City.CreateCity(2050, "Antwerpen", "Belgium");
+            Address address = Address.CreateAddress("test", "5", city);
 
-            var newMapper = new AddressMapper();
+            var newMapper = new AddressMapper(new CityMapper());
             var result = newMapper.AddressToDTO(address);
 
             Assert.IsType<AddressDTO>(result);
@@ -65,9 +69,10 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
         [Fact]
         public void GivenCreateAdressFromAddressDTO_WhenGivenAnAddressDTOToCreate_ThenCreateAddress()
         {
-            AddressDTO addressDTO = new AddressDTO { StreetName = "test", StreetNumber = "5", ZIP = 2050 };
+            CityDTO cityDTO = new CityDTO { ZIP = 2050, CityName = "Antwerpen", CountryName = "Belgium" };
+            AddressDTO addressDTO = new AddressDTO { StreetName = "test", StreetNumber = "5", CityDTO = cityDTO};
 
-            var newMapper = new AddressMapper();
+            var newMapper = new AddressMapper(new CityMapper());
             var result = newMapper.DTOToAddress(addressDTO);
 
             Assert.IsType<Address>(result);

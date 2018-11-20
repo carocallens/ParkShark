@@ -25,10 +25,12 @@ namespace ParkShark.Services.Tests.ParkingLotServiceTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
+                var city = City.CreateCity(2050, "Antwerpen", "Belgium");
+
                 var parkingLot = ParkingLotBuilder.CreateNewParkingLot()
                     .WithName("test")
-                    .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", 1000))
-                    .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", 1190), "bas@parking.com", "000000", ""))
+                    .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", city))
+                    .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", city), "bas@parking.com", "000000", ""))
                     .WithCapacity(20)
                     .WithDivision(Guid.NewGuid())
                     .WithPricePerHour(4.5m)
@@ -46,10 +48,12 @@ namespace ParkShark.Services.Tests.ParkingLotServiceTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
+                var city = City.CreateCity(2050, "Antwerpen", "Belgium");
+
                 var parkingLot = ParkingLotBuilder.CreateNewParkingLot()
                     .WithName("test")
-                    .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", 1000))
-                    .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", 1190), "bas@parking.com", "000000", ""))
+                    .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", city))
+                    .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", city), "bas@parking.com", "000000", ""))
                     .WithCapacity(20)
                     .WithDivision(Guid.NewGuid())
                     .WithPricePerHour(4.5m)
@@ -68,18 +72,20 @@ namespace ParkShark.Services.Tests.ParkingLotServiceTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
+                var city = City.CreateCity(2050, "Antwerpen", "Belgium");
+
                 var parkingLot1 = ParkingLotBuilder.CreateNewParkingLot()
                   .WithName("test")
-                  .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", 1000))
-                  .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", 1190), "bas@parking.com", "000000", ""))
+                  .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", city))
+                  .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", city), "bas@parking.com", "000000", ""))
                   .WithCapacity(20)
                   .WithDivision(Guid.NewGuid())
                   .WithPricePerHour(4.5m)
                   .Build();
                 var parkingLot2 = ParkingLotBuilder.CreateNewParkingLot()
                   .WithName("test2")
-                  .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", 1000))
-                  .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", 1190), "bas@parking.com", "000000", ""))
+                  .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", city))
+                  .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", city), "bas@parking.com", "000000", ""))
                   .WithCapacity(20)
                   .WithDivision(Guid.NewGuid())
                   .WithPricePerHour(4.5m)
@@ -100,11 +106,12 @@ namespace ParkShark.Services.Tests.ParkingLotServiceTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
+                var city = City.CreateCity(2050, "Antwerpen", "Belgium");
                 var service = new ParkingLotService(context);
                 var parkingLot = ParkingLotBuilder.CreateNewParkingLot()
                     .WithName("test")
-                    .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", 1000))
-                    .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", 1190), "bas@parking.com", "000000", ""))
+                    .WithAddress(Address.CreateAddress("Parkinglotstraat", "20a", city))
+                    .WithContactPerson(ContactPerson.CreateNewContactPerson("Bas", "Adriaans", Address.CreateAddress("Contactpersoonstraat", "30", city), "bas@parking.com", "000000", ""))
                     .WithCapacity(20)
                     .WithDivision(Guid.NewGuid())
                     .WithPricePerHour(4.5m)

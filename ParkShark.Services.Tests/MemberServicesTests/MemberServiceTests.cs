@@ -25,7 +25,9 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             {
                 var MemLev = new MembershipLevel();
 
-                var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", 2050), MembershipLevel = MembershipLevelEnum.Bronze };
+                var city = City.CreateCity(2050, "Antwerpen", "Belgium");
+
+                var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", city), MembershipLevel = MembershipLevelEnum.Bronze };
 
                 var service = new MemberService(context);
                 var result = service.CreateNewMember(newMem);
@@ -40,8 +42,9 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
                 var MemLev = new MembershipLevel();
+                var city = City.CreateCity(2050, "Antwerpen", "Belgium");
 
-                var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", 2050), MembershipLevel = MembershipLevelEnum.Bronze };
+                var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", city), MembershipLevel = MembershipLevelEnum.Bronze };
 
                 var service = new MemberService(context);
                 var result = service.CreateNewMember(newMem);
@@ -57,9 +60,10 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
                 var MemLev = new MembershipLevel();
+                var city = City.CreateCity(2050, "Antwerpen", "Belgium");
 
-                context.Set<Member>().Add(Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Bronze, MemLev));
-                context.Set<Member>().Add(Member.CreateMember("laeeers", "ee", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Bronze, MemLev));
+                context.Set<Member>().Add(Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Bronze, MemLev));
+                context.Set<Member>().Add(Member.CreateMember("laeeers", "ee", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Bronze, MemLev));
                 context.SaveChanges();
 
                 var service = new MemberService(context);
@@ -76,7 +80,9 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             {
                 var service = new MemberService(context);
                 var MemLev = new MembershipLevel();
-                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
+                var city = City.CreateCity(2050, "Antwerpen", "Belgium");
+
+                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
                 context.Set<Member>().Add(newMem);
                 var id = newMem.MemberId;
                 context.SaveChanges();
@@ -97,8 +103,8 @@ namespace ParkShark.Services.Tests.MemberServicesTests
             {
                 var service = new MemberService(context);
                 var MemLev = new MembershipLevel();
-
-                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", 2050), MembershipLevelEnum.Gold, MemLev);
+                var city = City.CreateCity(2050, "Antwerpen", "Belgium");
+                var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
                 context.Set<Member>().Add(newMem);
                 var id = Guid.NewGuid();
                 context.SaveChanges();

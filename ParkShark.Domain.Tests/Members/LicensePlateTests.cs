@@ -22,7 +22,7 @@ namespace ParkShark.Domain.Tests.Members
             Address address = Address.CreateAddress(
                                 "StreetName",
                                 "StreetNumber",
-                                city.ZIP
+                                city
                                 );
             var memLevel = new MembershipLevel();
             var member = Member.CreateMember(
@@ -58,7 +58,7 @@ namespace ParkShark.Domain.Tests.Members
             Address address = Address.CreateAddress(
                                 "StreetName",
                                 "StreetNumber",
-                                city.ZIP
+                                city
                                 );
 
             var member = Member.CreateMember(
@@ -90,7 +90,7 @@ namespace ParkShark.Domain.Tests.Members
             Address address = Address.CreateAddress(
                                 "StreetName",
                                 "StreetNumber",
-                                city.ZIP
+                                city
                                 );
 
             var memLevel = new MembershipLevel();
@@ -127,7 +127,7 @@ namespace ParkShark.Domain.Tests.Members
             Address address = Address.CreateAddress(
                                 "StreetName",
                                 "StreetNumber",
-                                city.ZIP
+                                city
                                 );
 
             var memLevel = new MembershipLevel();

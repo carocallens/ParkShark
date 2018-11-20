@@ -21,7 +21,7 @@ namespace ParkShark.Domain.Tests.Members
             Address address = Address.CreateAddress(
                                         "StreetName",
                                         "StreetNumber",
-                                        city.ZIP
+                                        city
                                         );
 
             //when
@@ -54,7 +54,7 @@ namespace ParkShark.Domain.Tests.Members
             Address address = Address.CreateAddress(
                                         "StreetName",
                                         "StreetNumber",
-                                        city.ZIP
+                                        city
                                         );
 
             //when
@@ -86,7 +86,7 @@ namespace ParkShark.Domain.Tests.Members
             Address address = Address.CreateAddress(
                                         "StreetName",
                                         "StreetNumber",
-                                        city.ZIP
+                                        city
                                         );
 
             //when
