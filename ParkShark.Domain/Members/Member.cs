@@ -14,6 +14,8 @@ namespace ParkShark.Domain.Members
         public DateTime RegistrationDate { get; private set; }
         public MembershipLevelEnum MembershipLevelId { get; set; }
         public MembershipLevel MembershipLevel { get; set; }
+        public List<PhoneNumber> ListOfPhones { get; set; }
+        public List<LicensePlate> ListOfplates { get; set; }
 
         private Member()
         {

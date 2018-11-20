@@ -77,8 +77,8 @@ namespace ParkShark.API.Controllers.Members.Mappers
                 LastName = member.LastName,
                 Address = _addressMapper.AddressToDTO(member.Address),
                 MembershipLevel = _membershipLevelMapper.MembershipLevel_To_DTO(member.MembershipLevel),
-                //LicensePlate = _licensePlateMapper.LicensePlateToDTO(member),
-                //PhoneNumber = _phoneNumpberMapper.PhoneNumpberToDTO()
+                LicensePlate = _licensePlateMapper.LicensePlateToDTO(member),
+                PhoneNumber = _phoneNumpberMapper.PhoneNumpberToDTO()
             };
         }
     }
