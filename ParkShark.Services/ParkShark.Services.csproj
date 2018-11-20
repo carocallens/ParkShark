@@ -5,10 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Divisions\Exceptions\" />
-    <Folder Include="Invoices\Interfaces\" />
+    <Compile Remove="Divisions\Exceptions\**" />
+    <Compile Remove="Invoices\**" />
+    <Compile Remove="ParkingSpaceAllocations\**" />
+    <EmbeddedResource Remove="Divisions\Exceptions\**" />
+    <EmbeddedResource Remove="Invoices\**" />
+    <EmbeddedResource Remove="ParkingSpaceAllocations\**" />
+    <None Remove="Divisions\Exceptions\**" />
+    <None Remove="Invoices\**" />
+    <None Remove="ParkingSpaceAllocations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Members\Interfaces\" />
-    <Folder Include="ParkingSpaceAllocations\Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
