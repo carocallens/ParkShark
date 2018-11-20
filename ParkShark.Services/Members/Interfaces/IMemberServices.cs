@@ -11,5 +11,6 @@ namespace ParkShark.Services.Members.Interfaces
         Member GetMember(Guid memberID);
         Member CreateNewMember(DummyMemberObject member);
         City ZIPExistsInDB(int zip);
+        bool AddPhonenumersAndLicensPlatesToMember(DummyMemberObject dummyMember, Member givenMember);
     }
 }

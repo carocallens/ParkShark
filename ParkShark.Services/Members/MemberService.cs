@@ -28,20 +28,55 @@ namespace ParkShark.Services.Members
                 return null;
             }
 
-            Member newMember = CreateMemberFromDummyMemberAndMembershipLevel(dummyMember, membershipLevel);
-
+            Member newMember = CreateMemberFromDummyObjectsAndMembershipLevel(dummyMember, membershipLevel);
             if (newMember == null)
             {
                 return null;
             }
-
             _parkSharkDBContext.Add(newMember);
             _parkSharkDBContext.SaveChanges();
 
             return newMember;
         }
 
-        private static Member CreateMemberFromDummyMemberAndMembershipLevel(DummyMemberObject dummyMember, MembershipLevel membershipLevel)
+        public bool AddPhonenumersAndLicensPlatesToMember(DummyMemberObject dummyMember, Member givenMember)
+        {
+            try
+            {
+                List<PhoneNumber> listOfNumbers = CreatePhonenumberList(dummyMember, givenMember);
+                List<LicensePlate> listOfLicensePlates = CreateLicensePlatesList(dummyMember, givenMember);
+
+                _parkSharkDBContext.AddRange(listOfNumbers);
+                _parkSharkDBContext.AddRange(listOfLicensePlates);
+                _parkSharkDBContext.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        private List<LicensePlate> CreateLicensePlatesList(DummyMemberObject dummyMember, Member member)
+        {
+            List<LicensePlate> plates = new List<LicensePlate>();
+            foreach (var item in dummyMember.LicensePlate)
+            {
+                plates.Add(LicensePlate.CreateLicensePlate(member.MemberId, item.LicensePlateValue, item.IssueingCountry));
+            }
+            return plates;
+        }
+
+        private List<PhoneNumber> CreatePhonenumberList(DummyMemberObject dummyMember, Member member)
+        {
+            List<PhoneNumber> phones = new List<PhoneNumber>();
+            foreach (var item in dummyMember.PhoneNumber)
+            {
+                phones.Add(PhoneNumber.CreatePhoneNumber(member.MemberId, item.PhoneNumberValue));
+            }
+            return phones;
+        }
+
+        private static Member CreateMemberFromDummyObjectsAndMembershipLevel(DummyMemberObject dummyMember, MembershipLevel membershipLevel)
         {
             return Member.CreateMember(
                     dummyMember.FirstName,
@@ -64,7 +99,7 @@ namespace ParkShark.Services.Members
             var MemberList = new List<Member>();
             var MemberDbSet = _parkSharkDBContext.Set<Member>();
 
-            foreach (var member in MemberDbSet.Include(m => m.MembershipLevel).Include(m =>m.Address).ThenInclude(c => c.City))
+            foreach (var member in MemberDbSet.Include(m => m.MembershipLevel).Include(m => m.Address).ThenInclude(c => c.City))
             {
                 MemberList.Add(member);
             }
