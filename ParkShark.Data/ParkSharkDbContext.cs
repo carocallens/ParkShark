@@ -132,7 +132,7 @@ namespace ParkShark.Data
 
             modelBuilder.Entity<Member>()
                 .HasOne(ml => ml.MembershipLevel)
-                .WithMany(level => level.members)
+                .WithMany(level => level.Members)
                 .HasForeignKey(ml => ml.MembershipLevelId)
                 .IsRequired();
 

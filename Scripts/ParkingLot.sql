@@ -9,7 +9,7 @@ create table PL.ParkingLots
 ParkingLot_ID uniqueidentifier not null default newid(),
 ParkingLot_Name varchar(100) not null,
 Division_ID uniqueidentifier not null,
-BuildingType varchar(50) check (BuildingType in('AboveGround', 'UnderGround')) not null,
+BuildingType varchar(50) not null,
 ParkingLot_Capacity int not null,
 ParkingLot_StreetName varchar(100) not null,
 ParkingLot_StreetNumber varchar(100) not null,
