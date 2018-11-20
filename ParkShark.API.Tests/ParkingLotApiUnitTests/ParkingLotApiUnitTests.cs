@@ -7,6 +7,7 @@ using ParkShark.API.Controllers.ParkingLots.Mappers;
 using ParkShark.API.Controllers.ParkingLots.Mappers.Interfaces;
 using ParkShark.Domain.Members;
 using ParkShark.Domain.ParkingLots;
+using ParkShark.Services.Members.Interfaces;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -19,8 +20,9 @@ namespace ParkShark.API.Tests.ParkingLotApiUnitTests
         [Fact]
         public void GivenCreateParkingLotFromParkingLotDTO_WhenGivenParkinglotToCreate_ThenCreateParkingLot()
         {
+            var memstub = Substitute.For<IMemberServices>();
             var stubpark = Substitute.For<IParkingLotMapper>();
-            ParkingLotMapper parkmap = new ParkingLotMapper(new AddressMapper(new CityMapper()), new ContactPersonMapper( new AddressMapper(new CityMapper())));
+            ParkingLotMapper parkmap = new ParkingLotMapper(new AddressMapper(new CityMapper(memstub)), new ContactPersonMapper( new AddressMapper(new CityMapper(memstub))));
             var cityDTO = new CityDTO { ZIP = 2050, CityName = "Antwerpen", CountryName = "Belgium" };
 
             var addres = new AddressDTO { StreetName = "teststreet", StreetNumber = "58", CityDTO = cityDTO };
@@ -35,10 +37,11 @@ namespace ParkShark.API.Tests.ParkingLotApiUnitTests
         [Fact]
         public void GivenCreateParkingLotDTOReturnFromParkingLot_WhenGivenParkinglotDTOReturnToCreate_ThenCreateParkingLotDTOReturn()
         {
+            var memstub = Substitute.For<IMemberServices>();
             var stubpark = Substitute.For<IParkingLotMapper>();
             var stubAddress = Substitute.For<IAddressMapper>();
-            AddressMapper addressmap = new AddressMapper(new CityMapper());
-            ParkingLotMapper parkmap = new ParkingLotMapper(new AddressMapper(new CityMapper()), new ContactPersonMapper(new AddressMapper(new CityMapper())));
+            AddressMapper addressmap = new AddressMapper(new CityMapper(memstub));
+            ParkingLotMapper parkmap = new ParkingLotMapper(new AddressMapper(new CityMapper(memstub)), new ContactPersonMapper(new AddressMapper(new CityMapper(memstub))));
 
             var city = City.CreateCity(2050, "Antwerpen", "Belgium");
             var contactPerson = ContactPerson.CreateNewContactPerson("lasr", "peelman", Address.CreateAddress("test", "5", city), "lasr@lars.com", "5454548564", "5456456456");
@@ -61,10 +64,11 @@ namespace ParkShark.API.Tests.ParkingLotApiUnitTests
         [Fact]
         public void GivenCreateListOfParkingLotDTOReturnsFromParkingLotList_WhenGivenListOfParkingLosts_ThenReturnListOfParkingLotDTOToReturn()
         {
+            var memstub = Substitute.For<IMemberServices>();
             var stubpark = Substitute.For<IParkingLotMapper>();
             var stubAddress = Substitute.For<IAddressMapper>();
-            AddressMapper addressmap = new AddressMapper(new CityMapper());
-            ParkingLotMapper parkmap = new ParkingLotMapper(new AddressMapper(new CityMapper()), new ContactPersonMapper(new AddressMapper(new CityMapper())));
+            AddressMapper addressmap = new AddressMapper(new CityMapper(memstub));
+            ParkingLotMapper parkmap = new ParkingLotMapper(new AddressMapper(new CityMapper(memstub)), new ContactPersonMapper(new AddressMapper(new CityMapper(memstub))));
             var city = City.CreateCity(2050, "Antwerpen", "Belgium");
 
             var contactPerson = ContactPerson.CreateNewContactPerson("lasr", "peelman", Address.CreateAddress("test", "5", city), "lasr@lars.com", "5454548564", "5456456456");
@@ -101,8 +105,9 @@ namespace ParkShark.API.Tests.ParkingLotApiUnitTests
         [Fact]
         public void GivenFromContactPersonTOContactPersonDTO_WhenGivenContactPerson_ThenCreateContactPersonDTO()
         {
+            var memstub = Substitute.For<IMemberServices>();
             var stubMapper = Substitute.For<IContactPersonMapper>();
-            ContactPersonMapper cmapper = new ContactPersonMapper(new AddressMapper(new CityMapper()));
+            ContactPersonMapper cmapper = new ContactPersonMapper(new AddressMapper(new CityMapper(memstub)));
             var city = City.CreateCity(2050, "Antwerpen", "Belgium");
 
             var contactPerson = ContactPerson.CreateNewContactPerson("lasr", "peelman", Address.CreateAddress("test", "5", city), "lasr@lars.com", "5454548564", "5456456456");
@@ -115,8 +120,9 @@ namespace ParkShark.API.Tests.ParkingLotApiUnitTests
         [Fact]
         public void GivenFromContactPersonDTOTOContactPerson_WhenGivenContactPersonDTO_ThenCreateContactPerson()
         {
+            var memstub = Substitute.For<IMemberServices>();
             var stubMapper = Substitute.For<IContactPersonMapper>();
-            ContactPersonMapper cmapper = new ContactPersonMapper(new AddressMapper(new CityMapper()));
+            ContactPersonMapper cmapper = new ContactPersonMapper(new AddressMapper(new CityMapper(memstub)));
             var cityDTO = new CityDTO { ZIP = 2050, CityName = "Antwerpen", CountryName = "Belgium" };
 
             var addres = new AddressDTO { StreetName = "teststreet", StreetNumber = "58", CityDTO = cityDTO };
@@ -130,7 +136,8 @@ namespace ParkShark.API.Tests.ParkingLotApiUnitTests
         [Fact]
         public void GivenFromParkingLotCreateToParkingLotWithoutBuildingType_WhenLeavingBuildingTypeEmpty_ThenBuildingTypeisDefaultAboveGround()
         {
-            ParkingLotMapper parkmap = new ParkingLotMapper(new AddressMapper(new CityMapper()), new ContactPersonMapper(new AddressMapper(new CityMapper())));
+            var memstub = Substitute.For<IMemberServices>();
+            ParkingLotMapper parkmap = new ParkingLotMapper(new AddressMapper(new CityMapper(memstub)), new ContactPersonMapper(new AddressMapper(new CityMapper(memstub))));
             var cityDTO = new CityDTO { ZIP = 2050, CityName = "Antwerpen", CountryName = "Belgium" };
             var addres = new AddressDTO { StreetName = "teststreet", StreetNumber = "58", CityDTO = cityDTO };
             var contactPerson = new ContactPersonDTO { FirstName = "lars", Address = addres, Email = "lars@lasr.com", LastName = "peelman", MobilePhoneNumber = "55555", PhoneNumber = "55555" };
