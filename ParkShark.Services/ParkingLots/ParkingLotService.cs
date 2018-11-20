@@ -25,7 +25,6 @@ namespace ParkShark.Services.ParkingLots
             {
                 return null;
             }
-
             _context.ParkingLots.Add(parkingLot);
             _context.SaveChanges();
 

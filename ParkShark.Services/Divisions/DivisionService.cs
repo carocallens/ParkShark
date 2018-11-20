@@ -19,6 +19,10 @@ namespace ParkShark.Services.Divisions
 
         public Division CreateDivision(Division division)
         {
+            if (division == null)
+            {
+                return null;
+            }
 
             _parkSharkDbContext.Add(division);
             _parkSharkDbContext.SaveChanges();
@@ -57,5 +61,6 @@ namespace ParkShark.Services.Divisions
 
             return subDivision;
         }
+
     }
 }

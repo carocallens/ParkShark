@@ -48,14 +48,12 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
         [HttpPost]
         public ActionResult<DivisionDTO_Return> CreateDivision([FromBody] DivisionDTO_Create divisionDTO)
         {
-            var division = _divisionMapper.CreateDivisionFromDivisionDTOCreate(divisionDTO);
-            if (division == null)
+            var result = _divisionServices.CreateDivision(_divisionMapper.CreateDivisionFromDivisionDTOCreate(divisionDTO));
+            if (result == null)
             {
                 return BadRequest("not valid");
             }
-
-            _divisionServices.CreateDivision(division);
-            return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(division));
+            return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(result));
 
         }
 
