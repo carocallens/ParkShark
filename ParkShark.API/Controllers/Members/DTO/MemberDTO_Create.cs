@@ -10,7 +10,9 @@ namespace ParkShark.API.Controllers.Members.DTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public AddressDTO Address { get; set; }
         public string MembershipLevel { get; set; }
+        public AddressDTO Address { get; set; }
+        public List<LicensePlateDTO> LicensePlate { get; set; }
+        public List<PhoneNumberDTO> PhoneNumber { get; set; }
     }
 }

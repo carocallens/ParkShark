@@ -13,5 +13,6 @@ namespace ParkShark.Services.Divisions.Interfaces
 
         Division GetSingleDivision(Guid givenID);
 
+        Division AssignParentDivision(Division subDivision, Division parentDivision);
     }
 }

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkShark.API.Controllers.Divisions.DTO;
 using ParkShark.API.Controllers.Divisions.Mappers.Interfaces;
 using ParkShark.Domain.Divisions;
 using ParkShark.Services.Divisions;
 using ParkShark.Services.Divisions.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ParkShark.API.Controllers.Divisions.Controllers
 {
@@ -48,12 +48,14 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
         [HttpPost]
         public ActionResult<DivisionDTO_Return> CreateDivision([FromBody] DivisionDTO_Create divisionDTO)
         {
-            var result = _divisionServices.CreateDivision(_divisionMapper.CreateDivisionFromDivisionDTOCreate(divisionDTO));
-            if (result == null)
+            var division = _divisionMapper.CreateDivisionFromDivisionDTOCreate(divisionDTO);
+            if (division == null)
             {
                 return BadRequest("not valid");
             }
-            return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(result));
+
+            _divisionServices.CreateDivision(division);
+            return Ok(_divisionMapper.CreateDivisionDTOReturnFromDivision(division));
 
         }
 
@@ -61,22 +63,22 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 
         // PUT: api/Divisions/5
         [HttpPut("{parentId}")]
-        public ActionResult<DivisionDTO_Return> AssignParentDivision([FromRoute]Guid parentId, [FromBody]Guid subId)
+        public ActionResult<DivisionDTO_Return> AssignParentDivision([FromRoute]string parentId, [FromBody]string subId)
         {
             Division parent = null;
             Division sub = null;
 
-            parent = _divisionServices.GetSingleDivision(parentId);
-            sub = _divisionServices.GetSingleDivision(subId);
+            parent = _divisionServices.GetSingleDivision(new Guid(parentId));
+            sub = _divisionServices.GetSingleDivision(new Guid(subId));
 
             if (parent == null || sub == null)
             {
                 return BadRequest();
             }
 
-            var DivisionWithParent = DivisionService.AssignParentDivision(sub, parent);
+            var DivisionWithParent = _divisionServices.AssignParentDivision(sub, parent);
 
-            if(DivisionWithParent == null)
+            if (DivisionWithParent == null)
             {
                 return BadRequest();
             }

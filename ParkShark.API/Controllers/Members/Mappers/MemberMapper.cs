@@ -12,11 +12,16 @@ namespace ParkShark.API.Controllers.Members.Mappers
     {
         private readonly IAddressMapper _addressMapper;
         private readonly IMembershipLevelMapper _membershipLevelMapper;
+        private readonly ILicensePlateMapper _licensePlateMapper;
+        private readonly IPhoneNumpberMapper _phoneNumpberMapper;
 
-        public MemberMapper(IAddressMapper addressMapper, IMembershipLevelMapper membershipLevelMapper)
+
+        public MemberMapper(IAddressMapper addressMapper, IMembershipLevelMapper membershipLevelMapper, ILicensePlateMapper licensePlateMapper, IPhoneNumpberMapper phoneNumpberMapper)
         {
             _addressMapper = addressMapper;
             _membershipLevelMapper = membershipLevelMapper;
+            _licensePlateMapper = licensePlateMapper;
+            _phoneNumpberMapper = phoneNumpberMapper;
         }
 
         public DummyMemberObject DTOToDummyMemberObject(MemberDTO_Create memberDTO)
@@ -27,8 +32,10 @@ namespace ParkShark.API.Controllers.Members.Mappers
             {
                 FirstName = memberDTO.FirstName,
                 LastName = memberDTO.LastName,
+                MembershipLevel = memberShipLevel,
                 Address = _addressMapper.DTOToAddress(memberDTO.Address),
-                MembershipLevel = memberShipLevel
+                LicensePlate = _licensePlateMapper.DTOListToLicensePlateObject(memberDTO.LicensePlate),
+                PhoneNumber = _phoneNumpberMapper.DTOListToPhoneNumpberObject(memberDTO.PhoneNumber)
             };
         }
 
@@ -69,7 +76,9 @@ namespace ParkShark.API.Controllers.Members.Mappers
                 FirstName = member.FirstName,
                 LastName = member.LastName,
                 Address = _addressMapper.AddressToDTO(member.Address),
-                MembershipLevel = _membershipLevelMapper.MembershipLevel_To_DTO(member.MembershipLevel)
+                MembershipLevel = _membershipLevelMapper.MembershipLevel_To_DTO(member.MembershipLevel),
+                LicensePlate = _licensePlateMapper.LicensePlateListToDTO(member.ListOfplates),
+                PhoneNumber = _phoneNumpberMapper.PhoneNumpberListToDTO(member.ListOfPhones)
             };
         }
     }

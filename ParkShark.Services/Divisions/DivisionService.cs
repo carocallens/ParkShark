@@ -46,7 +46,7 @@ namespace ParkShark.Services.Divisions
         }
 
 
-        public static Division AssignParentDivision(Division subDivision, Division parentDivision)
+        public Division AssignParentDivision(Division subDivision, Division parentDivision)
         {
             if (parentDivision.DivisionID == subDivision.DivisionID
                 || subDivision.ParentDivisionID != null
@@ -58,6 +58,10 @@ namespace ParkShark.Services.Divisions
             subDivision.ParentDivisionID = parentDivision.DivisionID;
             subDivision.ParentDivision = parentDivision;
             parentDivision.SubdivisionsList.Add(subDivision);
+
+            _parkSharkDbContext.Update(subDivision);
+            _parkSharkDbContext.SaveChanges();
+
 
             return subDivision;
         }

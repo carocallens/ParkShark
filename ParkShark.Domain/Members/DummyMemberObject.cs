@@ -11,6 +11,8 @@ namespace ParkShark.Domain.Members
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Address Address { get; set; }
+        public List<DummyPhoneNumberObject> PhoneNumber { get; set; }
+        public List<DummyLicensePlateObject> LicensePlate { get; set; }
         public MembershipLevelEnum MembershipLevel { get; set; }
     }
 }

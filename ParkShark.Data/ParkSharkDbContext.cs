@@ -123,7 +123,7 @@ namespace ParkShark.Data
 
             modelBuilder.Entity<LicensePlate>()
                 .HasOne(lp => lp.Member)
-                .WithMany()
+                .WithMany(m => m.ListOfplates)
                 .HasForeignKey(lp => lp.MemberId)
                 .IsRequired();
         }
@@ -137,10 +137,14 @@ namespace ParkShark.Data
                     ph.MemberId,
                     ph.PhoneNumberValue
                 });
+            modelBuilder.Entity<PhoneNumber>()
+                .Property(lp => lp.MemberId).HasColumnName("Member_ID");
+            modelBuilder.Entity<PhoneNumber>()
+                .Property(lp => lp.PhoneNumberValue).HasColumnName("PhoneNumber");
 
             modelBuilder.Entity<PhoneNumber>()
                 .HasOne(ph => ph.Member)
-                .WithMany()
+                .WithMany(m => m.ListOfPhones)
                 .HasForeignKey(ph => ph.MemberId)
                 .IsRequired();
         }
@@ -150,7 +154,7 @@ namespace ParkShark.Data
             modelBuilder.Entity<MembershipLevel>()
              .ToTable("MembershipLevel", "Mem")
              .HasKey(ml => ml.MemberShipLevelId);
-                        
+
             modelBuilder.Entity<MembershipLevel>()
                .Property(ml => ml.MemberShipLevelId).HasColumnName("MembershipLevel_ID");
             modelBuilder.Entity<MembershipLevel>()
@@ -191,7 +195,7 @@ namespace ParkShark.Data
                 .HasColumnName("BuildingType");
             modelBuilder.Entity<ParkingLot>()
                 .Property(pl => pl.PricePerHour).HasColumnName("ParkingLot_PricePerHour");
-            
+
             modelBuilder.Entity<ParkingLot>()
              .OwnsOne(pl => pl.Address, a =>
              {
