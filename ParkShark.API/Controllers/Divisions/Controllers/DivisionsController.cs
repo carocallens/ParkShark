@@ -34,9 +34,9 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 
         // GET: api/Divisions/5
         [HttpGet("{DivisionID}")]
-        public ActionResult<DivisionDTO_Return> GetSingleDivision(Guid DivisionID)
+        public ActionResult<DivisionDTO_Return> GetSingleDivision(string DivisionID)
         {
-            var result = _divisionServices.GetSingleDivision(DivisionID);
+            var result = _divisionServices.GetSingleDivision(new Guid(DivisionID));
 
             if (result == null)
             { return BadRequest("invalid"); }
