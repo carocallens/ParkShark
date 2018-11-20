@@ -60,7 +60,7 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
 
                 var division = Division.CreateNewDivision("test", "testorg", "lars");
                 context.Set<Division>().Add(division);
-                var divsionID = division.ID;
+                var divsionID = division.DivisionID;
                 context.SaveChanges();
 
 
@@ -68,7 +68,7 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
                 var result = divisionService.GetSingleDivision(divsionID);
 
                 Assert.IsType<Division>(result);
-                Assert.Equal(divsionID, result.ID);
+                Assert.Equal(divsionID, result.DivisionID);
                 Assert.Equal("test", result.Name);
                 Assert.Equal("testorg", result.OriginalName);
             }
@@ -130,13 +130,13 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
                 var result = DivisionService.AssignParentDivision(subDivision, parentDivision);
 
 
-                Assert.Equal(parentDivision.ID, subDivision.ParentDivisionID);
+                Assert.Equal(parentDivision.DivisionID, subDivision.ParentDivisionID);
                 Assert.Single(parentDivision.SubdivisionsList);
             }
         }
 
         [Fact]
-        public void GivenADivision_WhenAssigningSelfAsParentDivision_ParentDivsionRemainsNull()
+        public void GivenADivision_WhenAssigningSelfAsParentDivision_ParentDivisionRemainsNull()
         {
             var division = Division.CreateNewDivision("name", "orgname", "director");
 
@@ -146,13 +146,13 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
             Assert.Null(result);
         }
         [Fact]
-        public void GivenADivision_WhenAssigningToADivisionThatAlreadyHasAParentDivision_ThenReturnsNull()
+        public void GivenADivision_WhenAssigningParentDivisonToADivisionThatAlreadyHasAParentDivision_ThenReturnsNull()
         {
             var division = Division.CreateNewDivision("name", "orgname", "director");
             var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
             var secondParentDivsion = Division.CreateNewDivision("name", "orgname", "director");
 
-            division.ParentDivisionID = parentDivision.ID;
+            division.ParentDivisionID = parentDivision.DivisionID;
             division.ParentDivision = parentDivision;
 
             var result = DivisionService.AssignParentDivision(division, secondParentDivsion);
@@ -161,7 +161,7 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         }
 
         [Fact]
-        public void Given1Division3_WhenAssigningAnAlreadyAssignedSubDivision_ParentGuidRemainsNull()
+        public void GivenADivision_WhenAssigningAnAlreadyAssignedSubDivision_ThenReturnsNull()
         {
             //given
             var parentDivision = Division.CreateNewDivision("name", "orgname", "director");

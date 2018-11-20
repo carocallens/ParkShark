@@ -21,6 +21,19 @@ namespace ParkShark.API.Controllers.Members.Mappers
 
         public DummyMemberObject DTOToDummyMemberObject(MemberDTO_Create memberDTO)
         {
+            MembershipLevelEnum memberShipLevel = GetMemberShipLevel(memberDTO);
+
+            return new DummyMemberObject()
+            {
+                FirstName = memberDTO.FirstName,
+                LastName = memberDTO.LastName,
+                Address = _addressMapper.DTOToAddress(memberDTO.Address),
+                MembershipLevel = memberShipLevel
+            };
+        }
+
+        private static MembershipLevelEnum GetMemberShipLevel(MemberDTO_Create memberDTO)
+        {
             MembershipLevelEnum memberShipLevel;
 
             try
@@ -32,14 +45,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
                 memberShipLevel = MembershipLevelEnum.Bronze;
             }
 
-
-            return new DummyMemberObject()
-            {
-                FirstName = memberDTO.FirstName,
-                LastName = memberDTO.LastName,
-                Address = _addressMapper.DTOToAddress(memberDTO.Address),
-                MembershipLevel = memberShipLevel
-            };
+            return memberShipLevel;
         }
 
         public List<MemberDTO_Return> MemberListToDTOReturnList(List<Member> MemberList)

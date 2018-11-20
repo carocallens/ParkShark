@@ -47,7 +47,7 @@ namespace ParkShark.API.Controllers.ParkingLots
 
         // POST: api/ParkingLots
         [HttpPost]
-        public ActionResult<ParkingLotDTO_Return> Post([FromBody] ParkingLotDTO_Create parkingLotDTO)
+        public ActionResult<ParkingLotDTO_Return> CreateParkingLot([FromBody] ParkingLotDTO_Create parkingLotDTO)
         {
             var parkingLot = _parkingLotMapper.FromParkingLotCreateToParkingLot(parkingLotDTO);
 
@@ -59,18 +59,6 @@ namespace ParkShark.API.Controllers.ParkingLots
             _parkingLotService.CreateParkingLot(parkingLot);
 
             return Ok(_parkingLotMapper.FromParkingLotToParkingLotDTOReturn(parkingLot));
-        }
-
-        // PUT: api/ParkingLots/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }
