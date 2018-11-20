@@ -28,7 +28,7 @@ namespace ParkShark.API.Controllers.Divisions.Mappers
                 Director = division.Director,
                 OriginalName = division.OriginalName,
                 DivisionID = division.ID,
-                ParentGuid = division.ParentDivisionGuidID
+                ParentGuid = division.ParentDivisionID
             };
             return divisionDTO;
         }

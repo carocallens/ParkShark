@@ -21,15 +21,15 @@ namespace ParkShark.API.Controllers.Members.Mappers
 
         public DummyMemberObject DTOToDummyMemberObject(MemberDTO_Create memberDTO)
         {
-            MembershipLevelEnum memLevel;
+            MembershipLevelEnum memberShipLevel;
 
             try
             {
-                memLevel = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), memberDTO.MembershipLevel);
+                memberShipLevel = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), memberDTO.MembershipLevel);
             }
             catch
             {
-                memLevel = MembershipLevelEnum.Bronze;
+                memberShipLevel = MembershipLevelEnum.Bronze;
             }
 
 
@@ -38,7 +38,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
                 FirstName = memberDTO.FirstName,
                 LastName = memberDTO.LastName,
                 Address = _addressMapper.DTOToAddress(memberDTO.Address),
-                MembershipLevel = memLevel
+                MembershipLevel = memberShipLevel
             };
         }
 

@@ -14,10 +14,10 @@ namespace ParkShark.API.Tests.DivisionApiUnitTests
         [Fact]
         public void GivenCreateDivisionFromDivisionDTOCreate_WhenGivenADivisionDTOCreate_ThenCreateADivision()
         {
-            var newDivDTO = new DivisionDTO_Create() { Name = "test", Director = "lars", OriginalName = "testorg" };
+            var divisionDTO = new DivisionDTO_Create() { Name = "test", Director = "lars", OriginalName = "testorg" };
 
-            var newMapper = new DivisionMapper();
-            var result = newMapper.CreateDivisionFromDivisionDTOCreate(newDivDTO);
+            var divisionMapper = new DivisionMapper();
+            var result = divisionMapper.CreateDivisionFromDivisionDTOCreate(divisionDTO);
 
             Assert.IsType<Division>(result);
         }
@@ -25,10 +25,10 @@ namespace ParkShark.API.Tests.DivisionApiUnitTests
         [Fact]
         public void GivenCreateDivisionDTOReturnFromDivision_WhenGivenADivisionToCreate_ThenCreateADivisionDTOReturn()
         {
-            var newDiv = Division.CreateNewDivision("test", "testorg", "lars");
+            var divisionDTO = Division.CreateNewDivision("test", "testorg", "lars");
 
-            var newMapper = new DivisionMapper();
-            var result = newMapper.CreateDivisionDTOReturnFromDivision(newDiv);
+            var divisionMapper = new DivisionMapper();
+            var result = divisionMapper.CreateDivisionDTOReturnFromDivision(divisionDTO);
 
             Assert.IsType<DivisionDTO_Return>(result);
         }
@@ -36,14 +36,14 @@ namespace ParkShark.API.Tests.DivisionApiUnitTests
         [Fact]
         public void GivenCreateDivisionDTOReturnListFromDivisionList_WhenGivenADivisionList_ThenCreateADivisionDTOReturnList()
         {
-            var newDiv = Division.CreateNewDivision("test", "testorg", "lars");
-            var newDiv2 = Division.CreateNewDivision("test2", "testorg2", "lars");
+            var divisionDTO = Division.CreateNewDivision("test", "testorg", "lars");
+            var divisionDTO2 = Division.CreateNewDivision("test2", "testorg2", "lars");
             var testList = new List<Division>();
-            testList.Add(newDiv);
-            testList.Add(newDiv2);
+            testList.Add(divisionDTO);
+            testList.Add(divisionDTO2);
 
-            var newMapper = new DivisionMapper();
-            var result = newMapper.CreateListOfDivisionDTOsFromDivisionList(testList);
+            var divisionMapper = new DivisionMapper();
+            var result = divisionMapper.CreateListOfDivisionDTOsFromDivisionList(testList);
 
             Assert.IsType<List<DivisionDTO_Return>>(result);
         }

@@ -12,21 +12,13 @@ namespace ParkShark.Domain.Tests.Members
         public void GivenHappyPath_WhenCreateNewAddress_ThenAddressCreated()
         {
             //given
-            var city = new City(
-                                1234,
-                                "CityName",
-                                "CountryName"
-                                );
+            var city = new City(1234, "CityName", "CountryName");
 
-            var StreetName = "StreetName";
-            var StreetNumber = "StreetNumber";
+            var streetName = "StreetName";
+            var streetNumber = "StreetNumber";
 
             //when
-            Address address = Address.CreateAddress(
-                                        StreetName,
-                                        StreetNumber,
-                                        city
-                                        );
+            Address address = Address.CreateAddress(streetName, streetNumber, city);
 
             //then
             Assert.True(address != null);
@@ -36,21 +28,13 @@ namespace ParkShark.Domain.Tests.Members
         public void GivenAddressWithNoStreetName_WhenCreateAddress_ThenAddressIsNullObject()
         {
             //given
-            var city = new City(
-                                1234,
-                                "CityName",
-                                "CountryName"
-                                );
+            var city = new City(1234, "CityName", "CountryName");
 
-            string StreetName = null;
-            var StreetNumber = "StreetNumber";
+            string streetName = null;
+            var streetNumber = "StreetNumber";
 
             //when
-            Address address = Address.CreateAddress(
-                                        StreetName,
-                                        StreetNumber,
-                                        city
-                                        );
+            Address address = Address.CreateAddress(streetName, streetNumber, city);
 
             //then
             Assert.Null(address);
@@ -60,21 +44,13 @@ namespace ParkShark.Domain.Tests.Members
         public void GivenAddressWithNoStreetNumber_WhenCreateAddress_ThenAddressIsNullObject()
         {
             //given
-            var city = new City(
-                                1234,
-                                "CityName",
-                                "CountryName"
-                                );
+            var city = new City(1234, "CityName", "CountryName");
 
-            var StreetName = "StreetName";
-            string StreetNumber = null;
+            var streetName = "StreetName";
+            string streetNumber = null;
 
             //when
-            Address address = Address.CreateAddress(
-                                        StreetName,
-                                        StreetNumber,
-                                        city
-                                        );
+            Address address = Address.CreateAddress(streetName, streetNumber, city);
 
             //then
             Assert.Null(address);
@@ -84,16 +60,12 @@ namespace ParkShark.Domain.Tests.Members
         public void GivenAddressWithZIPNotFourNumbers_WhenCreateAddress_ThenAddresIsNullObject()
         {
             //given
-            var StreetName = "StreetName";
-            string StreetNumber = null;
+            var streetName = "StreetName";
+            string streetNumber = null;
             var city = City.CreateCity(12345, "Antwepren", "Belgium");
 
             //when
-            Address address = Address.CreateAddress(
-                                        StreetName,
-                                        StreetNumber,
-                                        city
-                                        );
+            Address address = Address.CreateAddress(streetName, streetNumber, city);
 
             //then
             Assert.Null(address);

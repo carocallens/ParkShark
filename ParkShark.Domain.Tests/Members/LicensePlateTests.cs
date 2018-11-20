@@ -24,13 +24,13 @@ namespace ParkShark.Domain.Tests.Members
                                 "StreetNumber",
                                 city
                                 );
-            var memLevel = new MembershipLevel();
+            var memberShipLevel = new MembershipLevel();
             var member = Member.CreateMember(
                             firstName,
                             lastName,
                             address,
                             MembershipLevelEnum.Bronze,
-                            memLevel
+                            memberShipLevel
                             );
 
             //when
@@ -93,13 +93,13 @@ namespace ParkShark.Domain.Tests.Members
                                 city
                                 );
 
-            var memLevel = new MembershipLevel();
+            var memberShipLevel = new MembershipLevel();
             var member = Member.CreateMember(
                             firstName,
                             lastName,
                             address,
                             MembershipLevelEnum.Bronze,
-                            memLevel
+                            memberShipLevel
                             );
 
 
@@ -130,13 +130,13 @@ namespace ParkShark.Domain.Tests.Members
                                 city
                                 );
 
-            var memLevel = new MembershipLevel();
+            var memberShipLevel = new MembershipLevel();
             var member = Member.CreateMember(
                             firstName,
                             lastName,
                             address,
                             MembershipLevelEnum.Bronze,
-                            memLevel
+                            memberShipLevel
                             );
 
             //when

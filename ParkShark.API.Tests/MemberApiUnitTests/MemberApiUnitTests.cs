@@ -28,8 +28,8 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
         public void GivenCreateMembenDTOReturnFromMember_WhenGivenAMemberToCreate_ThenCreateAMemberDTOReturn()
         {
             City city = City.CreateCity(2050, "Antwerpen", "Belgium");
-            var MemLev = new MembershipLevel();
-            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
+            var MemberShipLevel = new MembershipLevel();
+            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemberShipLevel);
 
             var newMapper = new MemberMapper(new AddressMapper(new CityMapper()), new MembershipLevelMapper());
             var result = newMapper.MemberToDTOReturn(newMem);
@@ -41,9 +41,9 @@ namespace ParkShark.API.Tests.MemberApiUnitTests
         public void GivenCreateDivisionDTOReturnListFromDivisionList_WhenGivenADivisionList_ThenCreateADivisionDTOReturnList()
         {
             City city = City.CreateCity(2050, "Antwerpen", "Belgium");
-            var MemLev = new MembershipLevel();
-            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
-            var newMem2 = Member.CreateMember("lsdsars", "Pesdelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemLev);
+            var MemberShipLevel = new MembershipLevel();
+            var newMem = Member.CreateMember("lars", "Peelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemberShipLevel);
+            var newMem2 = Member.CreateMember("lsdsars", "Pesdelman", Address.CreateAddress("test", "5", city), MembershipLevelEnum.Gold, MemberShipLevel);
             var testList = new List<Member>();
             testList.Add(newMem);
             testList.Add(newMem2);

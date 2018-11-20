@@ -13,13 +13,13 @@ namespace ParkShark.Domain.Tests.Members
         {
             var city = City.CreateCity(2050, "Antwerpen", "Belgium");
             var address = Address.CreateAddress("sn", "sn", city);
-            var memLevel = new MembershipLevel();
+            var memberShipLevel = new MembershipLevel();
             var member = Member.CreateMember(
                             "fn",
                             "ln",
                             address,
                             MembershipLevelEnum.Bronze,
-                            memLevel
+                            memberShipLevel
                             );
             var phoneNumberValue = "0472 80 50 40";
 

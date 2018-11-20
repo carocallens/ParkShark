@@ -27,10 +27,10 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
-                var newDiv = Division.CreateNewDivision("test", "testorg", "lars");
+                var division = Division.CreateNewDivision("test", "testorg", "lars");
 
-                var service = new DivisionService(context);
-                var result = service.CreateDivision(newDiv);
+                var divisionService = new DivisionService(context);
+                var result = divisionService.CreateDivision(division);
 
                 Assert.IsType<Division>(result);
             }
@@ -42,12 +42,12 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
-                var newDiv = Division.CreateNewDivision("test", "testorg", "lars");
+                var division = Division.CreateNewDivision("test", "testorg", "lars");
 
-                var service = new DivisionService(context);
-                var result = service.CreateDivision(newDiv);
+                var divisionService = new DivisionService(context);
+                var result = divisionService.CreateDivision(division);
 
-                Assert.Single(service.GetAllDivisions());
+                Assert.Single(divisionService.GetAllDivisions());
             }
         }
 
@@ -56,19 +56,19 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
-                var service = new DivisionService(context);
+                var divisionService = new DivisionService(context);
 
-                var newDiv = Division.CreateNewDivision("test", "testorg", "lars");
-                context.Set<Division>().Add(newDiv);
-                var id = newDiv.ID;
+                var division = Division.CreateNewDivision("test", "testorg", "lars");
+                context.Set<Division>().Add(division);
+                var divsionID = division.ID;
                 context.SaveChanges();
 
 
 
-                var result = service.GetSingleDivision(id);
+                var result = divisionService.GetSingleDivision(divsionID);
 
                 Assert.IsType<Division>(result);
-                Assert.Equal(id, result.ID);
+                Assert.Equal(divsionID, result.ID);
                 Assert.Equal("test", result.Name);
                 Assert.Equal("testorg", result.OriginalName);
             }
@@ -78,16 +78,16 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
-                var service = new DivisionService(context);
+                var divisionService = new DivisionService(context);
 
-                var newDiv = Division.CreateNewDivision("test", "testorg", "lars");
-                context.Set<Division>().Add(newDiv);
-                var id = Guid.NewGuid();
+                var division = Division.CreateNewDivision("test", "testorg", "lars");
+                context.Set<Division>().Add(division);
+                var fakeID = Guid.NewGuid();
                 context.SaveChanges();
 
 
 
-                var result = service.GetSingleDivision(id);
+                var result = divisionService.GetSingleDivision(fakeID);
 
 
                 Assert.Null(result);
@@ -104,8 +104,8 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
                 context.Set<Division>().Add(Division.CreateNewDivision("test2", "testorg2", "lars"));
                 context.SaveChanges();
 
-                var service = new DivisionService(context);
-                var result = service.GetAllDivisions().Count;
+                var divisionService = new DivisionService(context);
+                var result = divisionService.GetAllDivisions().Count;
                 Assert.Equal(2, result);
 
             }
@@ -116,117 +116,62 @@ namespace ParkShark.Services.Tests.DivisionServicesTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
-                var service = new DivisionService(context);
+                var divisionService = new DivisionService(context);
 
                 var name = "Test1";
                 var originalName = "Test1";
                 string director = "test1";
 
-                var parDivision = Division.CreateNewDivision(name, originalName, director);
-                service.CreateDivision(parDivision);
+                var parentDivision = Division.CreateNewDivision(name, originalName, director);
+                divisionService.CreateDivision(parentDivision);
                 var subDivision = Division.CreateNewDivision(name, originalName, director);
-                service.CreateDivision(subDivision);
+                divisionService.CreateDivision(subDivision);
 
-                var result = DivisionService.AssignParentDivision(subDivision, parDivision);
+                var result = DivisionService.AssignParentDivision(subDivision, parentDivision);
 
 
-                Assert.Equal(parDivision.ID, subDivision.ParentDivisionGuidID);
-                Assert.Single(parDivision.SubdivisionsList);
+                Assert.Equal(parentDivision.ID, subDivision.ParentDivisionID);
+                Assert.Single(parentDivision.SubdivisionsList);
             }
         }
 
         [Fact]
-        public void Given1Division_WhenAssigningGuidAsParentGuid_ParentGuidRemainsNull()
+        public void GivenADivision_WhenAssigningSelfAsParentDivision_ParentDivsionRemainsNull()
         {
             var division = Division.CreateNewDivision("name", "orgname", "director");
 
             var result = DivisionService.AssignParentDivision(division, division);
 
-            Assert.Null(division.ParentDivisionGuidID);
+            Assert.Null(division.ParentDivisionID);
             Assert.Null(result);
         }
         [Fact]
-        public void Given1Division2_WhenAssigningGuidAsParentGuid_ParentGuidRemainsNull()
+        public void GivenADivision_WhenAssigningToADivisionThatAlreadyHasAParentDivision_ThenReturnsNull()
         {
-            //given
             var division = Division.CreateNewDivision("name", "orgname", "director");
-            var Pardivision = Division.CreateNewDivision("name", "orgname", "director");
-            var newParDivision = Division.CreateNewDivision("name", "orgname", "director");
+            var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
+            var secondParentDivsion = Division.CreateNewDivision("name", "orgname", "director");
 
-            division.ParentDivisionGuidID = Pardivision.ID;
-            division.ParentDivision = Pardivision;
+            division.ParentDivisionID = parentDivision.ID;
+            division.ParentDivision = parentDivision;
 
-            //
-            var result = DivisionService.AssignParentDivision(division, newParDivision);
-            //
+            var result = DivisionService.AssignParentDivision(division, secondParentDivsion);
+            
             Assert.Null(result);
         }
 
         [Fact]
-        public void Given1Division3_WhenAssigningGuidAsParentGuid_ParentGuidRemainsNull()
+        public void Given1Division3_WhenAssigningAnAlreadyAssignedSubDivision_ParentGuidRemainsNull()
         {
             //given
             var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
-            var Subdivision = Division.CreateNewDivision("name", "orgname", "director");
+            var subDivision = Division.CreateNewDivision("name", "orgname", "director");
 
-            parentDivision.SubdivisionsList.Add(Subdivision);
+            parentDivision.SubdivisionsList.Add(subDivision);
 
-            var result = DivisionService.AssignParentDivision(Subdivision, parentDivision);
+            var result = DivisionService.AssignParentDivision(subDivision, parentDivision);
 
             Assert.Null(result);
         }
-
-
-        //[Fact]
-        //public void HappyPath_RemoveParentDivision()
-        //{
-        //    var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
-        //    var Subdivision = Division.CreateNewDivision("name", "orgname", "director");
-
-        //    parentDivision.SubdivisionsList.Add(Subdivision);
-        //    Subdivision.ParentDivisionGuidID = parentDivision.ID;
-        //    Subdivision.ParentDivision = parentDivision;
-
-        //    DivisionServices.RemoveParentDivision(Subdivision, parentDivision);
-
-        //    Assert.Null(Subdivision.ParentDivision);
-        //    Assert.Null(Subdivision.ParentDivisionGuidID);
-        //    Assert.DoesNotContain(Subdivision, parentDivision.SubdivisionsList);
-        //}
-
-
-        //[Fact]
-        //public void NoHappyPath_RemoveParentDivision()
-        //{
-        //    var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
-        //    var Subdivision = Division.CreateNewDivision("name", "orgname", "director");
-
-        //    Subdivision.ParentDivisionGuidID = parentDivision.GuidID;
-        //    Subdivision.ParentDivision = parentDivision;
-
-        //    var result = DivisionServices.RemoveParentDivision(Subdivision, parentDivision);
-
-        //    Assert.Null(result);
-        //}
-
-        //[Fact]
-        //public void NoHappyPath2_RemoveParentDivision()
-        //{
-        //    var parentDivision = Division.CreateNewDivision("name", "orgname", "director");
-        //    var Subdivision = Division.CreateNewDivision("name", "orgname", "director");
-
-        //    parentDivision.SubdivisionsList.Add(Subdivision);
-
-
-        //    var result = DivisionServices.RemoveParentDivision(Subdivision, parentDivision);
-
-        //    Assert.Null(result);
-        //}
-
-
-
-
     }
-
-
 }
