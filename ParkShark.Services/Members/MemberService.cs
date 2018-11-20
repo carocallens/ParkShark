@@ -51,7 +51,7 @@ namespace ParkShark.Services.Members
                 _parkSharkDBContext.SaveChanges();
                 return true;
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }

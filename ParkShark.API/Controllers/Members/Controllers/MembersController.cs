@@ -42,7 +42,7 @@ namespace ParkShark.API.Controllers.Members.Controllers
                 return BadRequest("Not valid");
             }
 
-            return Ok(_memberMapper.MemberToDTOReturn(member,));
+            return Ok(_memberMapper.MemberToDTOReturn(member));
         }
 
         [HttpGet]
