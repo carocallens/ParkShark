@@ -30,7 +30,7 @@ namespace ParkShark.API
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration;
         public readonly ILoggerFactory efLoggerFactory
           = new LoggerFactory(new[] { new ConsoleLoggerProvider((category, level) => category.Contains("Command") && level == LogLevel.Information, true) });
 
@@ -58,7 +58,7 @@ namespace ParkShark.API
 
             services.AddDbContext<ParkSharkDbContext>(options =>
                 options
-                .UseSqlServer(Configuration.GetConnectionString("ParkSharkDb"))
+                .UseSqlServer("Data Source =.\\SQLExpress; Initial Catalog = ParksharkDb; Integrated Security = True; ")
                 .UseLoggerFactory(efLoggerFactory));
         }
 
