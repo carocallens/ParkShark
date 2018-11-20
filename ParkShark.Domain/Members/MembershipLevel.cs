@@ -12,11 +12,10 @@ namespace ParkShark.Domain.Members
         public decimal MonthlyCost { get; set; }
         public double PSAPriceReductionPercentage { get; set; }
         public TimeSpan PSAMaxTimeInHours { get; set; }
-        public List<Member> Members { get; set; }
+        public List<Member> Members { get; set; } = new List<Member>();
 
         public MembershipLevel()
-        {
-            Members = new List<Member>();
+        {            
         }
     }
 }
