@@ -6,5 +6,6 @@ namespace ParkShark.API.Controllers.Members.Mappers.Interfaces
     public interface ICityMapper
     {
         City DTOToCity(CityDTO cityDTO);
+        CityDTO CityToDTO(City city);
     }
 }

@@ -2,6 +2,7 @@
 using ParkShark.Domain.Divisions;
 using ParkShark.Domain.Members;
 using ParkShark.Domain.ParkingLots;
+using System;
 
 namespace ParkShark.Data
 {
@@ -38,6 +39,7 @@ namespace ParkShark.Data
                 .Property(d => d.OriginalName).HasColumnName("Division_OrgName");
             modelBuilder.Entity<Division>()
                 .Property(d => d.ParentDivisionGuidID).HasColumnName("Division_ParentDivisionGuidId");
+
             modelBuilder.Entity<Member>()
                 .ToTable("Members", "Mem")
                 .HasKey(m => m.MemberId);
@@ -71,6 +73,11 @@ namespace ParkShark.Data
                 .Property(m => m.LastName).HasColumnName("Member_LastName");
             modelBuilder.Entity<Member>()
                 .Property(m => m.RegistrationDate).HasColumnName("Member_RegistrationDate");
+            modelBuilder.Entity<Member>()
+                .Property(d => d.MembershipLevelId).HasConversion(
+                    a => Convert.ToInt32(a),
+                    b => (MembershipLevelEnum)b)
+                .HasColumnName("Member_MembershipLevel_ID");
 
             modelBuilder.Entity<Member>()
                 .OwnsOne(a => a.Address, a =>
@@ -115,7 +122,7 @@ namespace ParkShark.Data
 
 
             modelBuilder.Entity<MembershipLevel>()
-             .ToTable("MembershipLevel", "MemL")
+             .ToTable("MembershipLevel", "Mem")
              .HasKey(e => e.MembershipId);
 
 
@@ -123,6 +130,8 @@ namespace ParkShark.Data
                .Property(ml => ml.MembershipId).HasColumnName("MembershipLevel_ID");
             modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.Name).HasColumnName("MembershipLevel_Name");
+            modelBuilder.Entity<MembershipLevel>()
+               .Property(ml => ml.Description).HasColumnName("MembershipLevel_Description");
             modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.MonthlyCost).HasColumnName("MembershipLevel_MonthlyCost");
             modelBuilder.Entity<MembershipLevel>()
