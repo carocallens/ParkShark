@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkShark.API.Controllers.ParkingLots.DTO;
 using ParkShark.API.Controllers.ParkingLots.Mappers.Interfaces;
 using ParkShark.Services.ParkingLots.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ParkShark.API.Controllers.ParkingLots
 {
@@ -26,9 +26,9 @@ namespace ParkShark.API.Controllers.ParkingLots
 
         // GET: api/ParkingLots
         [HttpGet]
-        public List<ParkingLotDTO_Return> GetAllParkingLots()
+        public ActionResult<List<ParkingLotDTO_Return>> GetAllParkingLots()
         {
-            return _parkingLotMapper.CreateListOfParkingLotDTOReturnsFromParkingLotList(_parkingLotService.GetAllParkingLots());
+            return Ok(_parkingLotMapper.CreateListOfParkingLotDTOReturnsFromParkingLotList(_parkingLotService.GetAllParkingLots()));
         }
 
         // GET: api/ParkingLots/5
@@ -36,7 +36,7 @@ namespace ParkShark.API.Controllers.ParkingLots
         //[HttpGet("{ParkingLotID}")]
         public ActionResult<ParkingLotDTO_Return> GetSingleParkingLot(string parkingLotID)
         {
-            
+
             var result = _parkingLotService.GetSingleParkingLot(new Guid(parkingLotID));
             if (result == null)
             {
@@ -51,7 +51,7 @@ namespace ParkShark.API.Controllers.ParkingLots
         {
             var parkingLot = _parkingLotService.CreateParkingLot(_parkingLotMapper.FromParkingLotCreateToParkingLot(parkingLotDTO));
 
-            if(parkingLot == null)
+            if (parkingLot == null)
             {
                 return BadRequest("Not valid");
             }
