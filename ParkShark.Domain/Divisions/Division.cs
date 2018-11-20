@@ -7,7 +7,7 @@ namespace ParkShark.Domain.Divisions
 {
     public class Division
     {
-        public Guid ID{ get; private set; }
+        public Guid DivisionID{ get; private set; }
         public string Name { get; private set; }
         public string OriginalName { get; private set; }
         public string Director { get; private set; }

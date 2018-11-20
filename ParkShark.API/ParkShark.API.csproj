@@ -5,8 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Invoices\" />
-    <Folder Include="Controllers\ParkingSpaceAllocations\" />
+    <Compile Remove="Controllers\Invoices\**" />
+    <Compile Remove="Controllers\ParkingSpaceAllocations\**" />
+    <Content Remove="Controllers\Invoices\**" />
+    <Content Remove="Controllers\ParkingSpaceAllocations\**" />
+    <EmbeddedResource Remove="Controllers\Invoices\**" />
+    <EmbeddedResource Remove="Controllers\ParkingSpaceAllocations\**" />
+    <None Remove="Controllers\Invoices\**" />
+    <None Remove="Controllers\ParkingSpaceAllocations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
