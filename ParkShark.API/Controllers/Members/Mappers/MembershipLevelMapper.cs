@@ -14,7 +14,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
         {
             return new MembershipLevel()
             {
-                MembershipId = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), membershipLevelDTO.Membership),
+                MemberShipLevelId = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), membershipLevelDTO.Membership),
                 Name = membershipLevelDTO.Name,
                 Description = membershipLevelDTO.Description,
                 MonthlyCost = membershipLevelDTO.MonthlyCost,
@@ -27,7 +27,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
         {
             return new MembershipLevelDTO()
             {
-                Membership = membershipLevel.MembershipId.ToString(),
+                Membership = membershipLevel.MemberShipLevelId.ToString(),
                 Name = membershipLevel.Name,
                 Description = membershipLevel.Description,
                 MonthlyCost = membershipLevel.MonthlyCost,

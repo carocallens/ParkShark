@@ -4,6 +4,7 @@ using ParkShark.Domain.Members;
 using ParkShark.Services.Members;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -23,13 +24,15 @@ namespace ParkShark.Services.Tests.MemberServicesTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
-                var MemLev = new MembershipLevel();
+                context.Set<MembershipLevel>().Add(new MembershipLevel() { MemberShipLevelId = 0, Name = "Bronze", MonthlyCost = 0, PSAPriceReductionPercentage = 0, PSAMaxTimeInHours = new TimeSpan(4, 0, 0) });
+                context.SaveChanges();
 
                 var city = City.CreateCity(2050, "Antwerpen", "Belgium");
 
+                var service = new MemberService(context);
+
                 var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", city), MembershipLevel = MembershipLevelEnum.Bronze };
 
-                var service = new MemberService(context);
                 var result = service.CreateNewMember(newMem);
 
                 Assert.IsType<Member>(result);
@@ -41,7 +44,9 @@ namespace ParkShark.Services.Tests.MemberServicesTests
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
             {
-                var MemLev = new MembershipLevel();
+                context.Set<MembershipLevel>().Add(new MembershipLevel() { MemberShipLevelId = 0, Name = "Bronze", MonthlyCost = 0, PSAPriceReductionPercentage = 0, PSAMaxTimeInHours = new TimeSpan(4, 0, 0) });
+                context.SaveChanges();
+
                 var city = City.CreateCity(2050, "Antwerpen", "Belgium");
 
                 var newMem = new DummyMemberObject() { FirstName = "lars", LastName = "Peelman", Address = Address.CreateAddress("test", "5", city), MembershipLevel = MembershipLevelEnum.Bronze };

@@ -123,11 +123,11 @@ namespace ParkShark.Data
 
             modelBuilder.Entity<MembershipLevel>()
              .ToTable("MembershipLevel", "Mem")
-             .HasKey(e => e.MembershipId);
+             .HasKey(e => e.MemberShipLevelId);
 
 
             modelBuilder.Entity<MembershipLevel>()
-               .Property(ml => ml.MembershipId).HasColumnName("MembershipLevel_ID");
+               .Property(ml => ml.MemberShipLevelId).HasColumnName("MembershipLevel_ID");
             modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.Name).HasColumnName("MembershipLevel_Name");
             modelBuilder.Entity<MembershipLevel>()

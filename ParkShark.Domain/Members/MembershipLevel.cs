@@ -6,7 +6,7 @@ namespace ParkShark.Domain.Members
 {
     public class MembershipLevel
     {
-        public MembershipLevelEnum MembershipId { get; set; }
+        public MembershipLevelEnum MemberShipLevelId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal MonthlyCost { get; set; }
