@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ParkShark.API.Controllers.ParkingLots.Mappers
 {
-    public class ParkingLotMappers : IParkingLotMappers
+    public class ParkingLotMapper : IParkingLotMapper
     {
         private readonly IAddressMapper _adressMappers;
         private readonly IContactPersonMapper _contactPersonMapper;
 
-        public ParkingLotMappers(IAddressMapper adressMappers, IContactPersonMapper contactPersonMapper)
+        public ParkingLotMapper(IAddressMapper adressMappers, IContactPersonMapper contactPersonMapper)
         {
             _adressMappers = adressMappers;
             _contactPersonMapper = contactPersonMapper;

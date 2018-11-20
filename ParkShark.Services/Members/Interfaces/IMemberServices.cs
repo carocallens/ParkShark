@@ -9,6 +9,6 @@ namespace ParkShark.Services.Members.Interfaces
     {
         List<Member> GetAllMembers();
         Member GetMember(Guid memberID);
-        Member CreateNewMember(MemberCreationOptions member);
+        Member CreateNewMember(DummyMemberObject member);
     }
 }

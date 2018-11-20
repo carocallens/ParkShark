@@ -9,7 +9,6 @@ Division_Name varchar (100) not null,
 Division_OrgName varchar(100) not null,
 Division_Director varchar(100) not null
 constraint Division_pk primary key (Division_ID))
-
 insert into Div.Division
 (
 Division_Name ,

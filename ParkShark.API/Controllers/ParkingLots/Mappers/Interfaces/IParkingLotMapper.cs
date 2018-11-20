@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ParkShark.API.Controllers.ParkingLots.Mappers.Interfaces
 {
-    public interface IParkingLotMappers
+    public interface IParkingLotMapper
     {
         ParkingLot FromParkingLotCreateToParkingLot(ParkingLotDTO_Create parkingLotDTO);
         ParkingLotDTO_Return FromParkingLotToParkingLotDTOReturn(ParkingLot parkingLot);

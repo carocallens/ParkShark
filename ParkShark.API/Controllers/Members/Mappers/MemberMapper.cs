@@ -22,14 +22,16 @@ namespace ParkShark.API.Controllers.Members.Mappers
         public MemberCreationOptions DTOToMemberCriationOptions(MemberDTO_Create memberDTO)
         {
             MembershipLevelEnum memLevel;
-            if (String.IsNullOrWhiteSpace(memberDTO.MembershipLevel))
-            {
-                memLevel = MembershipLevelEnum.Bronze;
-            }
-            else
+
+            try
             {
                 memLevel = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), memberDTO.MembershipLevel);
             }
+            catch
+            {
+                memLevel = MembershipLevelEnum.Bronze;
+            }
+
 
             return new MemberCreationOptions()
             {

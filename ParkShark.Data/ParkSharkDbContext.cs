@@ -131,6 +131,8 @@ namespace ParkShark.Data
             modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.Name).HasColumnName("MembershipLevel_Name");
             modelBuilder.Entity<MembershipLevel>()
+               .Property(ml => ml.Description).HasColumnName("MembershipLevel_Description");
+            modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.MonthlyCost).HasColumnName("MembershipLevel_MonthlyCost");
             modelBuilder.Entity<MembershipLevel>()
                 .Property(ml => ml.PSAPriceReductionPercentage).HasColumnName("MembershipLevel_PSA_PriceReduction");
@@ -139,7 +141,7 @@ namespace ParkShark.Data
 
             modelBuilder.Entity<Member>()
                 .HasOne(ml => ml.MembershipLevel)
-                .WithMany(level => level.members)
+                .WithMany(level => level.Members)
                 .HasForeignKey(ml => ml.MembershipLevelId)
                 .IsRequired();
 

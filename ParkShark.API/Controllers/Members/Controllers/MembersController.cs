@@ -27,17 +27,16 @@ namespace ParkShark.API.Controllers.Members.Controllers
         [HttpPost]
         public ActionResult<MemberDTO_Return> CreateMember(MemberDTO_Create memberDTO)
         {
-            var member = _memberMapper.DTOToMemberCriationOptions(memberDTO);
+            var dummyMember = _memberMapper.DTOToDummyMemberObject(memberDTO);
 
-            var CreatedMember = _memberService.CreateNewMember(member);
+            var member = _memberService.CreateNewMember(dummyMember);
 
-            if (CreatedMember == null)
+            if (member == null)
             {
                 return BadRequest("Not valid");
             }
 
-
-            return Ok(_memberMapper.MemberToDTOReturn(CreatedMember));
+            return Ok(_memberMapper.MemberToDTOReturn(member));
         }
 
         [HttpGet]

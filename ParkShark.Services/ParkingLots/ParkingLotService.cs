@@ -18,7 +18,7 @@ namespace ParkShark.Services.ParkingLots
         }
 
 
-        public ParkingLot AddParkingLotToDBContext(ParkingLot parkingLot)
+        public ParkingLot CreateParkingLot(ParkingLot parkingLot)
         {
             if(parkingLot == null)
             {

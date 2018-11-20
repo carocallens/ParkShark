@@ -20,7 +20,7 @@ namespace ParkShark.Domain.Members
 
         public static PhoneNumber CreatePhoneNumber(Guid memberId, string phoneNumberValue)
         {
-            if (string.IsNullOrWhiteSpace(phoneNumberValue))
+            if(string.IsNullOrWhiteSpace(phoneNumberValue))
             {
                 return null;
             }
