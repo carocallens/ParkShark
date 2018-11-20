@@ -62,7 +62,7 @@ namespace ParkShark.Services.Tests.ParkingLotServiceTests
                 var service = new ParkingLotService(context);
                 var result = service.CreateParkingLot(parkingLot);
 
-                Assert.Single(service.GetAllParkingLots());
+                Assert.Single(context.ParkingLots);
             }
         }
 
@@ -95,8 +95,8 @@ namespace ParkShark.Services.Tests.ParkingLotServiceTests
                 context.SaveChanges();
 
                 var service = new ParkingLotService(context);
-                var result = service.GetAllParkingLots().Count;
-                Assert.Equal(2, result);
+                var result = context.ParkingLots.CountAsync();
+                Assert.Equal(2, result.Result);
 
             }
         }
@@ -105,7 +105,7 @@ namespace ParkShark.Services.Tests.ParkingLotServiceTests
         public void GivenGetSingleParkingLot_WhenRequestingSingleParkingLot_ReturnRequestedParkingLot()
         {
             using (var context = new ParkSharkDbContext(CreateNewInMemoryDatabase()))
-            {
+            { 
                 var city = City.CreateCity(2050, "Antwerpen", "Belgium");
                 var service = new ParkingLotService(context);
                 var parkingLot = ParkingLotBuilder.CreateNewParkingLot()
