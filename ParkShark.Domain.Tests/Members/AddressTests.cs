@@ -20,13 +20,12 @@ namespace ParkShark.Domain.Tests.Members
 
             var StreetName = "StreetName";
             var StreetNumber = "StreetNumber";
-            var ZIP = city.ZIP;
 
             //when
             Address address = Address.CreateAddress(
                                         StreetName,
                                         StreetNumber,
-                                        ZIP
+                                        city
                                         );
 
             //then
@@ -45,13 +44,12 @@ namespace ParkShark.Domain.Tests.Members
 
             string StreetName = null;
             var StreetNumber = "StreetNumber";
-            var ZIP = city.ZIP;
 
             //when
             Address address = Address.CreateAddress(
                                         StreetName,
                                         StreetNumber,
-                                        ZIP
+                                        city
                                         );
 
             //then
@@ -70,13 +68,12 @@ namespace ParkShark.Domain.Tests.Members
 
             var StreetName = "StreetName";
             string StreetNumber = null;
-            var ZIP = city.ZIP;
 
             //when
             Address address = Address.CreateAddress(
                                         StreetName,
                                         StreetNumber,
-                                        ZIP
+                                        city
                                         );
 
             //then
@@ -89,13 +86,13 @@ namespace ParkShark.Domain.Tests.Members
             //given
             var StreetName = "StreetName";
             string StreetNumber = null;
-            var ZIP = 12345;
+            var city = City.CreateCity(12345, "Antwepren", "Belgium");
 
             //when
             Address address = Address.CreateAddress(
                                         StreetName,
                                         StreetNumber,
-                                        ZIP
+                                        city
                                         );
 
             //then

@@ -11,7 +11,8 @@ namespace ParkShark.Domain.Tests.Members
         [Fact]
         public void GivenHappyPath_WhenCreatePhoneNumber_ThenPhoneNumberIsCreated()
         {
-            var address = Address.CreateAddress("sn", "sn", 1234);
+            var city = City.CreateCity(2050, "Antwerpen", "Belgium");
+            var address = Address.CreateAddress("sn", "sn", city);
             var memLevel = new MembershipLevel();
             var member = Member.CreateMember(
                             "fn",
@@ -30,7 +31,8 @@ namespace ParkShark.Domain.Tests.Members
         [Fact]
         public void GivenPhoneNumberWithNoPhoneNumberValue_WhenCreatePhoneNumber_ThenPhoneNumberIsNullObject()
         {
-            var address = Address.CreateAddress("sn", "sn", 1234);
+            var city = City.CreateCity(2050, "Antwerpen", "Belgium");
+            var address = Address.CreateAddress("sn", "sn", city);
             var member = Member.CreateMember(
                             "fn",
                             "ln",

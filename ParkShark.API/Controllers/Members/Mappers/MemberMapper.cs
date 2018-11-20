@@ -19,7 +19,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
             _membershipLevelMapper = membershipLevelMapper;
         }
 
-        public MemberCreationOptions DTOToMemberCriationOptions(MemberDTO_Create memberDTO)
+        public DummyMemberObject DTOToDummyMemberObject(MemberDTO_Create memberDTO)
         {
             MembershipLevelEnum memLevel;
 
@@ -33,7 +33,7 @@ namespace ParkShark.API.Controllers.Members.Mappers
             }
 
 
-            return new MemberCreationOptions()
+            return new DummyMemberObject()
             {
                 FirstName = memberDTO.FirstName,
                 LastName = memberDTO.LastName,
