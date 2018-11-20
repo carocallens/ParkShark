@@ -34,16 +34,24 @@ namespace ParkShark.API.Controllers.ParkingLots.Mappers
 
         public ParkingLot FromParkingLotCreateToParkingLot(ParkingLotDTO_Create parkingLotDTO)
         {
-            BuildingType buildingType = (BuildingType)Enum.Parse(typeof(BuildingType), parkingLotDTO.Buildingtype);
+            BuildingType buildingType;
+            try
+            {
+                buildingType = (BuildingType)Enum.Parse(typeof(BuildingType), parkingLotDTO.Buildingtype);
+            }
+            catch
+            {
+                buildingType = BuildingType.AboveGround;
+            }
 
             var parkingLot = ParkingLotBuilder.CreateNewParkingLot()
-                .WithBuildingType(buildingType)
                 .WithCapacity(parkingLotDTO.Capacity)
                 .WithContactPerson(_contactPersonMapper.FromContactPersonDTOTOContactPerson(parkingLotDTO.ContactPerson))
                 .WithDivision(parkingLotDTO.DivisionID)
                 .WithName(parkingLotDTO.Name)
                 .WithPricePerHour(parkingLotDTO.PricePerHour)
                 .WithAddress(_adressMappers.DTOToAddress(parkingLotDTO.Address))
+                .WithBuildingType(buildingType)
                 .Build();
             return parkingLot;
         }

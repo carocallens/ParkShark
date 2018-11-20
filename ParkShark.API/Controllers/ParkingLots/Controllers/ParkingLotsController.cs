@@ -49,14 +49,12 @@ namespace ParkShark.API.Controllers.ParkingLots
         [HttpPost]
         public ActionResult<ParkingLotDTO_Return> CreateParkingLot([FromBody] ParkingLotDTO_Create parkingLotDTO)
         {
-            var parkingLot = _parkingLotMapper.FromParkingLotCreateToParkingLot(parkingLotDTO);
+            var parkingLot = _parkingLotService.CreateParkingLot(_parkingLotMapper.FromParkingLotCreateToParkingLot(parkingLotDTO));
 
             if(parkingLot == null)
             {
                 return BadRequest("Not valid");
             }
-
-            _parkingLotService.CreateParkingLot(parkingLot);
 
             return Ok(_parkingLotMapper.FromParkingLotToParkingLotDTOReturn(parkingLot));
         }

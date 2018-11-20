@@ -126,5 +126,19 @@ namespace ParkShark.API.Tests.ParkingLotApiUnitTests
 
             Assert.IsType<ContactPerson>(result);
         }
+
+        [Fact]
+        public void GivenFromParkingLotCreateToParkingLotWithoutBuildingType_WhenLeavingBuildingTypeEmpty_ThenBuildingTypeisDefaultAboveGround()
+        {
+            ParkingLotMapper parkmap = new ParkingLotMapper(new AddressMapper(new CityMapper()), new ContactPersonMapper(new AddressMapper(new CityMapper())));
+            var cityDTO = new CityDTO { ZIP = 2050, CityName = "Antwerpen", CountryName = "Belgium" };
+            var addres = new AddressDTO { StreetName = "teststreet", StreetNumber = "58", CityDTO = cityDTO };
+            var contactPerson = new ContactPersonDTO { FirstName = "lars", Address = addres, Email = "lars@lasr.com", LastName = "peelman", MobilePhoneNumber = "55555", PhoneNumber = "55555" };
+            var parkinglotDTO = new ParkingLotDTO_Create { Address = addres, Capacity = 5, ContactPerson = contactPerson, DivisionID = new Guid(), Name = "lasr", PricePerHour = 5.00M };
+
+            var result = parkmap.FromParkingLotCreateToParkingLot(parkinglotDTO);
+
+            Assert.Equal("AboveGround", result.BuildingType.ToString());
+        }
     }
 }
