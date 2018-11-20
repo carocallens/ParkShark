@@ -19,6 +19,8 @@ namespace ParkShark.Domain.Members
 
         private Member()
         {
+            ListOfPhones = new List<PhoneNumber>();
+            ListOfplates = new List<LicensePlate>();
         }
 
         private Member(string firstName, string lastName, Address address, MembershipLevelEnum membershipLevelEnum, MembershipLevel membershipLevel)
@@ -29,6 +31,8 @@ namespace ParkShark.Domain.Members
             RegistrationDate = DateTime.Now;
             MembershipLevelId = membershipLevelEnum;
             MembershipLevel = membershipLevel;
+            ListOfPhones = new List<PhoneNumber>();
+            ListOfplates = new List<LicensePlate>();
         }
 
         public static Member CreateMember(string firstName, string lastName, Address address,MembershipLevelEnum membershipLevelEnum, MembershipLevel membershipLevel)
