@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ParkShark.Services.Members
 {
@@ -43,11 +44,11 @@ namespace ParkShark.Services.Members
         {
             try
             {
-                List<PhoneNumber> listOfNumbers = CreatePhonenumberList(dummyMember, givenMember);
-                List<LicensePlate> listOfLicensePlates = CreateLicensePlatesList(dummyMember, givenMember);
+                List<PhoneNumber> listOfNumbers =  CreatePhonenumberList(dummyMember, givenMember);
+                List<LicensePlate> listOfLicensePlates =  CreateLicensePlatesList(dummyMember, givenMember);
 
-                _parkSharkDBContext.AddRange(listOfNumbers);
-                _parkSharkDBContext.AddRange(listOfLicensePlates);
+                _parkSharkDBContext.AddRangeAsync(listOfNumbers);
+                _parkSharkDBContext.AddRangeAsync(listOfLicensePlates);
                 _parkSharkDBContext.SaveChanges();
                 return true;
             }
@@ -99,7 +100,7 @@ namespace ParkShark.Services.Members
             var MemberList = new List<Member>();
             var MemberDbSet = _parkSharkDBContext.Set<Member>();
 
-            foreach (var member in MemberDbSet.Include(m => m.MembershipLevel).Include(m => m.Address).ThenInclude(c => c.City))
+            foreach (var member in MemberDbSet.Include(m => m.MembershipLevel).Include(m => m.Address).ThenInclude(c => c.City).Include(p => p.ListOfPhones).Include(l => l.ListOfplates))
             {
                 MemberList.Add(member);
             }
@@ -109,7 +110,13 @@ namespace ParkShark.Services.Members
 
         public Member GetMember(Guid memberID)
         {
-            var member = _parkSharkDBContext.Members.SingleOrDefault(x => x.MemberId == memberID);
+            var member = _parkSharkDBContext.Members
+                .Include(m => m.Address)
+                .ThenInclude(c => c.City)
+                .Include(ml => ml.MembershipLevel)
+                .Include(p => p.ListOfPhones)
+                .Include(l => l.ListOfplates)
+                .SingleOrDefault(x => x.MemberId == memberID);
 
             if (member == null)
             {

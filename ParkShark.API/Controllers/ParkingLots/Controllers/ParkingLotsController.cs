@@ -32,7 +32,7 @@ namespace ParkShark.API.Controllers.ParkingLots
         }
 
         // GET: api/ParkingLots/5
-        [HttpGet("{parkingLotID})")]
+        [HttpGet("{parkingLotID}")]
         //[HttpGet("{ParkingLotID}")]
         public ActionResult<ParkingLotDTO_Return> GetSingleParkingLot(string parkingLotID)
         {

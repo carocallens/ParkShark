@@ -55,6 +55,8 @@ namespace ParkShark.API
             services.AddScoped<IParkingLotMapper, ParkingLotMapper>();
             services.AddScoped<IMembershipLevelMapper, MembershipLevelMapper>();
             services.AddScoped<ICityMapper, CityMapper>();
+            services.AddScoped<IPhoneNumpberMapper, PhoneNumpberMapper>();
+            services.AddScoped<ILicensePlateMapper, LicensePlateMapper>();
 
             services.AddDbContext<ParkSharkDbContext>(options =>
                 options

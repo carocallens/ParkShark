@@ -52,7 +52,13 @@ namespace ParkShark.Services.ParkingLots
 
         public ParkingLot GetSingleParkingLot(Guid parkingLotID)
         {
-            var result = _context.ParkingLots.SingleOrDefault(x => x.ParkingLotID == parkingLotID);
+            var result = _context.ParkingLots.Include(pl => pl.Address)
+                            .ThenInclude(a => a.City)
+                        .Include(a => a.ContactPerson)
+                            .ThenInclude(c => c.Address)
+                                .ThenInclude(c => c.City)
+                        .Include(pl => pl.Division)
+                        .SingleOrDefault(x => x.ParkingLotID == parkingLotID);
             if (result == null)
             {
                 return null;
