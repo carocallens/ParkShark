@@ -39,7 +39,7 @@ namespace ParkShark.IntegrationTests
 
         }
         [Fact]
-        public async Task CreateDivision ()
+        public async Task CreateDivision()
         {
             DivisionDTO_Create divisionToCreate = CreateDivisionDTO();
 
