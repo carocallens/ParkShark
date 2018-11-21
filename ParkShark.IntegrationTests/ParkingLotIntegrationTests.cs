@@ -60,7 +60,7 @@ namespace ParkShark.IntegrationTests
             var createdParkingLot = JsonConvert.DeserializeObject<ParkingLotDTO_Return>(responseString);
 
             AssertParkingLotIsEqual(divisionToCreate, createdParkingLot);
-            Assert.True(createdParkingLot.DivisionID != Guid.Empty);
+            Assert.True(createdParkingLot.ParkingLotID != Guid.Empty);
         }
 
         [Fact]
