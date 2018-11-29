@@ -28,6 +28,7 @@ namespace ParkShark.Domain.Divisions
 
         public static Division CreateNewDivision(string name, string originalName, string director)
         {
+            //Throw validation exception, not return null, make it explicit that the consumer has made an error
             if (string.IsNullOrWhiteSpace(director) || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(originalName))
             {
                 return null;

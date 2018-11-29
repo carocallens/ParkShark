@@ -33,6 +33,7 @@ namespace ParkShark.Domain.ParkingLots
 
         public static ParkingLot CreateParkingLot(ParkingLotBuilder builder)
         {
+            //Throw validation exception, not return null, make it explicit that the consumer has made an error
             if (string.IsNullOrWhiteSpace(builder.Name) ||
                 builder.Address == null ||
                 builder.Capacity <= 0 ||

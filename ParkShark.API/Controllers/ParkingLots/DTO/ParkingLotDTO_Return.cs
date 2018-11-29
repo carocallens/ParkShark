@@ -12,6 +12,7 @@ namespace ParkShark.API.Controllers.ParkingLots.DTO
         public Guid ParkingLotID { get;  set; }
         public string Name { get;  set; }
         public Guid DivisionID { get;  set; }
+        //Enums in return types are better viewed as strings, this is easier to read than ints (Enum becomes int when serialized)
         public BuildingType Buildingtype { get;  set; }
         public int Capacity { get;  set; }
         public ContactPersonDTO ContactPerson { get;  set; }

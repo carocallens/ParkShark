@@ -45,6 +45,8 @@ namespace ParkShark.API.Controllers.Members.Mappers
 
             try
             {
+                //Please use TryParse to handle incorrect parsing
+                //Try-catch creates a virtual sandbox for your code, this creates compiler overhead, try to avoid this
                 memberShipLevel = (MembershipLevelEnum)Enum.Parse(typeof(MembershipLevelEnum), memberDTO.MembershipLevel);
             }
             catch

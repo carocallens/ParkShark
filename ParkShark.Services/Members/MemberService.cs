@@ -40,6 +40,9 @@ namespace ParkShark.Services.Members
             return newMember;
         }
 
+        //You're assuming givenMember is a tracked entity, while it could easily be outside of the context
+        //Either create the entire Member graph (including its list of numbers and license plates) in one method and .SaveChanges, or use a transaction
+        //Possible hazard of having inconsistent data (Member was saved, phone numbers weren't)
         public bool AddPhonenumersAndLicensPlatesToMember(DummyMemberObject dummyMember, Member givenMember)
         {
             try
@@ -54,6 +57,7 @@ namespace ParkShark.Services.Members
             }
             catch
             {
+                //Catch return false should be used in exceptional circumstances, use a transaction with rollback instead
                 return false;
             }
         }
@@ -67,6 +71,7 @@ namespace ParkShark.Services.Members
             return plates;
         }
 
+        //Only require what you need, you don't need the entire Member object, just its MemberId, refactor the parameter and make life (and testing) easier
         private List<PhoneNumber> CreatePhonenumberList(DummyMemberObject dummyMember, Member member)
         {
             List<PhoneNumber> phones = new List<PhoneNumber>();
@@ -91,6 +96,7 @@ namespace ParkShark.Services.Members
         private MembershipLevel AssignMembershipLevelFromDummyMember(DummyMemberObject dummyMember)
         {
             return _parkSharkDBContext
+                    //Usage of Set for entities you don't want to expose, good job!
                     .Set<MembershipLevel>()
                     .FirstOrDefault(x => x.MemberShipLevelId == dummyMember.MembershipLevel);
         }
@@ -99,6 +105,8 @@ namespace ParkShark.Services.Members
         {
             var MemberList = new List<Member>();
             var MemberDbSet = _parkSharkDBContext.Set<Member>();
+            
+            //Unnecessary foreach, use _parkSharkDBContext.Set<Member>().ToList(), no iteration required
 
             foreach (var member in MemberDbSet.Include(m => m.MembershipLevel).Include(m => m.Address).ThenInclude(c => c.City).Include(p => p.ListOfPhones).Include(l => l.ListOfplates))
             {
@@ -116,6 +124,7 @@ namespace ParkShark.Services.Members
                 .Include(ml => ml.MembershipLevel)
                 .Include(p => p.ListOfPhones)
                 .Include(l => l.ListOfplates)
+                //Use Find or FindAsync
                 .SingleOrDefault(x => x.MemberId == memberID);
 
             if (member == null)
@@ -129,6 +138,8 @@ namespace ParkShark.Services.Members
 
         public City ZIPExistsInDB(int zip)
         {
+            //Method name should be GetZipOrDefault or TryGetZip, because it could return NULL
+            //Or return a boolean
             return _parkSharkDBContext.Set<City>().SingleOrDefault(x => x.ZIP == zip);
         }
     }

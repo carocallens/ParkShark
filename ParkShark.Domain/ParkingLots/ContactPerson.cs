@@ -27,6 +27,7 @@ namespace ParkShark.Domain.ParkingLots
 
         public static ContactPerson CreateNewContactPerson(string firstName, string lastName, Address address, string email, string phoneNumber, string mobilePhoneNumber)
         {
+            //Throw validation exception, not return null, make it explicit that the consumer has made an error
             if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) || address == null || !IsMailValid(email))
             {
                 return null;

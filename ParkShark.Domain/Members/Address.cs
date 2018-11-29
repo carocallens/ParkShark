@@ -25,6 +25,7 @@ namespace ParkShark.Domain.Members
 
         public static Address CreateAddress(string streetName, string streetNumber, City givenCity)
         {
+            //Throw validation exception, not return null, make it explicit that the consumer has made an error
             if (string.IsNullOrWhiteSpace(streetName) || string.IsNullOrWhiteSpace(streetNumber) || givenCity.ZIP.ToString().Length != 4)
             {
                 return null;

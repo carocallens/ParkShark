@@ -36,8 +36,10 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
         [HttpGet("{DivisionID}")]
         public ActionResult<DivisionDTO_Return> GetSingleDivision(string DivisionID)
         {
+            //Failure to parse a GUID should be a BAD REQUEST
             var result = _divisionServices.GetSingleDivision(new Guid(DivisionID));
 
+            //NULL references should be NotFound
             if (result == null)
             { return BadRequest("invalid"); }
 
@@ -73,6 +75,7 @@ namespace ParkShark.API.Controllers.Divisions.Controllers
 
             if (parent == null || sub == null)
             {
+                //This is actually a NotFound
                 return BadRequest();
             }
 

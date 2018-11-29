@@ -14,7 +14,10 @@ namespace ParkShark.Domain.Members
         public DateTime RegistrationDate { get; private set; }
         public MembershipLevelEnum MembershipLevelId { get; set; }
         public MembershipLevel MembershipLevel { get; set; }
+        //A bit of over-engineering, A Member has one phone and a mobile phone
         public List<PhoneNumber> ListOfPhones { get; set; } = new List<PhoneNumber>();
+        //List of plates is not a functional requirement, this join is unnecessary
+        //A Member has one license plate (functionally speaking)
         public List<LicensePlate> ListOfplates { get; set; } = new List<LicensePlate>();
 
         private Member()
@@ -31,9 +34,10 @@ namespace ParkShark.Domain.Members
             MembershipLevel = membershipLevel;
         }
 
-        public static Member CreateMember(string firstName, string lastName, Address address,MembershipLevelEnum membershipLevelEnum, MembershipLevel membershipLevel)
+        public static Member CreateMember(string firstName, string lastName, Address address, MembershipLevelEnum membershipLevelEnum, MembershipLevel membershipLevel)
         {
-            if (string.IsNullOrWhiteSpace(firstName)|| string.IsNullOrWhiteSpace(lastName) || address == null ||  membershipLevel == null)
+            //Throw validation exception, not return null, make it explicit that the consumer has made an error
+            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) || address == null || membershipLevel == null)
             {
                 return null;
             }

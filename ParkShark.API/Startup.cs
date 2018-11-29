@@ -60,6 +60,7 @@ namespace ParkShark.API
 
             services.AddDbContext<ParkSharkDbContext>(options =>
                 options
+                //Read connection string from appsettings.json using Configuration.GetConnectionString("ParkSharkDb")
                 .UseSqlServer("Data Source =.\\SQLExpress; Initial Catalog = ParksharkDb; Integrated Security = True; ")
                 .UseLoggerFactory(efLoggerFactory));
         }

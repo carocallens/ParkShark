@@ -3,6 +3,10 @@ using System;
 
 namespace ParkShark.Domain.ParkingLots
 {
+    /// <summary>
+    /// I love this, the builder pattern.
+    /// 10 points to Griffindor!
+    /// </summary>
     public class ParkingLotBuilder
     {
         public string Name { get; private set; }

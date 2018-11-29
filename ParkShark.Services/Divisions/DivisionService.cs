@@ -19,6 +19,7 @@ namespace ParkShark.Services.Divisions
 
         public Division CreateDivision(Division division)
         {
+            //Throw exception, make it explicit : throw new ArgumentException("division should not be null");
             if (division == null)
             {
                 return null;
@@ -37,10 +38,13 @@ namespace ParkShark.Services.Divisions
 
         public Division GetSingleDivision(Guid givenID)
         {
+            //Use the Find or FindAsync, this is native to EF Core and cuts the overhead of LINQ
             var result = _parkSharkDbContext.Division.SingleOrDefault(x => x.DivisionID == givenID);
 
             if (result == null)
             { return null; }
+
+            //Not filling up the navigation property using .Include
 
             return result;
         }

@@ -1,0 +1,27 @@
+﻿DO: Make use of excplicit exceptions in exceptional cases (validation)
+DO: Make use of Async/Await. Data-driven applications are IO-bound, you should leverage the Async methods of EF Core in order to get the best performance possible
+==> this was NOT covered explicitly in the slides or course, I take the assumption Async/Await was handled in a previous module
+DO: Remove not used navigation properties. It is fine to not return them from the API, but you should also omit them entirely if possible. This cuts the overhead that EF Core needs to generate otherwise
+DO: Remove the dependency "Microsoft.EntityFrameworkCore" from Domain, this should be a dependency of the Data project. Keep your domain agnostic of the Database technology
+DO: Use AsNoTracking for entities that are returned to the client without ever being modified
+DO: Rename Dummy objects to a more meaningful name, like : MemberCreationOptions or MemberCreationParameters
+DO: When asserting, assert more than just a couple of properties, like 'name'. Do a deep comparison between expectations
+
+KEEP DOING: Builder patterns
+KEEP DOING: Solution setup (API, Test, Domain, Data == one dbcontext)
+KEEP DOING: Splitting up your DbContext into multiple smaller methods (Link-methods)
+KEEP DOING: Using .Set<Entity> for entities you don't want to expose to the outside world
+KEEP DOING: Use Mappers and their IMappers interfaces, great for mocking or stubbing
+KEEP DOING: Dummy object are great for passing complex data between layers. Just change the name dummy to something more meaningful.
+KEEP DOING: TESTING, this solution contains almost 70 tests, great job! Try to calculate your code coverage :)
+KEEP DOING: Use InMemoryDatabase for Tests, you could also have an "Integration test" using an In Memory Database, you're just not integrating with the Database, but all the other levels above
+
+START: Using transactions (Scoped, Http Request/Response) to handle atomic data manipulation
+START: Using object graphs to save an entity and its one-to-one relations in one operation (Member and its phonenumbers can be saved in one SaveChanges, by creating the graph)
+START: Testing the ApiControllers using new DivisionsController(IDivisionServices, IDivisionMapper), you don't need a WebHost (Integration test) to test this, you only need an instance of the controller
+START: Providing test data from a JSON file, this way you don't need to provide test data per test
+
+STOP: Returning NULL as means to express an error, make this explicit
+STOP: Calling the ApiUnitTest "API" test, the only thing tested here are the mappers and services, no ApiControllers
+STOP: Testing agains the operational (real) database, either provide a connection string to a test database or use a transaction per integration test and rollback after the test
+==> this way, no dirty test data remains in your database

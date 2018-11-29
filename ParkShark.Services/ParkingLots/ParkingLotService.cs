@@ -41,7 +41,7 @@ namespace ParkShark.Services.ParkingLots
                             .ThenInclude(c => c.Address)
                                 .ThenInclude(c => c.City)
                         .Include(pl => pl.Division);
-
+            //Use ToList or ToListAsync
             foreach (var member in ParkingLotDbSet)
             {
                 parkingLotList.Add(member);
@@ -59,6 +59,8 @@ namespace ParkShark.Services.ParkingLots
                                 .ThenInclude(c => c.City)
                         .Include(pl => pl.Division)
                         .SingleOrDefault(x => x.ParkingLotID == parkingLotID);
+            
+            //If null return null, this does not really add any value
             if (result == null)
             {
                 return null;
