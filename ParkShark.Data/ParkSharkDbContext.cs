@@ -90,9 +90,12 @@ namespace ParkShark.Data
             modelBuilder.Entity<Member>()
                 .Property(m => m.RegistrationDate).HasColumnName("Member_RegistrationDate");
             modelBuilder.Entity<Member>()
-                .Property(m => m.MembershipLevelId).HasConversion(
-                    ml => Convert.ToInt32(ml),
-                    mlid => (MembershipLevelEnum)mlid)
+                .Property(m => m.MembershipLevelId)
+                //Could be simpler
+                .HasConversion<int>()
+                //.HasConversion(
+                //    ml => Convert.ToInt32(ml),
+                //    mlid => (MembershipLevelEnum)mlid)
                 .HasColumnName("Member_MembershipLevel_ID");
 
             modelBuilder.Entity<Member>()
@@ -123,6 +126,7 @@ namespace ParkShark.Data
 
             modelBuilder.Entity<LicensePlate>()
                 .HasOne(lp => lp.Member)
+                //List of plates is not a functional requirement, this join is unnecessary
                 .WithMany(m => m.ListOfplates)
                 .HasForeignKey(lp => lp.MemberId)
                 .IsRequired();
@@ -144,6 +148,7 @@ namespace ParkShark.Data
 
             modelBuilder.Entity<PhoneNumber>()
                 .HasOne(ph => ph.Member)
+                //A bit of over-engineering, A Member has one phone and a mobile phone
                 .WithMany(m => m.ListOfPhones)
                 .HasForeignKey(ph => ph.MemberId)
                 .IsRequired();
@@ -213,6 +218,7 @@ namespace ParkShark.Data
                     cp.Property(p => p.PhoneNumber).HasColumnName("ContactPerson_PhoneNumber");
                     cp.Property(p => p.MobilePhoneNumber).HasColumnName("ContactPerson_MobileNumber");
                 });
+            //Either make contact person an entity (using its own table and ID) or let ParkingLot have an owned type of Address, this is a cascade of owned types on the same table (ParkingLot)
             modelBuilder.Entity<ContactPerson>()
                 .OwnsOne(cp => cp.Address, a =>
                 {

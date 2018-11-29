@@ -24,6 +24,7 @@ namespace ParkShark.Domain.Members
 
         public static LicensePlate CreateLicensePlate(Guid memberId, string licensePlateValue, string issueingCountry)
         {
+            //Throw validation exception, not return null, make it explicit that the consumer has made an error
             if (memberId == null|| string.IsNullOrWhiteSpace(licensePlateValue) || string.IsNullOrWhiteSpace(issueingCountry))
             {
                 return null;

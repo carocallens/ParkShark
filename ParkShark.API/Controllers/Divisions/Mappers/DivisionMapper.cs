@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ParkShark.API.Controllers.Divisions.Mappers
 {
+    /// <summary>
+    /// Great abstraction, the IMapper, perfect for mocks and stubs, good work
+    /// </summary>
     public class DivisionMapper : IDivisionMapper
     {
         public Division CreateDivisionFromDivisionDTOCreate(DivisionDTO_Create divisionDTOCreate)

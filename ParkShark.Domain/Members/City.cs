@@ -23,6 +23,7 @@ namespace ParkShark.Domain.Members
 
         public static City CreateCity(int zip, string cityName, string country)
         {
+            //Throw validation exception, not return null, make it explicit that the consumer has made an error
             if (zip.ToString().Length != 4 || string.IsNullOrWhiteSpace(cityName)|| string.IsNullOrWhiteSpace(country))
             {
                 return null;

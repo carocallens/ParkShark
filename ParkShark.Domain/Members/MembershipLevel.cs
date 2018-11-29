@@ -12,6 +12,7 @@ namespace ParkShark.Domain.Members
         public decimal MonthlyCost { get; set; }
         public double PSAPriceReductionPercentage { get; set; }
         public TimeSpan PSAMaxTimeInHours { get; set; }
+        //Navigation property is not used in the codebase. Functionally, this is not required
         public List<Member> Members { get; set; } = new List<Member>();
 
         public MembershipLevel()

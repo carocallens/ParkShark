@@ -33,12 +33,15 @@ namespace ParkShark.API.Controllers.Members.Controllers
 
             if (member == null)
             {
+                //Good, but state what is wrong: BadRequest("Member could not be created")
                 return BadRequest("Not valid");
             }
 
             var result = _memberService.AddPhonenumersAndLicensPlatesToMember(dummyMember, member);
             if (!result)
             {
+                //Good, but state what is wrong: BadRequest("Member's subdata could not be created")
+                //Better yet, do everything in one method and SaveChanges to create an atomic save (all or nothing)
                 return BadRequest("Not valid");
             }
 

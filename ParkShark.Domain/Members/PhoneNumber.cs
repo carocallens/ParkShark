@@ -20,6 +20,7 @@ namespace ParkShark.Domain.Members
 
         public static PhoneNumber CreatePhoneNumber(Guid memberId, string phoneNumberValue)
         {
+            //Throw validation exception, not return null, make it explicit that the consumer has made an error
             if(string.IsNullOrWhiteSpace(phoneNumberValue))
             {
                 return null;
